@@ -3,40 +3,60 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform  _followTarget;
-    [SerializeField] private float      _followResponsiveness;
-    [SerializeField] private float      _rotationSensitivity;
-    [SerializeField] private float      _resetRotationSpeed;
-    [SerializeField] private float      _maxLookUpAngle;
-    [SerializeField] private float      _maxLookDownAngle;
-    [SerializeField] private float      _zoomSensitivity;
-    [SerializeField] private float      _minZoomDistance;
-    [SerializeField] private float      _maxZoomDistance;
-    [SerializeField] private float      _zoomDeceleration;
+    [SerializeField] private Transform _followTarget;
+    [SerializeField] private float _followResponsiveness;
+    [SerializeField] private float _rotationSensitivity;
+    [SerializeField] private float _resetRotationSpeed;
+    [SerializeField] private float _maxLookUpAngle;
+    [SerializeField] private float _maxLookDownAngle;
+    [SerializeField] private float _zoomSensitivity;
+    [SerializeField] private float _minZoomDistance;
+    [SerializeField] private float _maxZoomDistance;
+    [SerializeField] private float _zoomDeceleration;
     [SerializeField] private float _followTreshold;
 
-    private Transform   _cameraTransform;
-    private Camera   _camera;
+    private Transform _cameraTransform;
+    private Camera _camera;
     private InputAction _zoomAction;
-    private float       _zoomAcceleration;
-    private float       _zoomVelocity;
+    private float _zoomAcceleration;
+    private float _zoomVelocity;
+    private InputAction _mouseAction;
+    private InputAction _mouseClickAction;
+    private InputAction _moveAction;
+    private bool canMoveCamera = true;
 
-    void Start()
+    private void Start()
     {
-        _cameraTransform    = GetComponentInChildren<Camera>().transform;
-        _zoomAction         = InputSystem.actions.FindAction("Zoom");
-        _zoomVelocity       = 0f;
+        _cameraTransform = GetComponentInChildren<Camera>().transform;
+        _zoomAction = InputSystem.actions.FindAction("Zoom");
+        _mouseAction = InputSystem.actions.FindAction("Look");
+        _mouseClickAction = InputSystem.actions.FindAction("Click");
+        _moveAction = InputSystem.actions.FindAction("Move");
+        _zoomVelocity = 0f;
     }
 
-    void Update()
+    private void Update()
     {
         UpdatePosition();
         UpdateZoom();
+
+        if (_mouseClickAction.IsPressed())
+        {
+            canMoveCamera = true;
+            transform.position = Vector3.Lerp(transform.position, transform.position - (Vector3)_mouseAction.ReadValue<Vector2>(), 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
+        }
+        else if (_moveAction.ReadValue<Vector2>() != Vector2.zero)
+        {
+            canMoveCamera = false;
+        }
     }
 
     private void UpdatePosition()
     {
-        transform.position = Vector3.Lerp(transform.position, _followTarget.position, 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
+        if (!canMoveCamera)
+        {
+            transform.position = Vector3.Lerp(transform.position, _followTarget.position, 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
+        }
     }
 
     private void UpdateZoom()
@@ -72,7 +92,7 @@ public class CameraController : MonoBehaviour
 
             if (_camera.orthographicSize > _minZoomDistance || _camera.orthographicSize < _maxZoomDistance)
             {
-                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize,_minZoomDistance, _maxZoomDistance);
+                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize, _minZoomDistance, _maxZoomDistance);
                 _zoomVelocity = 0f;
             }
         }

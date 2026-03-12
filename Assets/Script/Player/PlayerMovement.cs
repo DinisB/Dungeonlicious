@@ -13,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private InputAction _moveAction;
     private Vector3 _velocity;
 
-    void Start()
+    private void Start()
     {
         _controller = GetComponent<CharacterController>();
         _moveAction = InputSystem.actions.FindAction("Move");
         _velocity = Vector3.zero;
     }
 
-    void Update()
+    private void Update()
     {
         UpdateRotation();
         UpdatePosition();
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
-            Quaternion.LookRotation(direction), 0.05f);
+            Quaternion.LookRotation(direction), 0.1f);
         }
     }
 
