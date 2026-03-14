@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,9 @@ public class CameraController : MonoBehaviour
     private InputAction _mouseAction;
     private InputAction _mouseClickAction;
     private InputAction _moveAction;
-    private bool canMoveCamera = true;
+    private bool canMoveCamera;
+    private bool _isLocked;
+    private GameObject _currentTarget;
 
     private void Start()
     {
@@ -33,6 +36,8 @@ public class CameraController : MonoBehaviour
         _mouseClickAction = InputSystem.actions.FindAction("Click");
         _moveAction = InputSystem.actions.FindAction("Move");
         _zoomVelocity = 0f;
+        canMoveCamera = true;
+        _isLocked = false;
     }
 
     private void Update()
@@ -42,18 +47,24 @@ public class CameraController : MonoBehaviour
 
         if (_mouseClickAction.IsPressed())
         {
+            _isLocked = false;
             canMoveCamera = true;
             transform.position = Vector3.Lerp(transform.position, transform.position - (Vector3)_mouseAction.ReadValue<Vector2>(), 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
         }
-        else if (_moveAction.ReadValue<Vector2>() != Vector2.zero)
+        else if (_moveAction.ReadValue<Vector2>() != Vector2.zero && !_isLocked)
         {
             canMoveCamera = false;
+        }
+
+        if (_isLocked && _currentTarget != null)
+        {
+            transform.position = Vector3.Lerp(transform.position, _currentTarget.transform.position, 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
         }
     }
 
     private void UpdatePosition()
     {
-        if (!canMoveCamera)
+        if (!canMoveCamera && !_isLocked)
         {
             transform.position = Vector3.Lerp(transform.position, _followTarget.position, 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
         }
@@ -98,4 +109,24 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public bool IsLocked
+    {
+        get { return _isLocked; }
+        set
+        {
+            _isLocked = value;
+            _currentTarget = null;
+        }
+    }
+
+    public void LockOnTarget(Transform target)
+    {
+        _isLocked = true;
+        _currentTarget = target.gameObject;
+    }
+
+    public GameObject GetCurrentTarget()
+    {
+        return _currentTarget;
+    }
 }

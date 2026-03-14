@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
     private InputAction _moveAction;
     private Vector3 _velocity;
+    private bool _isLocked;
 
     private void Start()
     {
