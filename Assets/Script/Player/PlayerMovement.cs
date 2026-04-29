@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveInput.sqrMagnitude > 0.01f)
         {
-            Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
+            Vector3 direction = new Vector3(moveInput.x + moveInput.x/2, 0, moveInput.y + moveInput.y/2);
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
             Quaternion.LookRotation(direction), 0.1f);
         }
