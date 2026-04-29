@@ -21,8 +21,6 @@ public class CameraController : MonoBehaviour
     private InputAction _zoomAction;
     private float _zoomAcceleration;
     private float _zoomVelocity;
-    private InputAction _mouseAction;
-    private InputAction _mouseClickAction;
     private InputAction _moveAction;
     private bool canMoveCamera;
     private bool _isLocked;
@@ -32,8 +30,6 @@ public class CameraController : MonoBehaviour
     {
         _cameraTransform = GetComponentInChildren<Camera>().transform;
         _zoomAction = InputSystem.actions.FindAction("Zoom");
-        _mouseAction = InputSystem.actions.FindAction("Look");
-        _mouseClickAction = InputSystem.actions.FindAction("Click");
         _moveAction = InputSystem.actions.FindAction("Move");
         _zoomVelocity = 0f;
         canMoveCamera = true;
@@ -45,13 +41,7 @@ public class CameraController : MonoBehaviour
         UpdatePosition();
         UpdateZoom();
 
-        if (_mouseClickAction.IsPressed())
-        {
-            _isLocked = false;
-            canMoveCamera = true;
-            transform.position = Vector3.Lerp(transform.position, transform.position - (Vector3)_mouseAction.ReadValue<Vector2>(), 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
-        }
-        else if (_moveAction.ReadValue<Vector2>() != Vector2.zero && !_isLocked)
+        if (_moveAction.ReadValue<Vector2>() != Vector2.zero && !_isLocked)
         {
             canMoveCamera = false;
         }

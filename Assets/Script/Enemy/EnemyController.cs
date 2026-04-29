@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Dungeonlicious.Assets.Script
@@ -9,11 +6,14 @@ namespace Dungeonlicious.Assets.Script
     public class EnemyController : MonoBehaviour
     {
         [SerializeField] private EnemyType _enemyType;
+        [SerializeField] private int _speed;
         private IEnemy _enemy;
         public static Action<GameObject> OnEnemyDeath;
+        private Rigidbody _rigidbody;
 
         private void Start()
         {
+            _rigidbody = GetComponent<Rigidbody>();
             switch (_enemyType)
             {
                 case EnemyType.Slime:
@@ -33,6 +33,12 @@ namespace Dungeonlicious.Assets.Script
                 OnEnemyDeath?.Invoke(gameObject);
                 gameObject.SetActive(false);
             }
+        }
+
+        public void MoveTo(Vector3 targetPosition)
+        {
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            _rigidbody.MovePosition(transform.position + direction * _speed * Time.deltaTime);
         }
     }
 
