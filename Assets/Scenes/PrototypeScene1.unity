@@ -12395,9 +12395,97 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8251327641886479765, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic5_2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6921328207857996886, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_Group3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6084020500003266978, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_Group1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5948568429444601981, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic3_3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5367597989130696067, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic3_2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4587385470528051407, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic2_4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4587154734446246696, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_Group2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4146887034378986463, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3841264022414139385, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_4
+      objectReference: {fileID: 0}
+    - target: {fileID: -3534893569919445152, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_Group4
+      objectReference: {fileID: 0}
+    - target: {fileID: -2931132265400888633, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic2_3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2153326433334334127, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic1_3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2068710723359797608, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_3
+      objectReference: {fileID: 0}
+    - target: {fileID: -940880745700926750, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic5_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 388574378597572404, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic2_2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
       propertyPath: m_Name
       value: Garlic_Vine_Smaller
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088597554995007593, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150173320477558537, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic1_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555590647522845753, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic4_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2978283945739819917, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic4_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341271386914206485, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic3_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877919015923594769, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic5_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837610841582361663, guid: 3ae97c652ea537644ad5e463ae142b85, type: 3}
+      propertyPath: m_Name
+      value: Garlic4_4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
