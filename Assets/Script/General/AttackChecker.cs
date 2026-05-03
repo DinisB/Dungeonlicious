@@ -15,5 +15,9 @@ public class AttackChecker : MonoBehaviour
         {
             _enemyController.TakeDamage(10);
         }
+        if (collision.gameObject.layer == 9)
+        {
+            _enemyController.TakeDamage(5);
+        }
     }
 }
