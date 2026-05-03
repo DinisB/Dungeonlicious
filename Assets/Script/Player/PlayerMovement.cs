@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationSensitivity;
     [SerializeField] private GameObject model;
 
+    [SerializeField] private Transform cameraTransform;
+
     private CharacterController _controller;
     private InputAction _moveAction;
     private Vector3 _velocity;
@@ -33,9 +35,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveInput.sqrMagnitude > 0.01f)
         {
-            Vector3 direction = new Vector3(moveInput.x + moveInput.x/2, 0, moveInput.y + moveInput.y/2);
+            Vector3 moveDirection = GetCameraRelativeDirection(moveInput);
+            
+            //Vector3 direction = new Vector3(moveInput.x + moveInput.x/2, 0, moveInput.y + moveInput.y/2);
+            /*
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
             Quaternion.LookRotation(direction), 0.1f);
+            */
+            model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
+            Quaternion.LookRotation(moveDirection), _rotationSensitivity * Time.deltaTime);
         }
     }
 
@@ -51,11 +59,19 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
         moveInput.Normalize();
 
+        /*
         Vector3 move = new Vector3(moveInput.x * _speed, 0,
         moveInput.y * _speed);
+        */
 
+        Vector3 moveDirection = GetCameraRelativeDirection(moveInput);
+
+        /*
         _velocity.x = move.x;
         _velocity.z = move.z;
+        */
+        _velocity.x = moveDirection.x * _speed;
+        _velocity.z = moveDirection.z * _speed;
     }
 
     private void UpdateVelocityY()
@@ -76,4 +92,17 @@ public class PlayerMovement : MonoBehaviour
         _controller.Move(motion);
     }
 
+    private Vector3 GetCameraRelativeDirection(Vector2 input)
+    {
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        return (forward * input.y + right * input.x).normalized;
+    }
 }
