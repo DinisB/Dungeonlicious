@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 30
-  patrolSpeed: 0
-  chaseSpeed: 0
-  maxIdleTime: 0
-  maxPatrolTime: 0
+  patrolSpeed: 2
+  chaseSpeed: 4
+  maxIdleTime: 5
+  maxPatrolTime: 10
   maxAttackRange: 1
   minAttackDot: 0
   attackDamage: 3
@@ -24,4 +24,4 @@ MonoBehaviour:
   hurtCooldown: 0
   sensorLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 759

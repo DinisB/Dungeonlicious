@@ -6,6 +6,9 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private EnemyData  _data;
     [SerializeField] private Transform  _waypoints;
 
+    [SerializeField] private GameObject _damageAreaPrefab;
+    [SerializeField] private Transform _attackPoint;
+
     private enum State { Idling, Patrolling, Chasing, Attacking, Hurting, Dead };
 
     private NavMeshAgent    _agent;
@@ -252,6 +255,15 @@ public class Enemy : MonoBehaviour, IDamageable
             EnterHurtingState();
         else
             EnterDeadState();
+    }
+
+    public void SpawnDamageArea()
+    {
+        GameObject obj = Instantiate(_damageAreaPrefab, _attackPoint.position, transform.rotation);
+
+        DamageAreaSlime area = obj.GetComponent<DamageAreaSlime>();
+        area.Initialize(_data.attackDamage, gameObject);
+
     }
 
 }

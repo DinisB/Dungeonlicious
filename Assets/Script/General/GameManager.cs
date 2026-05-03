@@ -20,9 +20,30 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Start()
+    private void RegisterEventListeners()
     {
-        
+        PlayerHealth playerHealth = FindAnyObjectByType<PlayerHealth>();
+        playerHealth.OnHealthChanged += CheckForGameOver;
+        //playerHealth.OnHealthChanged += UpdateHealthBarFill;
     }
+
+    private void CheckForGameOver(float ratio)
+    {
+        if (ratio == 0f)
+        {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+        }
+    }
+    /*
+    private void UpdateHealthBarFill(float ratio)
+    {
+        _hudManager.SetHealthFill(ratio);
+    }
+    */
+
 
 }
