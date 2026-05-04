@@ -3502,6 +3502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.EnemyController
   _enemyType: 1
   _speed: 4
+  _flashDuration: 0.1
 --- !u!1001 &1465662164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3765,6 +3766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.EnemyController
   _enemyType: 0
   _speed: 2
+  _flashDuration: 0.1
 --- !u!1 &1741308408 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4202724668555032227, guid: f96442df40a0bf74bbd6431cf2ee05d9, type: 3}
