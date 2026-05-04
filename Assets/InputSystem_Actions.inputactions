@@ -97,7 +97,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Click",
+                    "name": "KnifeThrow",
                     "type": "Button",
                     "id": "5605666c-278c-4dbe-9412-61b77d9f799e",
                     "expectedControlType": "",
@@ -607,7 +607,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "KnifeThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -618,7 +618,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Click",
+                    "action": "KnifeThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
