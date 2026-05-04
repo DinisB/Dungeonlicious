@@ -62,4 +62,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         DispatchHealthChanged();
     }
 
+    public int GetHealth()
+    {
+        return _health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return _data.maxHealth;
+    }
+
 }

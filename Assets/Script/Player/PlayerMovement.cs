@@ -13,13 +13,16 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private InputAction _moveAction;
+    private InputAction _attackAction;
     private Vector3 _velocity;
     private bool _isLocked;
+    private PlayerHealth _playerHealth;
 
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
         _moveAction = InputSystem.actions.FindAction("Move");
+        _playerHealth = FindFirstObjectByType<PlayerHealth>();
         _velocity = Vector3.zero;
     }
 
@@ -104,5 +107,16 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         return (forward * input.y + right * input.x).normalized;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("HealZone"))
+        {
+            if (_attackAction.triggered)
+            {
+                _playerHealth.Heal(10);
+            }
+        }
     }
 }
