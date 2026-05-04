@@ -17,12 +17,24 @@ namespace Dungeonlicious.Assets.Script
         private Color _originalColor;
         private Coroutine _flashCoroutine;
 
+        private Transform _player;
+
+        //Slime AI
+        [SerializeField] private GameObject _damageAreaPrefab;
+        [SerializeField] private Transform _attackPoint;
+        [SerializeField] private float _attackRange = 2f;
+        [SerializeField] private float _attackCooldown = 1f;
+        [SerializeField] private int _damage = 5;
+
+        private float _lastAttackTime;
+
         private void Start()
         {
+            _player = FindFirstObjectByType<PlayerHealth>().transform;
             _renderer = GetComponent<Renderer>();
 
             _originalColor = _renderer.material.color;
-            
+
             _rigidbody = GetComponent<Rigidbody>();
 
             switch (_enemyType)
@@ -33,6 +45,22 @@ namespace Dungeonlicious.Assets.Script
                 case EnemyType.Bakon:
                     _enemy = new Bakon();
                     break;
+            }
+        }
+
+        private void Update()
+        {
+            if (_player == null) return;
+
+            float distance = Vector3.Distance(transform.position, _player.position);
+
+            if (distance > _attackRange)
+            {
+                MoveTo(_player.position);
+            }
+            else
+            {
+                TryAttack();
             }
         }
 
@@ -55,8 +83,19 @@ namespace Dungeonlicious.Assets.Script
 
         public void MoveTo(Vector3 targetPosition)
         {
+            /*
             Vector3 direction = (targetPosition - transform.position).normalized;
             _rigidbody.MovePosition(transform.position + direction * _speed * Time.deltaTime);
+            */
+                Vector3 direction = (targetPosition - transform.position).normalized;
+
+                _rigidbody.MovePosition(transform.position + direction * _speed * Time.deltaTime);
+
+                if (direction != Vector3.zero)
+                {
+                    direction.y = 0f; // prevent tilting up/down
+                    transform.rotation = Quaternion.LookRotation(direction);
+                }
         }
         private System.Collections.IEnumerator FlashWhite()
         {
@@ -65,6 +104,18 @@ namespace Dungeonlicious.Assets.Script
             yield return new WaitForSeconds(_flashDuration);
 
             _renderer.material.color = _originalColor;
+        }
+
+        private void TryAttack()
+        {
+            if (Time.time < _lastAttackTime + _attackCooldown) return;
+
+            _lastAttackTime = Time.time;
+
+            GameObject damageArea = Instantiate(_damageAreaPrefab, _attackPoint.position, _attackPoint.rotation);
+
+            DamageAreaSlime damageScript = damageArea.GetComponent<DamageAreaSlime>();
+            damageScript.Initialize(_damage, gameObject);
         }
     }
 

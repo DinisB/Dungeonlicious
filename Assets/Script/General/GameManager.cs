@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         EnforceSingleton();
+        RegisterEventListeners();
     }
 
     private void EnforceSingleton()
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckForGameOver(float ratio)
     {
-        if (ratio == 0f)
+        if (ratio <= 0f)
         {
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

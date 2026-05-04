@@ -6,15 +6,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] PlayerData _data;
 
     private GameManager _gameManager;
-    private Animator    _animator;
-    private int         _health;
+    //private Animator    _animator;
+    [SerializeField] private int         _health;
 
     public event Action<float> OnHealthChanged;
 
     void Start()
     {
         _gameManager    = GameManager.instance;
-        _animator       = GetComponent<Animator>();
+        //_animator       = GetComponent<Animator>();
         _health         = _data.maxHealth;
 
         DispatchHealthChanged();
@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         //{
             _health = Mathf.Max(0, _health - amount);
 
-            _animator.SetTrigger("Damage");
+            //_animator.SetTrigger("Damage");
 
             DispatchHealthChanged();
         //}
