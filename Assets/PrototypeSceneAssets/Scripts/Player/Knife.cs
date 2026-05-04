@@ -8,6 +8,8 @@ public class Knife : MonoBehaviour
     private Rigidbody rb;
     private Collider col;
 
+    [SerializeField] private int damage = 10;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,7 +29,7 @@ public class Knife : MonoBehaviour
     {
         moveDirection = direction.normalized;
 
-        transform.rotation = Quaternion.LookRotation(moveDirection);
+        transform.rotation = Quaternion.LookRotation(moveDirection) * Quaternion.Euler(0, 90, 0);
 
         rb.isKinematic = false;
         rb.linearVelocity = moveDirection * knifeSpeed;
@@ -40,6 +42,13 @@ public class Knife : MonoBehaviour
         if(!isFlying) return;
 
         isFlying = false;
+
+        var enemy = collision.gameObject.GetComponent<Dungeonlicious.Assets.Script.EnemyController>();
+
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+        }
 
         rb.isKinematic = true;
         col.isTrigger = true;
