@@ -18,15 +18,12 @@ public class DamageAreaSlime : MonoBehaviour
     {
         if (_hasHit) return;
 
-        Debug.Log("Hit: " + other.name);
-
         IDamageable target = other.GetComponent<IDamageable>();
 
         if(target != null && other.gameObject != _owner)
         {
             if (target.CanBeDamaged())
             {
-                Debug.Log("Damage applied!");
                 target.Damage(_damage, _owner);
                 _hasHit = true;
             }

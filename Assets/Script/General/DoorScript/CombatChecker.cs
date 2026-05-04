@@ -61,4 +61,21 @@ public class CombatChecker : MonoBehaviour
             door.SetActive(shouldClose);
         }
     }
+
+    public void RegisterEnemy(GameObject enemy)
+    {
+        if (!enemiesInCombat.Contains(enemy))
+        {
+            enemiesInCombat.Add(enemy);
+            UpdateDoors();
+        }
+    }
+    public void UnregisterEnemy(GameObject enemy)
+    {
+        if (enemiesInCombat.Contains(enemy))
+        {
+            enemiesInCombat.Remove(enemy);
+            UpdateDoors();
+        }
+    }
 }

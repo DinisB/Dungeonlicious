@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8cf1b5d35dfd649a335fc1a97b9e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Knife
-  knifeSpeed: 10
+  knifeSpeed: 30
   damage: 10
 --- !u!54 &481072358994824661
 Rigidbody:
