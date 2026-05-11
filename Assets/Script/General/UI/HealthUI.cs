@@ -3,18 +3,26 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    private Image healthBar;
-    private PlayerHealth playerHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Image healthBar;
+    [SerializeField] private PlayerHealth playerHealth;
+
+    void OnEnable()
     {
-        healthBar = GetComponent<Image>();
-        playerHealth = FindFirstObjectByType<PlayerHealth>();
+        playerHealth.OnHealthChanged += UpdateHealthBar;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        healthBar.fillAmount = playerHealth.GetHealth() / (float)playerHealth.GetMaxHealth();
+        playerHealth.OnHealthChanged -= UpdateHealthBar;
+    }
+
+    void Start()
+    {
+        UpdateHealthBar((float)playerHealth.GetHealth() / playerHealth.GetMaxHealth());
+    }
+
+    private void UpdateHealthBar(float normalizedHealth)
+    {
+        healthBar.fillAmount = normalizedHealth;
     }
 }
