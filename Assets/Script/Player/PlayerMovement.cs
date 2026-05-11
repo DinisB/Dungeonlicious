@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _velocity;
     private bool _isLocked;
     private PlayerHealth _playerHealth;
+    private CameraController _cameraController;
 
     private void Start()
     {
@@ -24,19 +25,22 @@ public class PlayerMovement : MonoBehaviour
         _moveAction = InputSystem.actions.FindAction("Move");
         _playerHealth = FindFirstObjectByType<PlayerHealth>();
         _velocity = Vector3.zero;
+        _cameraController = FindFirstObjectByType<CameraController>();
     }
 
     private void Update()
     {
         UpdateRotation();
         UpdatePosition();
+
+        _isLocked = _cameraController.IsLocked;
     }
 
     private void UpdateRotation()
     {
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
 
-        if (moveInput.sqrMagnitude > 0.01f)
+        if (moveInput.sqrMagnitude > 0.01f && !_isLocked)
         {
             Vector3 moveDirection = GetCameraRelativeDirection(moveInput);
             
@@ -47,6 +51,18 @@ public class PlayerMovement : MonoBehaviour
             */
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
             Quaternion.LookRotation(moveDirection), _rotationSensitivity * Time.deltaTime);
+        }
+
+        else if (_isLocked && _cameraController.GetCurrentTarget() != null)
+        {
+            Vector3 directionToTarget = _cameraController.GetCurrentTarget().transform.position - transform.position;
+            directionToTarget.y = 0;
+
+            if (directionToTarget.sqrMagnitude > 0.01f)
+            {
+                model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
+                Quaternion.LookRotation(directionToTarget), _rotationSensitivity * Time.deltaTime);
+            }
         }
     }
 

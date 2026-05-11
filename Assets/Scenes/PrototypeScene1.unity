@@ -3562,7 +3562,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall (3)
@@ -6707,7 +6707,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: m_Name
       value: Top_Wall_with_Hole (2)
@@ -16441,7 +16441,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall (4)
@@ -17316,7 +17316,7 @@ GameObject:
   - component: {fileID: 334455174}
   - component: {fileID: 334455176}
   - component: {fileID: 334455175}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CombatRoom1Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20713,7 +20713,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall (1)
@@ -24020,7 +24020,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall
@@ -27588,7 +27588,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 7d3b9b96b6e287249ac0915eab768f22, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 7d3b9b96b6e287249ac0915eab768f22, type: 3}
       propertyPath: m_Name
       value: Top_Corner
@@ -28168,6 +28168,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 733003403375403705, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1280296726}
+    - target: {fileID: 934134992550245001, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3790901084367259525, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6578014
@@ -28691,7 +28699,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall (2)
@@ -41723,7 +41731,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall (1)
@@ -47506,7 +47514,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall (4)
@@ -50912,7 +50920,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: m_Name
       value: Wall_with_Hole
@@ -51075,7 +51083,7 @@ GameObject:
   - component: {fileID: 874294117}
   - component: {fileID: 874294119}
   - component: {fileID: 874294120}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CombatRoom2Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52215,7 +52223,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall (1)
@@ -52373,7 +52381,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall (2)
@@ -58859,7 +58867,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: m_Name
       value: Wall_with_Hole
@@ -63091,7 +63099,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: m_Name
       value: Wall_with_Hole (2)
@@ -68923,7 +68931,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: m_Name
       value: Top_Wall_with_Hole
@@ -73036,7 +73044,7 @@ PrefabInstance:
     - target: {fileID: 1498994582718364626, guid: bec31c97d10a0c74dbb92435215e6e07, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 5728524276312267799, guid: bec31c97d10a0c74dbb92435215e6e07, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.2
@@ -73697,6 +73705,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eae725624eebded4bb9b1ab10e50b566, type: 3}
   m_PrefabInstance: {fileID: 1280033259}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1280296726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3640776038314063874, guid: 9eeccbbf918ee854dbb95383401a4063, type: 3}
+  m_PrefabInstance: {fileID: 723200780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06df5d7b12196a46bb1def150b6aa4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
 --- !u!1001 &1280706741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77649,7 +77668,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall
@@ -82126,7 +82145,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3072
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -85461,7 +85480,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: m_Name
       value: Wall_with_Hole (3)
@@ -92175,7 +92194,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: m_Name
       value: Top_Wall_with_Hole
@@ -97304,7 +97323,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 11bb2f6f48dd4ea4aaaff7810c10b337, type: 3}
       propertyPath: m_Name
       value: Wall_with_Hole (1)
@@ -98193,7 +98212,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: m_Name
       value: Top_Wall_with_Hole (1)
@@ -103103,7 +103122,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 778dd684154094a4b8bb271d0829cb57, type: 3}
       propertyPath: m_Name
       value: Top_Wall_with_Hole (3)
@@ -109402,7 +109421,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall (3)
@@ -112164,7 +112183,7 @@ GameObject:
   - component: {fileID: 1977401454}
   - component: {fileID: 1977401456}
   - component: {fileID: 1977401457}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EntranceRoomFloor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116173,7 +116192,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2d6e28b896fe40b1459a429690ad0, type: 3}
       propertyPath: m_Name
       value: Top_Wall
@@ -121003,7 +121022,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6979c7a8bfcd39c409ebf56532954cdc, type: 2}
+      objectReference: {fileID: 2100000, guid: ebd53bae9a70dc546bf8a7c41307a635, type: 2}
     - target: {fileID: 919132149155446097, guid: fe8d576e5f78b00469b9ea9a6ffe08a5, type: 3}
       propertyPath: m_Name
       value: Wall

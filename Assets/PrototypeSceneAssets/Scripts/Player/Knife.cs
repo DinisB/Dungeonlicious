@@ -8,7 +8,7 @@ public class Knife : MonoBehaviour
     private Rigidbody rb;
     private Collider col;
 
-    [SerializeField] private int damage = 10;
+    [SerializeField] private int damage = 20;
 
     private void Awake()
     {
