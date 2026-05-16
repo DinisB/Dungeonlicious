@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,15 @@ public class PlayerKnifeThrow : MonoBehaviour
     [SerializeField] private Transform throwSpot;
     [SerializeField] private GameObject modelDirection;
     [SerializeField] private int knifeCount = 5;
+
+    [SerializeField] private TextMeshProUGUI knifeCountText;
     private InputAction _knifeThrowAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _knifeThrowAction = InputSystem.actions.FindAction("KnifeThrow");
+
+        UpdateKnifeUI();
     }
 
     // Update is called once per frame
@@ -28,11 +33,19 @@ public class PlayerKnifeThrow : MonoBehaviour
             knife.GetComponent<Knife>().SetDirection(direction);
 
             knifeCount--;
+
+            UpdateKnifeUI();
         }
     }
 
     public void AddKnife()
     {
         knifeCount++;
+
+        UpdateKnifeUI();
+    }
+    private void UpdateKnifeUI()
+    {
+        knifeCountText.text = "Knives: " + knifeCount;
     }
 }
