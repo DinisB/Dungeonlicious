@@ -26,6 +26,8 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private float _attackCooldown = 1f;
         [SerializeField] private int _damage = 5;
 
+        [SerializeField] private CombatChecker combatChecker;
+
         private float _lastAttackTime;
 
         private void Start()
@@ -116,6 +118,19 @@ namespace Dungeonlicious.Assets.Script
 
             DamageAreaSlime damageScript = damageArea.GetComponent<DamageAreaSlime>();
             damageScript.Initialize(_damage, gameObject);
+        }
+        public void Initialize(CombatChecker checker)
+        {
+            combatChecker = checker;
+
+            combatChecker.RegisterEnemy(gameObject);
+        }
+        private void OnDisable()
+        {
+            if (combatChecker != null)
+            {
+                combatChecker.UnregisterEnemy(gameObject);
+            }
         }
     }
 

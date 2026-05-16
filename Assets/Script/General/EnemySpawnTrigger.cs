@@ -1,12 +1,18 @@
+using Dungeonlicious.Assets.Script;
 using UnityEngine;
 
 public class EnemySpawnTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private CombatChecker combatChecker;
+    private CombatChecker combatChecker;
 
     private bool hasSpawned = false;
+
+    private void Awake()
+    {
+        combatChecker = GetComponent<CombatChecker>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,7 +31,12 @@ public class EnemySpawnTrigger : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyPrefab, point.position, point.rotation);
 
-            combatChecker.RegisterEnemy(enemy);
+            EnemyController controller = enemy.GetComponentInChildren<EnemyController>();
+
+            if (controller != null)
+            {
+                controller.Initialize(combatChecker);
+            }
         }
     }
 }
