@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Mushroom : MonoBehaviour
 {
     [SerializeField] private int healAmount;
-    void OnTriggerEnter(Collider other)
+    [SerializeField] private InputActionReference interactAction;
+    void OnTriggerStay(Collider other)
     {
         CheckIfPickable(other);
     }
@@ -12,7 +15,7 @@ public class Mushroom : MonoBehaviour
     {
         IHealable healable = other.GetComponent<IHealable>();
 
-        if(healable != null && healable.CanBeHealed())
+        if(healable != null && healable.CanBeHealed() && interactAction.action.WasPressedThisFrame())
         {
             healable.Heal(healAmount);
 

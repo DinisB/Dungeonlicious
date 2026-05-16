@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
 {
     [SerializeField] PlayerData _data;
 
