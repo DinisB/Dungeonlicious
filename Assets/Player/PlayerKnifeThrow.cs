@@ -32,6 +32,8 @@ public class PlayerKnifeThrow : MonoBehaviour
 
             knife.GetComponent<Knife>().SetDirection(direction);
 
+            knife.GetComponent<Knife>().SetOwner(gameObject);
+
             knifeCount--;
 
             UpdateKnifeUI();

@@ -17,7 +17,7 @@ public class AttackChecker : MonoBehaviour
         }
         if (collision.gameObject.layer == 9)
         {
-            _enemyController.TakeDamage(collision.gameObject.GetComponentInParent<PlayerHealth>().GetKnifesAttack());
+            _enemyController.TakeDamage(collision.gameObject.GetComponent<Knife>().GetOwner().GetComponent<PlayerHealth>().GetAttack());
         }
     }
 }

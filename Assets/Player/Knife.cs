@@ -9,6 +9,7 @@ public class Knife : MonoBehaviour
     private Collider col;
 
     [SerializeField] private int damage = 20;
+    private GameObject owner;
 
     private void Awake()
     {
@@ -35,6 +36,16 @@ public class Knife : MonoBehaviour
         rb.linearVelocity = moveDirection * knifeSpeed;
 
         isFlying = true;
+    }
+
+    public void SetOwner(GameObject owner)
+    {
+        this.owner = owner;
+    }
+
+    public GameObject GetOwner()
+    {
+        return owner;
     }
 
     private void OnCollisionEnter(Collision collision)
