@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   maxHealth: 50
+  attack: 5
+  knifesAttack: 10

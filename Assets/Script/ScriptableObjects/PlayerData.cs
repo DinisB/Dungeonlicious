@@ -4,4 +4,6 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public int maxHealth;
+    public int attack;
+    public int knifesAttack;
 }

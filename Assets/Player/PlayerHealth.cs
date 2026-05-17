@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
+public class PlayerHealth : MonoBehaviour, IDamageable, IHealable, IAttackUpgrade
 {
     [SerializeField] PlayerData _data;
 
     private GameManager _gameManager;
     //private Animator    _animator;
     [SerializeField] private int         _health;
+    private int        _attack;
+    private int       _knifesAttack;
 
     public event Action<float> OnHealthChanged;
 
@@ -16,6 +18,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
         _gameManager    = GameManager.instance;
         //_animator       = GetComponent<Animator>();
         _health         = _data.maxHealth;
+        _attack         = _data.attack;
+        _knifesAttack   = _data.knifesAttack;
 
         DispatchHealthChanged();
     }
@@ -50,6 +54,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
         //}
     }
 
+    public void IncreaseAttack(int amount)
+    {
+        _attack += amount;
+    }
+
     public bool CanBeHealed()
     {
         return _health < _data.maxHealth;
@@ -70,6 +79,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
     public int GetMaxHealth()
     {
         return _data.maxHealth;
+    }
+
+    public int GetAttack()
+    {
+        return _attack;
+    }
+
+    public int GetKnifesAttack()
+    {
+        return _knifesAttack;
     }
 
 }

@@ -13,11 +13,11 @@ public class AttackChecker : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
-            _enemyController.TakeDamage(10);
+            _enemyController.TakeDamage(collision.gameObject.GetComponentInParent<PlayerHealth>().GetAttack());
         }
         if (collision.gameObject.layer == 9)
         {
-            _enemyController.TakeDamage(5);
+            _enemyController.TakeDamage(collision.gameObject.GetComponentInParent<PlayerHealth>().GetKnifesAttack());
         }
     }
 }

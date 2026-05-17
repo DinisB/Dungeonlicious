@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class Tomato : MonoBehaviour
 {
+    [SerializeField] private InputActionReference interactAction;
     [SerializeField] private int attackAmmount;
-    void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
         CheckIfPickable(other);
     }
@@ -13,11 +16,11 @@ public class Tomato : MonoBehaviour
     {
         IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
 
-        if(attackable != null && attackable.CanUpgradeAttack())
+        if (attackable != null && interactAction.action.WasPressedThisFrame())
         {
             StartCoroutine(IncreaseAttack(attackable));
-
-            gameObject.SetActive(false);
+            GetComponent<Collider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
