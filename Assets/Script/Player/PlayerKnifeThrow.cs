@@ -10,6 +10,7 @@ public class PlayerKnifeThrow : MonoBehaviour
     [SerializeField] private int knifeCount = 5;
 
     [SerializeField] private TextMeshProUGUI knifeCountText;
+    [SerializeField] LineRenderer lineRenderer;
     private InputAction _knifeThrowAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,13 +23,20 @@ public class PlayerKnifeThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_knifeThrowAction.WasPressedThisFrame() && knifeCount > 0)
+        if (_knifeThrowAction.IsPressed() && knifeCount > 0)
         {
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, throwSpot.position);
+            lineRenderer.SetPosition(1, throwSpot.position + modelDirection.transform.forward * 5f);
+        }
+        if (_knifeThrowAction.WasReleasedThisFrame() && knifeCount > 0)
+        {
+            lineRenderer.enabled = false;
             GameObject knife = Instantiate(knifePrefab,
             throwSpot.position,
             transform.rotation);
 
-            Vector3 direction = modelDirection.transform.forward;
+            Vector3 direction = new Vector3(modelDirection.transform.forward.x, 0, modelDirection.transform.forward.z).normalized;
 
             knife.GetComponent<Knife>().SetDirection(direction);
 
