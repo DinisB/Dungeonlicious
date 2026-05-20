@@ -1412,7 +1412,6 @@ Transform:
   - {fileID: 478571139}
   - {fileID: 1006606297}
   - {fileID: 570245758}
-  - {fileID: 993465152}
   - {fileID: 1628400908}
   - {fileID: 539058993}
   m_Father: {fileID: 0}
@@ -17340,7 +17339,8 @@ Transform:
   m_LocalPosition: {x: -19.324339, y: 0, z: 11.79311}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 993465152}
   m_Father: {fileID: 935632651}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &334455170
@@ -57186,9 +57186,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993465151}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.499, y: 0.222, z: -1.66}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0067853928, y: 0.118321, z: 0.36196518}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1502269909}
@@ -57196,7 +57196,7 @@ Transform:
   - {fileID: 2067538647}
   - {fileID: 770303709}
   - {fileID: 2013142255}
-  m_Father: {fileID: 25004258}
+  m_Father: {fileID: 334455168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &993501808 stripped
 Transform:
@@ -62059,9 +62059,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _data: {fileID: 11400000, guid: 0a1c6b5235a545744857a30a79475119, type: 2}
-  _waypoints: {fileID: 993465152}
   _damageAreaPrefab: {fileID: 3518331794155653898, guid: f090ee6ba7c85804cb035a37000014fd, type: 3}
   _attackPoint: {fileID: 649351496}
+  _waypoints: {fileID: 993465152}
 --- !u!195 &1089593275
 NavMeshAgent:
   m_ObjectHideFlags: 0

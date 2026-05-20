@@ -4,10 +4,10 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     public int          maxHealth;
-    public float        patrolSpeed;
+    public float        wanderSpeed;
     public float        chaseSpeed;
     public float        maxIdleTime;
-    public float        maxPatrolTime;
+    public float        maxWanderTime;
     public float        maxAttackRange;
     public float        minAttackDot;
     public int          attackDamage;
