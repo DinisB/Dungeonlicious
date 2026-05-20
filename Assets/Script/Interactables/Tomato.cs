@@ -6,18 +6,35 @@ public class Tomato : MonoBehaviour
 {
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private int attackAmmount;
+    [SerializeField] private GameObject _indicator;
 
     private void OnTriggerStay(Collider other)
     {
         CheckIfPickable(other);
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
+
+        if (attackable != null)
+        {
+            _indicator.SetActive(false);
+        }
+    }
+
     private void CheckIfPickable(Collider other)
     {
         IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
 
+        if (attackable != null)
+        {
+            _indicator.SetActive(true);
+        }
+
         if (attackable != null && interactAction.action.WasPressedThisFrame())
         {
+            _indicator.SetActive(false);
             StartCoroutine(IncreaseAttack(attackable));
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
