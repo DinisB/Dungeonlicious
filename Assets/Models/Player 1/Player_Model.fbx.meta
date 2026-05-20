@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bdec749c090108b49b84b84889c58202
+guid: 593cc1492102aa846872d61930e57c4f
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -68,7 +68,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
