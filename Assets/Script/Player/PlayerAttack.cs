@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _attackBox;
-    [SerializeField] private Animator _spoonAnim;
+    [SerializeField] private Animator _anim;
     [SerializeField] private BoxCollider _attackCollider;
+    private bool _isAttacking;
 
     private void Start()
     {
@@ -16,20 +17,22 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
+        if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame() && !_isAttacking)
         {
-            _spoonAnim.SetBool("Attack", true);
+            _isAttacking = true;
+            _anim.SetBool("Attack", true);
             StartCoroutine(AttackCoroutine());
         }
     }
 
     private IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         _attackBox.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         _attackBox.SetActive(false);
-        _spoonAnim.SetBool("Attack", false);
+        _anim.SetBool("Attack", false);
+        _isAttacking = false;   
     }
 
     private void OnDrawGizmos()

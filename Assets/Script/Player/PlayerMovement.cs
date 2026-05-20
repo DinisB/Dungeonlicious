@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject model;
 
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Animator _anim;
 
     private CharacterController _controller;
     private InputAction _moveAction;
@@ -68,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdatePosition()
     {
+        if (_moveAction.ReadValue<Vector2>().sqrMagnitude > 0.01f)
+            _anim.SetBool("Walk", true);
+        else
+            _anim.SetBool("Walk", false);
         UpdateVelocityZX();
         UpdateVelocityY();
         MoveCharacterController();
