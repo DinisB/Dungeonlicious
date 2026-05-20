@@ -79,4 +79,15 @@ public class LockOnScript : MonoBehaviour
             _cameraController.IsLocked = false;
         }
     }
+
+    public bool IsLocked()
+    {
+        return _cameraController.IsLocked;
+    }
+
+    public GameObject GetCurrentTarget()
+    {
+        if (_targets.Count == 0) return null;
+        return _targets[currentTargetIndex];
+    }
 }

@@ -11,6 +11,7 @@ public class PlayerKnifeThrow : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI knifeCountText;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] private LockOnScript lockOnScript;
     private InputAction _knifeThrowAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,18 +26,36 @@ public class PlayerKnifeThrow : MonoBehaviour
     {
         if (_knifeThrowAction.IsPressed() && knifeCount > 0)
         {
+            if (lockOnScript.IsLocked())
+            {
+                Vector3 direction = lockOnScript.GetCurrentTarget().transform.position - transform.position;
+                direction.y = 0;
+                lineRenderer.SetPosition(1, throwSpot.position + direction.normalized * 5f);
+            }
+            else
+            {
+                lineRenderer.SetPosition(1, throwSpot.position + modelDirection.transform.forward * 5f);
+            }
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, throwSpot.position);
-            lineRenderer.SetPosition(1, throwSpot.position + modelDirection.transform.forward * 5f);
         }
         if (_knifeThrowAction.WasReleasedThisFrame() && knifeCount > 0)
         {
+            Vector3 direction;
             lineRenderer.enabled = false;
             GameObject knife = Instantiate(knifePrefab,
             throwSpot.position,
             transform.rotation);
 
-            Vector3 direction = new Vector3(modelDirection.transform.forward.x, 0, modelDirection.transform.forward.z).normalized;
+            if (lockOnScript.IsLocked())
+            {
+                direction = lockOnScript.GetCurrentTarget().transform.position - transform.position;
+                direction.y = 0;
+                knife.GetComponent<Knife>().SetDirection(direction.normalized);
+            }
+            else {
+            direction = modelDirection.transform.forward;
+            }
 
             knife.GetComponent<Knife>().SetDirection(direction);
 
