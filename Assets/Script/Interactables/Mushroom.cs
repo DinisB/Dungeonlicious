@@ -7,6 +7,7 @@ public class Mushroom : MonoBehaviour
     [SerializeField] private int healAmount;
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private GameObject _indicator;
+
     void OnTriggerStay(Collider other)
     {
         CheckIfPickable(other);
@@ -31,7 +32,7 @@ public class Mushroom : MonoBehaviour
             _indicator.SetActive(true);
         }
 
-        if(healable != null && healable.CanBeHealed() && interactAction.action.WasPressedThisFrame())
+        if(healable != null && healable.CanBeHealed() && interactAction.action.IsPressed())
         {
             healable.Heal(healAmount);
 

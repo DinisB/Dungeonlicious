@@ -32,7 +32,7 @@ public class Tomato : MonoBehaviour
             _indicator.SetActive(true);
         }
 
-        if (attackable != null && interactAction.action.WasPressedThisFrame())
+        if (attackable != null && interactAction.action.IsPressed())
         {
             _indicator.SetActive(false);
             StartCoroutine(IncreaseAttack(attackable));
