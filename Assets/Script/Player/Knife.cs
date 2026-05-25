@@ -66,7 +66,7 @@ public class Knife : MonoBehaviour
         rb.isKinematic = true;
         col.isTrigger = true;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(isFlying) return;
 
