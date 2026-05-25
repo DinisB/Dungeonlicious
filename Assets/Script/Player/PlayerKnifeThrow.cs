@@ -1,3 +1,4 @@
+namespace Dungeonlicious.Assets.Script {
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -77,4 +78,5 @@ public class PlayerKnifeThrow : MonoBehaviour
     {
         knifeCountText.text = "Knives: " + knifeCount;
     }
+}
 }

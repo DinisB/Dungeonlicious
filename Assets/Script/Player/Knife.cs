@@ -1,3 +1,5 @@
+namespace Dungeonlicious.Assets.Script {
+
 using UnityEngine;
 
 public class Knife : MonoBehaviour
@@ -54,7 +56,7 @@ public class Knife : MonoBehaviour
 
         isFlying = false;
 
-        var enemy = collision.gameObject.GetComponent<Dungeonlicious.Assets.Script.EnemyController>();
+        EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
 
         if (enemy != null)
         {
@@ -64,7 +66,7 @@ public class Knife : MonoBehaviour
         rb.isKinematic = true;
         col.isTrigger = true;
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(isFlying) return;
 
@@ -76,4 +78,5 @@ public class Knife : MonoBehaviour
             Destroy(gameObject);
         }
     }
+}
 }
