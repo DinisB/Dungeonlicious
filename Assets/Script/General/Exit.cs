@@ -1,13 +1,21 @@
+namespace Dungeonlicious.Assets.Script
+{
 using UnityEngine;
 
 public class Exit : MonoBehaviour
 {
+    private UpgradeManager upgradeManager;
+    void Start()
+    {
+        upgradeManager = FindFirstObjectByType<UpgradeManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         PlayerHealth player = other.GetComponent<PlayerHealth>();
         
         if (player != null)
         {
+            DontDestroyOnLoad(upgradeManager);
             QuitGame();
         }
     }
@@ -25,4 +33,5 @@ public class Exit : MonoBehaviour
     {
         
     }
+}
 }
