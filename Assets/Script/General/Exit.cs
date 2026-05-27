@@ -5,6 +5,8 @@ using UnityEngine;
 public class Exit : MonoBehaviour
 {
     private UpgradeManager upgradeManager;
+    [SerializeField]
+    private UpgradeCanvasManager upgradeCanvasManager;
     void Start()
     {
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
@@ -15,8 +17,7 @@ public class Exit : MonoBehaviour
         
         if (player != null)
         {
-            DontDestroyOnLoad(upgradeManager);
-            QuitGame();
+            upgradeCanvasManager.gameObject.SetActive(true);
         }
     }
 

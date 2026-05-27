@@ -1,28 +1,31 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public class HealthUI : MonoBehaviour
+namespace Dungeonlicious.Assets.Script
 {
-    [SerializeField] private Image healthBar;
-    [SerializeField] private PlayerHealth playerHealth;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-    void OnEnable()
+    public class HealthUI : MonoBehaviour
     {
-        playerHealth.OnHealthChanged += UpdateHealthBar;
-    }
+        [SerializeField] private Image healthBar;
+        [SerializeField] private PlayerHealth playerHealth;
 
-    void OnDisable()
-    {
-        playerHealth.OnHealthChanged -= UpdateHealthBar;
-    }
+        void OnEnable()
+        {
+            playerHealth.OnHealthChanged += UpdateHealthBar;
+        }
 
-    void Start()
-    {
-        UpdateHealthBar((float)playerHealth.GetHealth() / playerHealth.GetMaxHealth());
-    }
+        void OnDisable()
+        {
+            playerHealth.OnHealthChanged -= UpdateHealthBar;
+        }
 
-    private void UpdateHealthBar(float normalizedHealth)
-    {
-        healthBar.fillAmount = normalizedHealth;
+        void Start()
+        {
+            UpdateHealthBar((float)playerHealth.GetHealth() / playerHealth.GetMaxHealth());
+        }
+
+        private void UpdateHealthBar(float normalizedHealth)
+        {
+            healthBar.fillAmount = normalizedHealth;
+        }
     }
 }

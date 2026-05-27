@@ -1,3 +1,4 @@
+namespace Dungeonlicious.Assets.Script {
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isLocked;
     private PlayerHealth _playerHealth;
     private CameraController _cameraController;
+    private PlayerAttack _playerAttack;
 
     private void Start()
     {
@@ -27,14 +29,30 @@ public class PlayerMovement : MonoBehaviour
         _playerHealth = FindFirstObjectByType<PlayerHealth>();
         _velocity = Vector3.zero;
         _cameraController = FindFirstObjectByType<CameraController>();
+        _playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
     {
-        UpdateRotation();
-        UpdatePosition();
+        if (!_playerAttack.IsAttacking())
+        {
+            UpdateRotation();
+            UpdatePosition();
+        }
 
         _isLocked = _cameraController.IsLocked;
+    }
+
+    public int SpeedChange
+    {
+        get
+        {
+            return (int)_speed;
+        }
+        set
+        {
+            _speed = value;
+        }
     }
 
     private void UpdateRotation()
@@ -44,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput.sqrMagnitude > 0.01f && !_isLocked)
         {
             Vector3 moveDirection = GetCameraRelativeDirection(moveInput);
-            
+
             //Vector3 direction = new Vector3(moveInput.x + moveInput.x/2, 0, moveInput.y + moveInput.y/2);
             /*
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation,
@@ -140,4 +158,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+}
 }

@@ -41,4 +41,9 @@ public class PlayerAttack : MonoBehaviour
         if (gameObject.activeInHierarchy)
             Gizmos.DrawWireCube(_attackCollider.bounds.center, _attackCollider.bounds.size);
     }
+
+    public bool IsAttacking()
+    {
+        return _isAttacking;
+    }
 }
