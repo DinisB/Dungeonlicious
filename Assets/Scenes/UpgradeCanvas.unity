@@ -878,6 +878,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 799761115}
   banner: {fileID: 523529464}
+  onUpgradeSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &560464219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,6 +1340,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1004266728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004266730}
+  - component: {fileID: 1004266729}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1004266729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004266728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56671d07c1435246979a2765389deb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeManager
+--- !u!4 &1004266730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004266728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 443.57367, y: 805.38245, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149342247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1653,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 1403241476}
   banner: {fileID: 341139162}
+  onUpgradeSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1222344018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,6 +1864,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 810063328}
   banner: {fileID: 1149342248}
+  onUpgradeSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2028870171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1882,3 +1935,4 @@ SceneRoots:
   - {fileID: 114818730}
   - {fileID: 818775027}
   - {fileID: 304156083}
+  - {fileID: 1004266730}

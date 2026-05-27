@@ -3,17 +3,21 @@ namespace Dungeonlicious.Assets.Script
     using UnityEngine;
     using TMPro;
     using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using UnityEngine.Events;
 
-    public class UpgradeCanvas : MonoBehaviour
+    public class UpgradeCanvas : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField]
         private TextMeshProUGUI upgradeText;
         [SerializeField]
         private Image banner;
+        private IUpgrade upgrade;
+        public UnityEvent onUpgradeSelected;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame
@@ -22,10 +26,19 @@ namespace Dungeonlicious.Assets.Script
 
         }
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            GameObject upgradeManager = FindFirstObjectByType<UpgradeManager>().gameObject;
+            upgradeManager.GetComponent<UpgradeManager>().AddUpgrade(upgrade);
+            DontDestroyOnLoad(upgradeManager);
+            onUpgradeSelected.Invoke();
+        }
+
         public void ChangeUpgradeInfo(IUpgrade upgrade, Sprite bannerSprite)
         {
             upgradeText.text = $"{upgrade.upgradeType} + {upgrade.upgradeValue}";
             banner.sprite = bannerSprite;
+            this.upgrade = upgrade;
         }
     }
 }

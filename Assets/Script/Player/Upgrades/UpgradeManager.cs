@@ -17,5 +17,10 @@ namespace Dungeonlicious.Assets.Script
         {
 
         }
+
+        public void AddUpgrade(IUpgrade upgrade)
+        {
+            upgrades.Add(upgrade);
+        }
     }
 }

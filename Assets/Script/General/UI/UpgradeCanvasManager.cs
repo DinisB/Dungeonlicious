@@ -22,6 +22,10 @@ namespace Dungeonlicious.Assets.Script
                 upgrades.Add(new Upgrade((UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length)), UnityEngine.Random.Range(1, 3)));
             }
             UpdateUpgradeCanvas();
+            for (int i = 0; i < 3; i++)
+            {
+                UpgradeCanvas[i].GetComponent<UpgradeCanvas>().onUpgradeSelected.AddListener(NextLevel);
+            }
         }
 
         // Update is called once per frame
@@ -35,6 +39,14 @@ namespace Dungeonlicious.Assets.Script
             for (int i = 0; i < UpgradeCanvas.Length; i++)
             {
                 UpgradeCanvas[i].GetComponent<UpgradeCanvas>().ChangeUpgradeInfo(upgrades[i], banners[(int)upgrades[i].upgradeType]);
+            }
+        }
+
+        public void NextLevel()
+        {
+            for (int i = 0; i < UpgradeCanvas.Length; i++)
+            {
+                UpgradeCanvas[i].SetActive(false);
             }
         }
     }
