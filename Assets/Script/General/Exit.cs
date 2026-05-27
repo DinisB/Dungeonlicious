@@ -29,10 +29,5 @@ public class Exit : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-
-    void ShowPossibleUpgrades()
-    {
-        
-    }
 }
 }

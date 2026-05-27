@@ -1,5 +1,6 @@
 namespace Dungeonlicious.Assets.Script {
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,6 +47,11 @@ public class GameManager : MonoBehaviour
         _hudManager.SetHealthFill(ratio);
     }
     */
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene("PrototypeScene1");
+    }
 
 
 }

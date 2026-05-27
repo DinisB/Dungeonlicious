@@ -4,6 +4,7 @@ namespace Dungeonlicious.Assets.Script
     {
         Health,
         Speed,
-        Strength
+        Strength,
+        Knife
     }
 }

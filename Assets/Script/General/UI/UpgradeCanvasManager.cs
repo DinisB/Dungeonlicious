@@ -47,6 +47,8 @@ namespace Dungeonlicious.Assets.Script
             for (int i = 0; i < UpgradeCanvas.Length; i++)
             {
                 UpgradeCanvas[i].SetActive(false);
+                GameManager gameManager = FindFirstObjectByType<GameManager>();
+                gameManager.NextLevel();
             }
         }
     }

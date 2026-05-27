@@ -24,20 +24,24 @@ namespace Dungeonlicious.Assets.Script
             _attack = _data.attack;
             _knifesAttack = _data.knifesAttack;
             UpgradeManager upgradeManager = FindFirstObjectByType<UpgradeManager>();
-            foreach (IUpgrade upgrade in upgradeManager.GetComponents<IUpgrade>())
+            foreach (IUpgrade upgrade in upgradeManager.GetUpgrades())
             {
                 if (upgrade.upgradeType == UpgradeType.Health)
                 {
                     _extraHealth += (int)upgrade.upgradeValue;
                 }
-                if (upgrade.upgradeType == UpgradeType.Strength)
+                else if (upgrade.upgradeType == UpgradeType.Strength)
                 {
                     _attack += (int)upgrade.upgradeValue;
                 }
-                if (upgrade.upgradeType == UpgradeType.Speed)
+                else if (upgrade.upgradeType == UpgradeType.Speed)
                 {
                     PlayerMovement playerMovement = FindFirstObjectByType<PlayerMovement>();
                     playerMovement.SpeedChange += (int)upgrade.upgradeValue;
+                }
+                else if (upgrade.upgradeType == UpgradeType.Knife)
+                {
+                    _knifesAttack += (int)upgrade.upgradeValue;
                 }
             }
 

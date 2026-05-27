@@ -22,5 +22,10 @@ namespace Dungeonlicious.Assets.Script
         {
             upgrades.Add(upgrade);
         }
+
+        public IEnumerable<IUpgrade> GetUpgrades()
+        {
+            return upgrades;
+        }
     }
 }
