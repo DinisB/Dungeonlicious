@@ -31,6 +31,7 @@ public class SlimeAI : MonoBehaviour
             "chase",
             () => 
             {
+                /*
                 Debug.Log("Enter Chase");
 
                 attackTimer = 0f;
@@ -43,6 +44,7 @@ public class SlimeAI : MonoBehaviour
 
                 slamTargetPos =
                 attackStartPos + transform.forward * 2f;
+                */
             },
             ChasePlayer,
             ()=> Debug.Log("Exit Chase"));

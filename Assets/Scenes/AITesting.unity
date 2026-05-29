@@ -133,13 +133,14 @@ GameObject:
   - component: {fileID: 261340008}
   - component: {fileID: 261340007}
   - component: {fileID: 261340006}
+  - component: {fileID: 261340012}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &261340006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeAI
   playerAgent: {fileID: 283956233}
+  telegraphMovementValue: 1
+  minDistanceToAttack: 1
 --- !u!195 &261340007
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -270,6 +273,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &261340012
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261340005}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dff29f81cc8afef4892733e63df50d30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &283956233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7126418567848528978, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
@@ -674,7 +699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3790901084367259525, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.161
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 3790901084367259525, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -728,6 +753,10 @@ PrefabInstance:
       propertyPath: _anim
       value: 
       objectReference: {fileID: 656219817}
+    - target: {fileID: 5949784040148453779, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
+      propertyPath: m_Center.y
+      value: 1.14
+      objectReference: {fileID: 0}
     - target: {fileID: 7126418567848528978, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_Name
       value: Player
