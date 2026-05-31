@@ -74,6 +74,13 @@ public class PlayerKnifeThrow : MonoBehaviour
 
         UpdateKnifeUI();
     }
+
+    public void AddKnives(int amount)
+    {
+        knifeCount += amount;
+        UpdateKnifeUI();
+    }
+
     private void UpdateKnifeUI()
     {
         knifeCountText.text = "Knives: " + knifeCount;

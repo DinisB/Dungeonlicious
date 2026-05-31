@@ -8,8 +8,8 @@ namespace Dungeonlicious.Assets.Script
         private static UpgradeManager instance;
         public static UpgradeManager Instance { get { return instance; } }
         private List<IUpgrade> upgrades;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+
+        private void Awake()
         {
             upgrades = new List<IUpgrade>();
             EnforceSingleton();
@@ -31,7 +31,6 @@ namespace Dungeonlicious.Assets.Script
         {
 
         }
-
         public void AddUpgrade(IUpgrade upgrade)
         {
             upgrades.Add(upgrade);

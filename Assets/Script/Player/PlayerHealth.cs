@@ -23,7 +23,7 @@ namespace Dungeonlicious.Assets.Script
             _attack = _data.attack;
             _knifesAttack = _data.knifesAttack;
             
-            UpgradeManager upgradeManager = UpgradeManager.Instance;
+            UpgradeManager upgradeManager = UpgradeManager.Instance ?? FindFirstObjectByType<UpgradeManager>();
             if (upgradeManager != null)
             {
                 foreach (IUpgrade upgrade in upgradeManager.GetUpgrades())
@@ -47,6 +47,11 @@ namespace Dungeonlicious.Assets.Script
                     else if (upgrade.upgradeType == UpgradeType.Knife)
                     {
                         _knifesAttack += (int)upgrade.upgradeValue;
+                        PlayerKnifeThrow playerKnifeThrow = FindFirstObjectByType<PlayerKnifeThrow>();
+                        if (playerKnifeThrow != null)
+                        {
+                            playerKnifeThrow.AddKnives((int)upgrade.upgradeValue);
+                        }
                     }
                 }
             }
