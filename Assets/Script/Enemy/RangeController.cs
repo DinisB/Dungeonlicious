@@ -15,6 +15,12 @@ namespace Dungeonlicious.Assets.Script
 
         public static Action<GameObject> OnEnemyDeath;
 
+        private Renderer _renderer;
+        [SerializeField] private float _flashDuration = 0.1f;
+
+        private Color _originalColor;
+        private Coroutine _flashCoroutine;
+
         private Transform player;
         private Rigidbody rb;
         private float lastAttackTime;
@@ -28,6 +34,9 @@ namespace Dungeonlicious.Assets.Script
         private void Start()
         {
             currentHealth = maxHealth;
+
+            _renderer = GetComponent<Renderer>();
+            _originalColor = _renderer.material.color;
 
             player = FindFirstObjectByType<PlayerHealth>().transform;
             rb = GetComponent<Rigidbody>();
@@ -110,11 +119,27 @@ namespace Dungeonlicious.Assets.Script
         {
             currentHealth -= amount;
 
+            if (_flashCoroutine != null)
+            {
+                StopCoroutine(_flashCoroutine);
+            }
+
+            _flashCoroutine = StartCoroutine(FlashRed());
+
             if (currentHealth <= 0)
             {
                 OnEnemyDeath?.Invoke(gameObject);
                 gameObject.SetActive(false);
             }
+        }
+
+        private System.Collections.IEnumerator FlashRed()
+        {
+            _renderer.material.color = Color.red;
+
+            yield return new WaitForSeconds(_flashDuration);
+
+            _renderer.material.color = _originalColor;
         }
     }
 }
