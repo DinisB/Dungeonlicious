@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: defaultPolygonShader7
+    second: {fileID: 2100000, guid: 0391b64fb53a20943838eaf5b17b2b6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface2
     second: {fileID: 2100000, guid: d48ee85d09b316543bf0785ed3eebd4b, type: 2}
   materials:
