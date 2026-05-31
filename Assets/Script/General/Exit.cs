@@ -10,6 +10,7 @@ public class Exit : MonoBehaviour
     void Start()
     {
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
+        DontDestroyOnLoad(upgradeManager.gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {

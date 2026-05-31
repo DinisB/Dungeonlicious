@@ -20,30 +20,38 @@ namespace Dungeonlicious.Assets.Script
         {
             _gameManager = GameManager.instance;
             //_animator       = GetComponent<Animator>();
-            _health = _data.maxHealth + _extraHealth;
             _attack = _data.attack;
             _knifesAttack = _data.knifesAttack;
-            UpgradeManager upgradeManager = FindFirstObjectByType<UpgradeManager>();
-            foreach (IUpgrade upgrade in upgradeManager.GetUpgrades())
+            
+            UpgradeManager upgradeManager = UpgradeManager.Instance;
+            if (upgradeManager != null)
             {
-                if (upgrade.upgradeType == UpgradeType.Health)
+                foreach (IUpgrade upgrade in upgradeManager.GetUpgrades())
                 {
-                    _extraHealth += (int)upgrade.upgradeValue;
-                }
-                else if (upgrade.upgradeType == UpgradeType.Strength)
-                {
-                    _attack += (int)upgrade.upgradeValue;
-                }
-                else if (upgrade.upgradeType == UpgradeType.Speed)
-                {
-                    PlayerMovement playerMovement = FindFirstObjectByType<PlayerMovement>();
-                    playerMovement.SpeedChange += (int)upgrade.upgradeValue;
-                }
-                else if (upgrade.upgradeType == UpgradeType.Knife)
-                {
-                    _knifesAttack += (int)upgrade.upgradeValue;
+                    if (upgrade.upgradeType == UpgradeType.Health)
+                    {
+                        _extraHealth += (int)upgrade.upgradeValue;
+                    }
+                    else if (upgrade.upgradeType == UpgradeType.Strength)
+                    {
+                        _attack += (int)upgrade.upgradeValue;
+                    }
+                    else if (upgrade.upgradeType == UpgradeType.Speed)
+                    {
+                        PlayerMovement playerMovement = FindFirstObjectByType<PlayerMovement>();
+                        if (playerMovement != null)
+                        {
+                            playerMovement.SpeedChange += (int)upgrade.upgradeValue;
+                        }
+                    }
+                    else if (upgrade.upgradeType == UpgradeType.Knife)
+                    {
+                        _knifesAttack += (int)upgrade.upgradeValue;
+                    }
                 }
             }
+
+            _health = _data.maxHealth + _extraHealth;
 
             DispatchHealthChanged();
         }
