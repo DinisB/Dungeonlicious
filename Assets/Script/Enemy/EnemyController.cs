@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Dungeonlicious.Assets.Script
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, ICombatEnemy, IDamageable
     {
         [SerializeField] private EnemyType _enemyType;
         [SerializeField] private int _speed;
@@ -29,6 +29,8 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private CombatChecker combatChecker;
 
         private float _lastAttackTime;
+
+        public Vector3 position => transform.position;
 
         private void Start()
         {
@@ -66,7 +68,7 @@ namespace Dungeonlicious.Assets.Script
             }
         }
 
-        public void TakeDamage(int damage)
+        public void Damage(int damage, GameObject damager)
         {
             _enemy.TakeDamage(damage);
             if (_flashCoroutine != null)
@@ -131,6 +133,11 @@ namespace Dungeonlicious.Assets.Script
             {
                 combatChecker.UnregisterEnemy(gameObject);
             }
+        }
+
+        public bool CanBeDamaged()
+        {
+            return true;
         }
     }
 

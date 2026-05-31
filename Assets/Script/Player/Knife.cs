@@ -56,11 +56,11 @@ public class Knife : MonoBehaviour
 
         isFlying = false;
 
-        EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
+        IDamageable enemy = collision.gameObject.GetComponent<IDamageable>();
 
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.Damage(damage,gameObject);
         }
 
         rb.isKinematic = true;

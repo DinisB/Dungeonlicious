@@ -4,7 +4,9 @@ using UnityEngine;
 public class EnemySpawnTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject rangeEnemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] rangeSpawnPoints;
     private CombatChecker combatChecker;
 
     private bool hasSpawned = false;
@@ -31,7 +33,20 @@ public class EnemySpawnTrigger : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyPrefab, point.position, point.rotation);
 
-            EnemyController controller = enemy.GetComponentInChildren<EnemyController>();
+            ICombatEnemy controller =
+                enemy.GetComponent<ICombatEnemy>();
+
+            if (controller != null)
+            {
+                controller.Initialize(combatChecker);
+            }
+        }
+        foreach (Transform point in rangeSpawnPoints)
+        {
+            GameObject enemy = Instantiate(rangeEnemyPrefab, point.position, point.rotation);
+
+            ICombatEnemy controller =
+                enemy.GetComponent<ICombatEnemy>();
 
             if (controller != null)
             {
