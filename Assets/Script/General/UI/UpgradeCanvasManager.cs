@@ -33,11 +33,11 @@ namespace Dungeonlicious.Assets.Script
         public int GetUpgradeValue(UpgradeType upgradeType)
         {
             if (upgradeType == UpgradeType.Health)
-                return 20;
+                return 10;
             else if (upgradeType == UpgradeType.Speed)
                 return 1;
             else if (upgradeType == UpgradeType.Strength)
-                return 5;
+                return 2;
             else if (upgradeType == UpgradeType.Knife)
                 return 1;
             else

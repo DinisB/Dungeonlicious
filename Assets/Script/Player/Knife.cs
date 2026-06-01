@@ -55,6 +55,7 @@ namespace Dungeonlicious.Assets.Script
         private void OnCollisionEnter(Collision collision)
         {
             if (!isFlying) return;
+            if (collision.gameObject == owner) return;
 
             isFlying = false;
 

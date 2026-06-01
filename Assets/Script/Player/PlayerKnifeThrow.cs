@@ -1,89 +1,100 @@
-namespace Dungeonlicious.Assets.Script {
-using TMPro;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class PlayerKnifeThrow : MonoBehaviour
+namespace Dungeonlicious.Assets.Script
 {
-    [SerializeField] private GameObject knifePrefab;
-    [SerializeField] private Transform throwSpot;
-    [SerializeField] private GameObject modelDirection;
-    [SerializeField] private int knifeCount = 5;
+    using TMPro;
+    using UnityEngine;
+    using UnityEngine.InputSystem;
 
-    [SerializeField] private TextMeshProUGUI knifeCountText;
-    [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] private LockOnScript lockOnScript;
-    private InputAction _knifeThrowAction;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerKnifeThrow : MonoBehaviour
     {
-        _knifeThrowAction = InputSystem.actions.FindAction("KnifeThrow");
+        [SerializeField] private GameObject knifePrefab;
+        [SerializeField] private Transform throwSpot;
+        [SerializeField] private int knifeCount = 5;
 
-        UpdateKnifeUI();
-    }
+        [SerializeField] private TextMeshProUGUI knifeCountText;
+        [SerializeField] LineRenderer lineRenderer;
+        [SerializeField] private LockOnScript lockOnScript;
+        private InputAction _knifeThrowAction;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (_knifeThrowAction.IsPressed() && knifeCount > 0)
+        void Start()
         {
-            if (lockOnScript.IsLocked())
-            {
-                Vector3 direction = lockOnScript.GetCurrentTarget().transform.position - transform.position;
-                direction.y = 0;
-                lineRenderer.SetPosition(1, throwSpot.position + direction.normalized * 5f);
-            }
-            else
-            {
-                lineRenderer.SetPosition(1, throwSpot.position + modelDirection.transform.forward * 5f);
-            }
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, throwSpot.position);
-        }
-        if (_knifeThrowAction.WasReleasedThisFrame() && knifeCount > 0)
-        {
-            Vector3 direction;
-            lineRenderer.enabled = false;
-            GameObject knife = Instantiate(knifePrefab,
-            throwSpot.position,
-            transform.rotation);
-
-            if (lockOnScript.IsLocked())
-            {
-                direction = lockOnScript.GetCurrentTarget().transform.position - transform.position;
-                direction.y = 0;
-                knife.GetComponent<Knife>().SetDirection(direction.normalized);
-            }
-            else {
-            direction = modelDirection.transform.forward;
-            }
-
-            knife.GetComponent<Knife>().SetDirection(direction);
-
-            knife.GetComponent<Knife>().SetOwner(gameObject);
-
-            knifeCount--;
-
+            _knifeThrowAction = InputSystem.actions.FindAction("KnifeThrow");
             UpdateKnifeUI();
         }
-    }
 
-    public void AddKnife()
-    {
-        knifeCount++;
+        void Update()
+        {
+            if (_knifeThrowAction.IsPressed() && knifeCount > 0)
+            {
+                Vector3 direction = GetAimDirection();
+                lineRenderer.enabled = true;
+                lineRenderer.SetPosition(0, throwSpot.position);
+                lineRenderer.SetPosition(1, throwSpot.position + direction * 5f);
+            }
 
-        UpdateKnifeUI();
-    }
+            if (_knifeThrowAction.WasReleasedThisFrame() && knifeCount > 0)
+            {
+                lineRenderer.enabled = false;
 
-    public void AddKnives(int amount)
-    {
-        knifeCount += amount;
-        UpdateKnifeUI();
-    }
+                GameObject knifeGO = Instantiate(knifePrefab, throwSpot.position, transform.rotation);
+                Knife knife = knifeGO.GetComponent<Knife>();
 
-    private void UpdateKnifeUI()
-    {
-        knifeCountText.text = "Knives: " + knifeCount;
+                knife.SetDirection(GetAimDirection());
+                knife.SetOwner(gameObject);
+
+                knifeCount--;
+                UpdateKnifeUI();
+            }
+        }
+
+        private Vector3 GetAimDirection()
+        {
+            if (lockOnScript.IsLocked())
+            {
+                Vector3 toTarget = lockOnScript.GetCurrentTarget().transform.position - transform.position;
+                toTarget.y = 0;
+                return toTarget.normalized;
+            }
+
+            return GetMouseDirection();
+        }
+
+        private Vector3 GetMouseDirection()
+        {
+            if (Mouse.current == null)
+                return transform.forward;
+
+            Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
+
+            Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
+
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+            if (groundPlane.Raycast(ray, out float distance))
+            {
+                Vector3 mouseWorldPos = ray.GetPoint(distance);
+                Vector3 direction = mouseWorldPos - throwSpot.position;
+                direction.y = 0;
+                return direction.normalized;
+            }
+
+            return transform.forward;
+        }
+
+        public void AddKnife()
+        {
+            knifeCount++;
+            UpdateKnifeUI();
+        }
+
+        public void AddKnives(int amount)
+        {
+            knifeCount += amount;
+            UpdateKnifeUI();
+        }
+
+        private void UpdateKnifeUI()
+        {
+            knifeCountText.text = "Knives: " + knifeCount;
+        }
     }
-}
 }

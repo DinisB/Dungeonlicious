@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6908302889862521420}
   - component: {fileID: -6388407732171060175}
   - component: {fileID: 1522927698780373052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bakon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,6 +136,7 @@ MonoBehaviour:
   attackCooldown: 2
   speed: 3
   combatChecker: {fileID: 0}
+  _flashDuration: 0.1
   maxHealth: 20
 --- !u!114 &-6388407732171060175
 MonoBehaviour:
@@ -186,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6052613959183161641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShotSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

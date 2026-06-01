@@ -1,52 +1,56 @@
-using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
-
-public class Tomato : MonoBehaviour
+namespace Dungeonlicious.Assets.Script
 {
-    [SerializeField] private InputActionReference interactAction;
-    [SerializeField] private int attackAmmount;
-    [SerializeField] private GameObject _indicator;
+    using UnityEngine;
+    using System.Collections;
+    using UnityEngine.InputSystem;
 
-    private void OnTriggerStay(Collider other)
+    public class Tomato : MonoBehaviour
     {
-        CheckIfPickable(other);
-    }
+        [SerializeField] private InputActionReference interactAction;
+        [SerializeField] private int attackAmmount;
+        [SerializeField] private GameObject _indicator;
 
-    void OnTriggerExit(Collider other)
-    {
-        IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
-
-        if (attackable != null)
+        private void OnTriggerStay(Collider other)
         {
-            _indicator.SetActive(false);
-        }
-    }
-
-    private void CheckIfPickable(Collider other)
-    {
-        IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
-
-        if (attackable != null)
-        {
-            _indicator.SetActive(true);
+            CheckIfPickable(other);
         }
 
-        if (attackable != null && interactAction.action.IsPressed())
+        void OnTriggerExit(Collider other)
         {
-            _indicator.SetActive(false);
-            StartCoroutine(IncreaseAttack(attackable));
-            GetComponent<Collider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
+            IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
+
+            if (attackable != null)
+            {
+                _indicator.SetActive(false);
+            }
         }
-    }
 
-    private IEnumerator IncreaseAttack(IAttackUpgrade attackable)
-    {
-        attackable.IncreaseAttack(attackAmmount);
+        private void CheckIfPickable(Collider other)
+        {
+            IAttackUpgrade attackable = other.GetComponent<IAttackUpgrade>();
 
-        yield return new WaitForSeconds(10f);
+            if (attackable != null)
+            {
+                _indicator.SetActive(true);
+            }
 
-        attackable.IncreaseAttack(-attackAmmount);
+            if (attackable != null && interactAction.action.IsPressed())
+            {
+                _indicator.SetActive(false);
+                StartCoroutine(IncreaseAttack(attackable));
+                FindFirstObjectByType<HealthUI>().GetComponent<HealthUI>().StartTomatoBarCoroutine(20f);
+                GetComponent<Collider>().enabled = false;
+                GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+
+        private IEnumerator IncreaseAttack(IAttackUpgrade attackable)
+        {
+            attackable.IncreaseAttack(attackAmmount);
+
+            yield return new WaitForSeconds(20f);
+
+            attackable.IncreaseAttack(-attackAmmount);
+        }
     }
 }
