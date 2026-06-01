@@ -4,6 +4,7 @@ namespace Dungeonlicious.Assets.Script.Enums
     {
         Telegraph,
         Slam,
-        Cooldown
+        Recover,
+        Finished
     }
 }
