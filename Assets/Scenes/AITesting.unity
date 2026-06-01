@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 261340007}
   - component: {fileID: 261340006}
   - component: {fileID: 261340012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,6 +156,8 @@ MonoBehaviour:
   playerAgent: {fileID: 283956233}
   attackRange: 1.25
   damageInterval: 1
+  staggerDuration: 0.3
+  staggerDistance: 1.5
 --- !u!195 &261340007
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -166,7 +168,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

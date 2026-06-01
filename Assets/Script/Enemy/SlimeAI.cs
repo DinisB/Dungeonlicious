@@ -12,6 +12,17 @@ public class SlimeAI : MonoBehaviour
     private NavMeshAgent agent;
     private StateMachine fsm;
     private IDamageable target;
+
+    private bool isStaggered;
+    private float staggerTimer;
+
+    [SerializeField] private float staggerDuration = 0.3f;
+
+    [SerializeField] private float staggerDistance = 1.5f;
+
+    private Vector3 staggerStartPos;
+    private Vector3 staggerTargetPos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +40,13 @@ public class SlimeAI : MonoBehaviour
             () => Debug.Log("Enter Chase"),
             ChasePlayer,
             ()=> Debug.Log("Exit Chase"));
+        
+        State stagger = new State(
+            "stagger",
+            () => agent.isStopped = true,
+            UpdateStagger,
+            () => isStaggered = false
+        );
 
         Transition chaseToAttack = new Transition(
             () => Vector3.Distance(transform.position,
@@ -46,7 +64,29 @@ public class SlimeAI : MonoBehaviour
             chase
         );
 
+        Transition chaseToStagger = new Transition(
+            () => isStaggered,
+            null,
+            stagger
+        );
+
+        Transition attackToStagger = new Transition(
+            () => isStaggered,
+            null,
+            stagger
+        );
+
+        chase.AddTransition(chaseToStagger);
+        attack.AddTransition(attackToStagger);
         attack.AddTransition(attackToChase);
+
+        Transition staggerToChase = new Transition(
+            () => !isStaggered,
+            null,
+            chase
+        );
+
+        stagger.AddTransition(staggerToChase);
 
         fsm = new StateMachine(chase);
     }
@@ -85,5 +125,40 @@ public class SlimeAI : MonoBehaviour
                 target.Damage(5, gameObject);
             }
         }
+    }
+
+    private void UpdateStagger()
+    {
+        staggerTimer += Time.deltaTime;
+
+        float t = staggerTimer / staggerDuration;
+
+        transform.position =
+            Vector3.Lerp(
+                staggerStartPos,
+                staggerTargetPos,
+                t);
+
+        if (t >= 1f)
+        {
+            isStaggered = false;
+        }
+    }
+
+    public void Stagger(Vector3 attackerPosition)
+    {
+        isStaggered = true;
+
+        staggerTimer = 0f;
+
+        staggerStartPos = transform.position;
+
+        Vector3 direction =
+            (transform.position - attackerPosition).normalized;
+
+        direction.y = 0;
+
+        staggerTargetPos =
+            staggerStartPos + direction * staggerDistance;
     }
 }
