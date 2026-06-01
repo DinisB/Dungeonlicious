@@ -19,13 +19,29 @@ namespace Dungeonlicious.Assets.Script
             upgrades = new List<IUpgrade>();
             for (int i = 0; i < 3; i++)
             {
-                upgrades.Add(new Upgrade((UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length)), UnityEngine.Random.Range(1, 3)));
+                IUpgrade upgrade = new Upgrade((UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length)), 0);
+                upgrade.upgradeValue = UnityEngine.Random.Range(1, GetUpgradeValue(upgrade.upgradeType));
+                upgrades.Add(upgrade);
             }
             UpdateUpgradeCanvas();
             for (int i = 0; i < 3; i++)
             {
                 UpgradeCanvas[i].GetComponent<UpgradeCanvas>().onUpgradeSelected.AddListener(NextLevel);
             }
+        }
+
+        public int GetUpgradeValue(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return 20;
+            else if (upgradeType == UpgradeType.Speed)
+                return 1;
+            else if (upgradeType == UpgradeType.Strength)
+                return 5;
+            else if (upgradeType == UpgradeType.Knife)
+                return 1;
+            else
+                return 0;
         }
 
         // Update is called once per frame
