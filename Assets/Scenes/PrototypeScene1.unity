@@ -14027,7 +14027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tomato
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  attackAmmount: 40
+  attackAmmount: 20
   _indicator: {fileID: 872922340}
 --- !u!65 &165942861
 BoxCollider:
@@ -67619,7 +67619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tomato
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  attackAmmount: 40
+  attackAmmount: 20
   _indicator: {fileID: 378283241}
 --- !u!65 &625653762
 BoxCollider:
@@ -142300,7 +142300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tomato
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  attackAmmount: 40
+  attackAmmount: 20
   _indicator: {fileID: 808778526}
 --- !u!65 &1250981442
 BoxCollider:
@@ -211105,7 +211105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tomato
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  attackAmmount: 40
+  attackAmmount: 20
   _indicator: {fileID: 1140392725}
 --- !u!65 &1787169641
 BoxCollider:
