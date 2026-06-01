@@ -83,7 +83,7 @@ namespace Dungeonlicious.Assets.Script
             Vector3 direction =
                 (player.position - firePoint.position).normalized;
 
-            transform.LookAt(player.position);
+            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 
             GameObject projectileObject = Instantiate(
                 projectilePrefab,
