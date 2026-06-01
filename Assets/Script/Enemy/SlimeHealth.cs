@@ -14,6 +14,11 @@ public class SlimeHealth : MonoBehaviour, IDamageable
 
     private Color originalColor;
     private Coroutine flashCoroutine;
+    private Coroutine squashCoroutine;
+
+    private bool isDead;
+
+    public bool IsDead => isDead;
 
     private void Awake()
     {
@@ -29,6 +34,9 @@ public class SlimeHealth : MonoBehaviour, IDamageable
 
     public void Damage(int amount, GameObject damager)
     {
+        if (isDead)
+            return;
+
         currentHealth -= amount;
 
         if (flashCoroutine != null)
@@ -36,17 +44,17 @@ public class SlimeHealth : MonoBehaviour, IDamageable
 
         flashCoroutine = StartCoroutine(Flash());
 
+        if (squashCoroutine != null)
+            StopCoroutine(squashCoroutine);
+
+        squashCoroutine = StartCoroutine(HitSquash());
+
         slimeAI.Stagger(damager.transform.position);
 
         if (currentHealth <= 0)
         {
-            Die();
+            isDead = true;
         }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
     }
 
     private IEnumerator Flash()
@@ -59,5 +67,15 @@ public class SlimeHealth : MonoBehaviour, IDamageable
             slimeRenderer.material.color = originalColor;
             yield return new WaitForSeconds(0.05f);
         }
+    }
+    private IEnumerator HitSquash()
+    {
+        Vector3 originalScale = transform.localScale;
+
+        transform.localScale = originalScale * 0.85f;
+
+        yield return new WaitForSeconds(0.05f);
+
+        transform.localScale = originalScale;
     }
 }

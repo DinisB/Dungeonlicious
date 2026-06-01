@@ -23,11 +23,19 @@ public class SlimeAI : MonoBehaviour
     private Vector3 staggerStartPos;
     private Vector3 staggerTargetPos;
 
+    private SlimeHealth slimeHealth;
+
+    [SerializeField] private float deathDuration = 0.4f;
+
+    private float deathTimer;
+    private Vector3 deathStartScale;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         target = playerAgent.GetComponent<IDamageable>();
+        slimeHealth = GetComponent<SlimeHealth>();
 
         State attack = new State(
             "attack",
@@ -46,6 +54,13 @@ public class SlimeAI : MonoBehaviour
             () => agent.isStopped = true,
             UpdateStagger,
             () => isStaggered = false
+        );
+
+        State dead = new State(
+            "dead",
+            EnterDead,
+            UpdateDead,
+            null
         );
 
         Transition chaseToAttack = new Transition(
@@ -76,9 +91,22 @@ public class SlimeAI : MonoBehaviour
             stagger
         );
 
+        Transition chaseToDead =
+            new Transition(() => slimeHealth.IsDead, null, dead);
+
+        Transition attackToDead =
+            new Transition(() => slimeHealth.IsDead, null, dead);
+
+        Transition staggerToDead =
+            new Transition(() => slimeHealth.IsDead, null, dead);
+
+        chase.AddTransition(chaseToDead);
         chase.AddTransition(chaseToStagger);
+        chase.AddTransition(chaseToAttack);
+        attack.AddTransition(attackToDead);
         attack.AddTransition(attackToStagger);
         attack.AddTransition(attackToChase);
+        
 
         Transition staggerToChase = new Transition(
             () => !isStaggered,
@@ -142,6 +170,33 @@ public class SlimeAI : MonoBehaviour
         if (t >= 1f)
         {
             isStaggered = false;
+        }
+    }
+
+    private void EnterDead()
+    {
+        agent.isStopped = true;
+        agent.enabled = false;
+
+        deathTimer = 0f;
+
+        deathStartScale = transform.localScale;
+
+        GetComponent<Collider>().enabled = false;
+    }
+
+    private void UpdateDead()
+    {
+        deathTimer += Time.deltaTime;
+
+        float t = deathTimer / deathDuration;
+
+        transform.localScale =
+            Vector3.Lerp(deathStartScale, Vector3.zero, t);
+
+        if (t >= 1f)
+        {
+            Destroy(gameObject);
         }
     }
 

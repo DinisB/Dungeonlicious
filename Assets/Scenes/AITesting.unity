@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 261340007}
   - component: {fileID: 261340006}
   - component: {fileID: 261340012}
+  - component: {fileID: 261340013}
+  - component: {fileID: 261340014}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -158,6 +160,7 @@ MonoBehaviour:
   damageInterval: 1
   staggerDuration: 0.3
   staggerDistance: 1.5
+  deathDuration: 0.4
 --- !u!195 &261340007
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -297,6 +300,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &261340013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261340005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bbcd009ceade1d4d91a4a7ab287b966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeHealth
+  maxHealth: 30
+  slimeRenderer: {fileID: 261340009}
+  hitColor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.1
+--- !u!114 &261340014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261340005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89128a63dd04712448c96bf931f0fa73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackChecker
+  player: {fileID: 283956233}
 --- !u!1 &283956233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7126418567848528978, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
