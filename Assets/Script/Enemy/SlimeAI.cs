@@ -1,4 +1,5 @@
 using Assets.Script.FSM;
+using Dungeonlicious.Assets.Script;
 using Dungeonlicious.Assets.Script.Enums;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,6 +34,7 @@ public class SlimeAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerAgent = FindFirstObjectByType<PlayerHealth>().gameObject;
         agent = GetComponent<NavMeshAgent>();
         target = playerAgent.GetComponent<IDamageable>();
         slimeHealth = GetComponent<SlimeHealth>();
