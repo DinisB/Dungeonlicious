@@ -35,6 +35,7 @@ public class CameraController : MonoBehaviour
         _zoomVelocity = 0f;
         canMoveCamera = true;
         _isLocked = false;
+        UpdatePosition();
     }
 
     private void Update()
