@@ -91,6 +91,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8943511152050329270}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5177382542331054058}
   m_SourcePrefab: {fileID: 100100000, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
 --- !u!23 &812841689900357822 stripped
 MeshRenderer:
@@ -194,3 +197,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackChecker
   player: {fileID: 0}
+--- !u!114 &5177382542331054058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172967001464519019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a84fc5252b07c44bd1212c1453039f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeCombat
