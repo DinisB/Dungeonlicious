@@ -34,11 +34,7 @@ public class GameManager : MonoBehaviour
     {
         if (ratio <= 0f)
         {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+            SceneManager.LoadScene("Main Menu");
         }
     }
     /*
