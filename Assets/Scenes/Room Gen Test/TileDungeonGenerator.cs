@@ -18,6 +18,9 @@ namespace Dungeonlicious.Assets.Scripts
         [SerializeField] private GameObject cornerPrefabLeftDown;
         [SerializeField] private GameObject cornerPrefabDownRight;
 
+        [Header("Special Prefabs")]
+        [SerializeField] private GameObject furnacePrefab;
+
         [Header("Seed Settings")]
         [SerializeField] private bool useCustomSeed = false;
         [SerializeField] private int seed = 1337;
@@ -34,26 +37,17 @@ namespace Dungeonlicious.Assets.Scripts
         private readonly List<RoomData> placedRooms = new List<RoomData>();
         private readonly List<Vector3> corridorEntrances = new List<Vector3>();
         private readonly List<Vector3> corridorTiles = new List<Vector3>();
+        private readonly List<CorridorEntrance> corridorEntrancesData = new List<CorridorEntrance>();
 
-        private enum Direction
+        private struct CorridorEntrance
         {
-            North,
-            South,
-            East,
-            West
-        }
+            public Vector3 position;
+            public Direction facing;
 
-        private struct RoomData
-        {
-            public RectInt rect;
-            public Vector3 center;
-            public Transform root;
-
-            public RoomData(RectInt rect, Vector3 center, Transform root)
+            public CorridorEntrance(Vector3 position, Direction facing)
             {
-                this.rect = rect;
-                this.center = center;
-                this.root = root;
+                this.position = position;
+                this.facing = facing;
             }
         }
 
@@ -73,6 +67,7 @@ namespace Dungeonlicious.Assets.Scripts
             placedRooms.Clear();
             corridorEntrances.Clear();
             corridorTiles.Clear();
+            corridorEntrancesData.Clear();
 
             roomCount = Random.Range(5, 5 + clampedLevel);
             int firstWidth = Random.Range(minRoomSize.x, maxRoomSize.x + 1);
@@ -131,6 +126,7 @@ namespace Dungeonlicious.Assets.Scripts
             }
 
             PlaceWalls(transform);
+            Placefurnace(transform);
         }
 
         private RoomData CreateRoom(Transform parent, string name, RectInt rect)
@@ -188,6 +184,8 @@ namespace Dungeonlicious.Assets.Scripts
 
             Vector3? firstEntrance = null;
             Vector3? lastEntrance = null;
+            Direction firstEntranceFacing = Direction.East;
+            Direction lastEntranceFacing = Direction.East;
 
             for (int i = 0; i <= stepsX; i++)
             {
@@ -203,7 +201,12 @@ namespace Dungeonlicious.Assets.Scripts
 
                     corridorTiles.Add(position);
                     if (!firstEntrance.HasValue)
+                    {
                         firstEntrance = position;
+                        firstEntranceFacing = signX > 0 ? Direction.East : Direction.West;
+                    }
+                    lastEntrance = position;
+                    lastEntranceFacing = signX > 0 ? Direction.East : Direction.West;
                 }
                 currentTileX += signX;
             }
@@ -222,14 +225,21 @@ namespace Dungeonlicious.Assets.Scripts
 
                     corridorTiles.Add(position);
                     lastEntrance = position;
+                    lastEntranceFacing = signZ > 0 ? Direction.North : Direction.South;
                 }
                 currentTileZ += signZ;
             }
 
             if (firstEntrance.HasValue)
+            {
                 corridorEntrances.Add(firstEntrance.Value);
+                corridorEntrancesData.Add(new CorridorEntrance(firstEntrance.Value, firstEntranceFacing));
+            }
             if (lastEntrance.HasValue)
+            {
                 corridorEntrances.Add(lastEntrance.Value);
+                corridorEntrancesData.Add(new CorridorEntrance(lastEntrance.Value, lastEntranceFacing));
+            }
 
             if (corridorTiles.Count > 0)
             {
@@ -338,10 +348,65 @@ namespace Dungeonlicious.Assets.Scripts
         {
             GameObject player = GameObject.FindWithTag("Player");
 
-                Vector3 spawnPos = room.center;
-                spawnPos.y = tileSize.y;
-                player.transform.position = spawnPos;
-            
+            Vector3 spawnPos = room.center;
+            spawnPos.y = tileSize.y;
+            player.transform.position = spawnPos;
+
+        }
+
+        private void Placefurnace(Transform parent)
+        {
+            if (furnacePrefab == null || placedRooms.Count == 0)
+                return;
+
+            RoomData lastRoom = placedRooms[placedRooms.Count - 1];
+
+            float roomRightWallX = (lastRoom.rect.x + lastRoom.rect.width - 0.5f) * tileSize.x;
+            float roomNorthWallZ = (lastRoom.rect.y + lastRoom.rect.height - 0.5f) * tileSize.z;
+            float corridorRightX = (lastRoom.rect.x + lastRoom.rect.width) * tileSize.x;
+            float corridorNorthZ = (lastRoom.rect.y + lastRoom.rect.height) * tileSize.z;
+            float centerZ = (lastRoom.rect.y + lastRoom.rect.height * 0.5f) * tileSize.z;
+            float centerX = (lastRoom.rect.x + lastRoom.rect.width * 0.5f) * tileSize.x;
+
+            bool rightHasOpening = false;
+            bool northHasOpening = false;
+            foreach (CorridorEntrance entrance in corridorEntrancesData)
+            {
+                if (Mathf.Approximately(entrance.position.x, corridorRightX) &&
+                    entrance.position.z >= lastRoom.rect.y * tileSize.z &&
+                    entrance.position.z < (lastRoom.rect.y + lastRoom.rect.height) * tileSize.z)
+                {
+                    rightHasOpening = true;
+                }
+
+                if (Mathf.Approximately(entrance.position.z, corridorNorthZ) &&
+                    entrance.position.x >= lastRoom.rect.x * tileSize.x &&
+                    entrance.position.x < (lastRoom.rect.x + lastRoom.rect.width) * tileSize.x)
+                {
+                    northHasOpening = true;
+                }
+            }
+
+            Vector3 position;
+            Quaternion rotation;
+
+            if (!rightHasOpening)
+            {
+                position = new Vector3(roomRightWallX - tileSize.x * 0.5f, 0f, centerZ);
+                rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else if (!northHasOpening)
+            {
+                position = new Vector3(centerX, 0f, roomNorthWallZ - tileSize.z * 0.5f);
+                rotation = Quaternion.Euler(0f, -90, 0f);
+            }
+            else
+            {
+                position = new Vector3(roomRightWallX, 0f, centerZ);
+                rotation = Quaternion.Euler(0f, 0, 0f);
+            }
+
+            Instantiate(furnacePrefab, position, rotation, parent);
         }
 
         private void PlaceWalls(Transform parent)
@@ -461,43 +526,43 @@ namespace Dungeonlicious.Assets.Scripts
 
             foreach (Vector3 cornerPos in cornerRightUp)
             {
-                    Instantiate(cornerPrefabRightUp, cornerPos, cornerPrefabRightUp.transform.rotation, parent);
+                Instantiate(cornerPrefabRightUp, cornerPos, cornerPrefabRightUp.transform.rotation, parent);
 
             }
 
             foreach (Vector3 cornerPos in cornerUpLeft)
             {
-                    Instantiate(cornerPrefabUpLeft, cornerPos, cornerPrefabUpLeft.transform.rotation, parent);
+                Instantiate(cornerPrefabUpLeft, cornerPos, cornerPrefabUpLeft.transform.rotation, parent);
 
             }
 
             foreach (Vector3 cornerPos in cornerLeftDown)
             {
-                    Instantiate(cornerPrefabLeftDown, cornerPos, cornerPrefabLeftDown.transform.rotation, parent);
+                Instantiate(cornerPrefabLeftDown, cornerPos, cornerPrefabLeftDown.transform.rotation, parent);
 
             }
 
             foreach (Vector3 cornerPos in cornerDownRight)
             {
-                    Instantiate(cornerPrefabDownRight, cornerPos, cornerPrefabDownRight.transform.rotation, parent);
+                Instantiate(cornerPrefabDownRight, cornerPos, cornerPrefabDownRight.transform.rotation, parent);
 
             }
 
             foreach (Vector3 wallPos in rightWallPositions)
             {
-                    Instantiate(wallPrefabRight, wallPos, wallPrefabRight.transform.rotation, parent);
+                Instantiate(wallPrefabRight, wallPos, wallPrefabRight.transform.rotation, parent);
 
             }
 
             foreach (Vector3 wallPos in upWallPositions)
             {
-                    Instantiate(wallPrefabUp, wallPos, wallPrefabUp.transform.rotation, parent);
+                Instantiate(wallPrefabUp, wallPos, wallPrefabUp.transform.rotation, parent);
 
             }
 
             foreach (Vector3 wallPos in leftWallPositions)
             {
-                    Instantiate(wallPrefabLeft, wallPos, wallPrefabLeft.transform.rotation, parent);
+                Instantiate(wallPrefabLeft, wallPos, wallPrefabLeft.transform.rotation, parent);
 
             }
 

@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 
 public class CameraController : MonoBehaviour
 {
@@ -23,7 +21,6 @@ public class CameraController : MonoBehaviour
     private float _zoomAcceleration;
     private float _zoomVelocity;
     private InputAction _moveAction;
-    private bool canMoveCamera;
     private bool _isLocked;
     private GameObject _currentTarget;
 
@@ -33,20 +30,13 @@ public class CameraController : MonoBehaviour
         _zoomAction = InputSystem.actions.FindAction("Zoom");
         _moveAction = InputSystem.actions.FindAction("Move");
         _zoomVelocity = 0f;
-        canMoveCamera = true;
         _isLocked = false;
-        UpdatePosition();
     }
 
     private void Update()
     {
         UpdatePosition();
         UpdateZoom();
-
-        if (_moveAction.ReadValue<Vector2>() != Vector2.zero && !_isLocked)
-        {
-            canMoveCamera = false;
-        }
 
         if (_isLocked && _currentTarget != null)
         {
@@ -56,7 +46,7 @@ public class CameraController : MonoBehaviour
 
     private void UpdatePosition()
     {
-        if (!canMoveCamera && !_isLocked)
+        if (!_isLocked)
         {
             transform.position = Vector3.Lerp(transform.position, _followTarget.position, 1 - Mathf.Exp(-_followResponsiveness * Time.deltaTime));
         }

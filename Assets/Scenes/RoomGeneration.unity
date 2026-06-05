@@ -1093,9 +1093,10 @@ MonoBehaviour:
   cornerPrefabUpLeft: {fileID: 162727046732541057, guid: f1c526e6c33c7304e81d6e019f0c3f55, type: 3}
   cornerPrefabLeftDown: {fileID: 162727046732541057, guid: ec09c3885d5f27049adb65ddc69670bb, type: 3}
   cornerPrefabDownRight: {fileID: 162727046732541057, guid: 5e8be8198d4ce9640bedb906445dfe5d, type: 3}
+  furnacePrefab: {fileID: 2326484513191810937, guid: 9a1fabfb77ad72742a2bbb2f2918fc99, type: 3}
   useCustomSeed: 0
   seed: 12345
-  level: 9
+  level: 1
   maxLevel: 9
   roomCount: 8
   minRoomSize: {x: 8, y: 8}
