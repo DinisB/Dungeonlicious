@@ -11,6 +11,11 @@ public class Exit : MonoBehaviour
     {
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
         DontDestroyOnLoad(upgradeManager.gameObject);
+        if (upgradeCanvasManager == null)
+        {
+            upgradeCanvasManager = FindFirstObjectByType<UpgradeCanvasManager>();
+            upgradeCanvasManager.gameObject.SetActive(false);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

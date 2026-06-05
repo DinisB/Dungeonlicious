@@ -1,54 +1,55 @@
-namespace Dungeonlicious.Assets.Script {
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class GameManager : MonoBehaviour
+namespace Dungeonlicious.Assets.Script
 {
-    static public GameManager instance;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
 
-    void Awake()
+    public class GameManager : MonoBehaviour
     {
-        EnforceSingleton();
-        RegisterEventListeners();
-    }
+        static public GameManager instance;
 
-    private void EnforceSingleton()
-    {
-        if (instance == null)
+        void Awake()
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            EnforceSingleton();
+            RegisterEventListeners();
         }
-        else
-            Destroy(gameObject);
-    }
 
-    private void RegisterEventListeners()
-    {
-        PlayerHealth playerHealth = FindAnyObjectByType<PlayerHealth>();
-        playerHealth.OnHealthChanged += CheckForGameOver;
-        //playerHealth.OnHealthChanged += UpdateHealthBarFill;
-    }
-
-    private void CheckForGameOver(float ratio)
-    {
-        if (ratio <= 0f)
+        private void EnforceSingleton()
         {
-            SceneManager.LoadScene("Main Menu");
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+                Destroy(gameObject);
+        }
+
+        private void RegisterEventListeners()
+        {
+            PlayerHealth playerHealth = FindAnyObjectByType<PlayerHealth>();
+            playerHealth.OnHealthChanged += CheckForGameOver;
+            //playerHealth.OnHealthChanged += UpdateHealthBarFill;
+        }
+
+        private void CheckForGameOver(float ratio)
+        {
+            if (ratio <= 0f)
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
+        }
+        /*
+        private void UpdateHealthBarFill(float ratio)
+        {
+            _hudManager.SetHealthFill(ratio);
+        }
+        */
+
+        public void NextLevel(string levelName)
+        {
+            TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
+            tileDungeonGenerator.IncreaseLevel();
+            SceneManager.LoadScene(levelName);
         }
     }
-    /*
-    private void UpdateHealthBarFill(float ratio)
-    {
-        _hudManager.SetHealthFill(ratio);
-    }
-    */
-
-    public void NextLevel()
-    {
-        SceneManager.LoadScene("PrototypeScene1");
-    }
-
-
-}
 }

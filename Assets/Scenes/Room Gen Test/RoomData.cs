@@ -1,8 +1,8 @@
-namespace Dungeonlicious.Assets.Scripts
+namespace Dungeonlicious.Assets.Script
 {
     using System.Collections.Generic;
     using UnityEngine;
-    
+
     public struct RoomData
         {
             public RectInt rect;

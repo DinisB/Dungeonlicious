@@ -1,10 +1,12 @@
-namespace Dungeonlicious.Assets.Scripts
+namespace Dungeonlicious.Assets.Script
 {
     using System.Collections.Generic;
     using UnityEngine;
 
     public class TileDungeonGenerator : MonoBehaviour
     {
+        private static TileDungeonGenerator _instance;
+        public static TileDungeonGenerator Instance => _instance;
         [SerializeField] private GameObject tilePrefab;
 
         [Header("Wall Prefabs")]
@@ -55,7 +57,25 @@ namespace Dungeonlicious.Assets.Scripts
         {
             tileSize = GetTileSize(tilePrefab);
 
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             GenerateDungeon();
+        }
+
+        public int Level => level;
+
+        public void IncreaseLevel()
+        {
+            level = Mathf.Min(level + 1, maxLevel);
         }
 
         private void GenerateDungeon()

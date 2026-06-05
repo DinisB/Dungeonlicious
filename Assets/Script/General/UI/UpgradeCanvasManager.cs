@@ -4,6 +4,7 @@ namespace Dungeonlicious.Assets.Script
     using System.Collections.Generic;
     using System;
     using UnityEngine.UI;
+    using UnityEngine.SceneManagement;
 
     public class UpgradeCanvasManager : MonoBehaviour
     {
@@ -64,7 +65,7 @@ namespace Dungeonlicious.Assets.Script
             {
                 UpgradeCanvas[i].SetActive(false);
                 GameManager gameManager = FindFirstObjectByType<GameManager>();
-                gameManager.NextLevel();
+                gameManager.NextLevel(SceneManager.GetActiveScene().name);
             }
         }
     }

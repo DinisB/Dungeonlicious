@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 4222187771953489414}
   - component: {fileID: 5165974812025081407}
   - component: {fileID: 7821638895692506579}
+  - component: {fileID: 561936785686302724}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -203,8 +204,9 @@ MonoBehaviour:
   _maxFallSpeed: 30
   _speed: 5
   _rotationSensitivity: 10
-  model: {fileID: 0}
+  model: {fileID: 6636679341465584248}
   cameraTransform: {fileID: 0}
+  _anim: {fileID: 122095040334348984}
 --- !u!114 &5274704536482628016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _attackBox: {fileID: 3091869684429367014}
-  _spoonAnim: {fileID: 0}
+  _anim: {fileID: 122095040334348984}
   _attackCollider: {fileID: 2362827190741135654}
 --- !u!114 &4222187771953489414
 MonoBehaviour:
@@ -234,9 +236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerKnifeThrow
   knifePrefab: {fileID: 6403799323615129370, guid: 44668eab6fb5f534a8af56193121d720, type: 3}
   throwSpot: {fileID: 8842940278943778960}
-  modelDirection: {fileID: 0}
   knifeCount: 5
   knifeCountText: {fileID: 0}
+  lineRenderer: {fileID: 561936785686302724}
+  lockOnScript: {fileID: 733003403375403705}
 --- !u!114 &5165974812025081407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +281,125 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!120 &561936785686302724
+LineRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126418567848528978}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 727381408aa86a541a77336600f166c0, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.22038269
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
+  m_ApplyActiveColorSpace: 1
 --- !u!1 &7959820443418133595
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 8654196109868724829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0009200001, z: 0.007680001}
+  m_LocalPosition: {x: 0, y: 0.007, z: 0.007680001}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -366,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -427,8 +549,18 @@ PrefabInstance:
       addedObject: {fileID: 8842940278943778960}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
+--- !u!95 &122095040334348984 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
+  m_PrefabInstance: {fileID: 5826340029252239145}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6292065371411880130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
+  m_PrefabInstance: {fileID: 5826340029252239145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6636679341465584248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cd7fc1f8f014e2848a22beadf782c3a6, type: 3}
   m_PrefabInstance: {fileID: 5826340029252239145}
   m_PrefabAsset: {fileID: 0}

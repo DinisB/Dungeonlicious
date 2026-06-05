@@ -1,4 +1,4 @@
-namespace Dungeonlicious.Assets.Scripts
+namespace Dungeonlicious.Assets.Script
 {
     public enum Direction
     {
