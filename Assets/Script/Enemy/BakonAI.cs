@@ -156,7 +156,7 @@ public class BakonAI : MonoBehaviour
         //aim at player for 1-2 seconds, use Raycast to check if projectile path is clear then spawn projectile
         //if Raycast fails to return clear path to player switch to "move" State
         Vector3 targetPos =
-        playerAgent.transform.position + Vector3.up * 1.5f;
+        playerAgent.transform.position + Vector3.up;
 
         Vector3 dir =
             (targetPos - transform.position).normalized;
