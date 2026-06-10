@@ -25,12 +25,12 @@ namespace Dungeonlicious.Assets.Script
         void Start()
         {
             UpdateHealthBar((float)playerHealth.GetHealth() / playerHealth.GetMaxHealth());
-            healthText.text = $"{playerHealth.GetHealth()} / {playerHealth.GetMaxHealth()}";
         }
 
         private void UpdateHealthBar(float normalizedHealth)
         {
             healthBar.fillAmount = normalizedHealth;
+            healthText.text = $"{playerHealth.GetHealth()} / {playerHealth.GetMaxHealth()}";
         }
 
         private void UpdateTomatoBar(float time, float totalTime)

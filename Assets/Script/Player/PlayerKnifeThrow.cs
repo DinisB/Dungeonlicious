@@ -94,7 +94,7 @@ namespace Dungeonlicious.Assets.Script
 
         private void UpdateKnifeUI()
         {
-            knifeCountText.text = "Knives: " + knifeCount;
+            knifeCountText.text = ": " + knifeCount;
         }
     }
 }
