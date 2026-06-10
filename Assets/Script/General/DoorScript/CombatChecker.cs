@@ -6,6 +6,8 @@ public class CombatChecker : MonoBehaviour
     [SerializeField] private GameObject[] doors;
 
     private List<GameObject> enemiesInCombat = new List<GameObject>();
+    [SerializeField] private Transform[] waypoints;
+    public Transform[] Waypoints => waypoints;
     private bool playerInside = false;
 
     void Start()

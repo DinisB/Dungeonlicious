@@ -12,4 +12,9 @@ public class BakonCombat : MonoBehaviour, ICombatEnemy
     {
         combatChecker?.UnregisterEnemy(gameObject);
     }
+
+    public Transform[] GetWaypoints()
+    {
+        return combatChecker != null ? combatChecker.Waypoints : null;
+    }
 }

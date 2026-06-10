@@ -10,7 +10,6 @@ public class SlimeHealth : MonoBehaviour, IDamageable
 
     [SerializeField] private Renderer slimeRenderer;
     [SerializeField] private Color hitColor = Color.white;
-    [SerializeField] private float flashDuration = 0.1f;
 
     private Color originalColor;
     private Coroutine flashCoroutine;

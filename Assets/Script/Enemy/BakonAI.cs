@@ -11,7 +11,6 @@ public class BakonAI : MonoBehaviour
     private NavMeshAgent agent;
     private IDamageable target;
     private float attackTimer;
-    [SerializeField] private float attackCooldown = 3f;
     private bool wasHit;
     private BakonHealth bakonHealth;
     [SerializeField] private float staggerTimer;
@@ -25,9 +24,6 @@ public class BakonAI : MonoBehaviour
     private Transform firePoint;
 
     [SerializeField]
-    private float projectileSpeed = 10f;
-
-    [SerializeField]
     private int projectileDamage = 5;
 
     private float repositionTimer;
@@ -36,13 +32,20 @@ public class BakonAI : MonoBehaviour
 
     private bool reachedWaypoint;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        BakonCombat combat = GetComponent<BakonCombat>();
         playerAgent = FindFirstObjectByType<PlayerHealth>().gameObject;
         agent = GetComponent<NavMeshAgent>();
         target = playerAgent.GetComponent<IDamageable>();
         bakonHealth = GetComponent<BakonHealth>();
+
+        if (combat != null)
+        {
+            waypoints = combat.GetWaypoints();
+        }
 
         bakonHealth.OnDamaged += HandleDamaged;
 

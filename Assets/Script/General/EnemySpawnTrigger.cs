@@ -41,6 +41,7 @@ public class EnemySpawnTrigger : MonoBehaviour
                 controller.Initialize(combatChecker);
             }
         }
+        
         foreach (Transform point in rangeSpawnPoints)
         {
             GameObject enemy = Instantiate(rangeEnemyPrefab, point.position, point.rotation);
