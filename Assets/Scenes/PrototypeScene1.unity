@@ -29653,9 +29653,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnTrigger
   enemyPrefab: {fileID: 1172967001464519019, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
+  rangeEnemyPrefab: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
   spawnPoints:
   - {fileID: 237566435}
   - {fileID: 2057057491}
+  rangeSpawnPoints:
+  - {fileID: 991760534}
 --- !u!114 &334455176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99984,10 +99987,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnTrigger
   enemyPrefab: {fileID: 1172967001464519019, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
+  rangeEnemyPrefab: {fileID: 0}
   spawnPoints:
   - {fileID: 730803325}
   - {fileID: 555606104}
   - {fileID: 1537878550}
+  rangeSpawnPoints: []
 --- !u!1001 &874704087
 PrefabInstance:
   m_ObjectHideFlags: 0
