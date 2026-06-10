@@ -28,6 +28,7 @@ namespace Dungeonlicious.Assets.Script
             for (int i = 0; i < 3; i++)
             {
                 UpgradeCanvas[i].GetComponent<UpgradeCanvas>().onUpgradeSelected.AddListener(NextLevel);
+                UpgradeCanvas[i].gameObject.SetActive(false);
             }
         }
 

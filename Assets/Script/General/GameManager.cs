@@ -48,7 +48,7 @@ namespace Dungeonlicious.Assets.Script
         public void NextLevel(string levelName)
         {
             TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
-            tileDungeonGenerator.IncreaseLevel();
+            // if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
             SceneManager.LoadScene(levelName);
         }
     }

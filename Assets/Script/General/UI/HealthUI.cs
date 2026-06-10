@@ -3,12 +3,14 @@ namespace Dungeonlicious.Assets.Script
     using UnityEngine;
     using System.Collections;
     using UnityEngine.UI;
+    using TMPro;
 
     public class HealthUI : MonoBehaviour
     {
         [SerializeField] private Image healthBar;
         [SerializeField] private Image tomatoBar;
         [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private TextMeshProUGUI healthText;
 
         void OnEnable()
         {
@@ -23,6 +25,7 @@ namespace Dungeonlicious.Assets.Script
         void Start()
         {
             UpdateHealthBar((float)playerHealth.GetHealth() / playerHealth.GetMaxHealth());
+            healthText.text = $"{playerHealth.GetHealth()} / {playerHealth.GetMaxHealth()}";
         }
 
         private void UpdateHealthBar(float normalizedHealth)

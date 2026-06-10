@@ -9,21 +9,18 @@ namespace Dungeonlicious.Assets.Script
         public static TileDungeonGenerator Instance => _instance;
         [SerializeField] private GameObject tilePrefab;
 
-        [Header("Wall Prefabs")]
-        [SerializeField] private GameObject wallPrefabRight;
-        [SerializeField] private GameObject wallPrefabUp;
-        [SerializeField] private GameObject wallPrefabLeft;
-        [SerializeField] private GameObject wallPrefabDown;
+        [SerializeField] private List<GameObject> wallPrefabsRight;
+        [SerializeField] private List<GameObject> wallPrefabsUp;
+        [SerializeField] private List<GameObject> wallPrefabsLeft;
+        [SerializeField] private List<GameObject> wallPrefabsDown;
 
         [SerializeField] private GameObject cornerPrefabRightUp;
         [SerializeField] private GameObject cornerPrefabUpLeft;
         [SerializeField] private GameObject cornerPrefabLeftDown;
         [SerializeField] private GameObject cornerPrefabDownRight;
 
-        [Header("Special Prefabs")]
         [SerializeField] private GameObject furnacePrefab;
 
-        [Header("Seed Settings")]
         [SerializeField] private bool useCustomSeed = false;
         [SerializeField] private int seed = 1337;
 
@@ -371,7 +368,6 @@ namespace Dungeonlicious.Assets.Script
             Vector3 spawnPos = room.center;
             spawnPos.y = tileSize.y;
             player.transform.position = spawnPos;
-
         }
 
         private void Placefurnace(Transform parent)
@@ -545,50 +541,47 @@ namespace Dungeonlicious.Assets.Script
             rightWallPositions.ExceptWith(cornerDownRight);
 
             foreach (Vector3 cornerPos in cornerRightUp)
-            {
                 Instantiate(cornerPrefabRightUp, cornerPos, cornerPrefabRightUp.transform.rotation, parent);
 
-            }
-
             foreach (Vector3 cornerPos in cornerUpLeft)
-            {
                 Instantiate(cornerPrefabUpLeft, cornerPos, cornerPrefabUpLeft.transform.rotation, parent);
 
-            }
-
             foreach (Vector3 cornerPos in cornerLeftDown)
-            {
                 Instantiate(cornerPrefabLeftDown, cornerPos, cornerPrefabLeftDown.transform.rotation, parent);
 
-            }
-
             foreach (Vector3 cornerPos in cornerDownRight)
-            {
                 Instantiate(cornerPrefabDownRight, cornerPos, cornerPrefabDownRight.transform.rotation, parent);
 
-            }
-
+            int rightIndex = 0;
             foreach (Vector3 wallPos in rightWallPositions)
             {
-                Instantiate(wallPrefabRight, wallPos, wallPrefabRight.transform.rotation, parent);
-
+                GameObject prefab = wallPrefabsRight[rightIndex % wallPrefabsRight.Count];
+                Instantiate(prefab, wallPos, prefab.transform.rotation, parent);
+                rightIndex++;
             }
 
+            int upIndex = 0;
             foreach (Vector3 wallPos in upWallPositions)
             {
-                Instantiate(wallPrefabUp, wallPos, wallPrefabUp.transform.rotation, parent);
-
+                GameObject prefab = wallPrefabsUp[upIndex % wallPrefabsUp.Count];
+                Instantiate(prefab, wallPos, prefab.transform.rotation, parent);
+                upIndex++;
             }
 
+            int leftIndex = 0;
             foreach (Vector3 wallPos in leftWallPositions)
             {
-                Instantiate(wallPrefabLeft, wallPos, wallPrefabLeft.transform.rotation, parent);
-
+                GameObject prefab = wallPrefabsLeft[leftIndex % wallPrefabsLeft.Count];
+                Instantiate(prefab, wallPos, prefab.transform.rotation, parent);
+                leftIndex++;
             }
 
+            int downIndex = 0;
             foreach (Vector3 wallPos in downWallPositions)
             {
-                Instantiate(wallPrefabDown, wallPos, wallPrefabDown.transform.rotation, parent);
+                GameObject prefab = wallPrefabsDown[downIndex % wallPrefabsDown.Count];
+                Instantiate(prefab, wallPos, prefab.transform.rotation, parent);
+                downIndex++;
             }
         }
 
@@ -604,20 +597,15 @@ namespace Dungeonlicious.Assets.Script
             if (renderers.Length > 0)
             {
                 foreach (Renderer renderer in renderers)
-                {
                     bounds.Encapsulate(renderer.bounds);
-                }
             }
             else if (colliders.Length > 0)
             {
                 foreach (Collider collider in colliders)
-                {
                     bounds.Encapsulate(collider.bounds);
-                }
             }
 
             Destroy(temp);
-
             return bounds.size;
         }
     }
