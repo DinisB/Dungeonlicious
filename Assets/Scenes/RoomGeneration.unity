@@ -1054,10 +1054,6 @@ MonoBehaviour:
   wallPrefabsDown:
   - {fileID: 1477339634118329904, guid: fc3cc7c2f1f60c740afc0a90953749d0, type: 3}
   - {fileID: 1477339634118329904, guid: f656d08aad26bda4484c76dc3834e97c, type: 3}
-  cornerPrefabRightUp: {fileID: 162727046732541057, guid: 10f5ccb635d2ac0419fb4535bcb8fb20, type: 3}
-  cornerPrefabUpLeft: {fileID: 162727046732541057, guid: f1c526e6c33c7304e81d6e019f0c3f55, type: 3}
-  cornerPrefabLeftDown: {fileID: 162727046732541057, guid: 5e8be8198d4ce9640bedb906445dfe5d, type: 3}
-  cornerPrefabDownRight: {fileID: 162727046732541057, guid: ec09c3885d5f27049adb65ddc69670bb, type: 3}
   furnacePrefab: {fileID: 2326484513191810937, guid: 9a1fabfb77ad72742a2bbb2f2918fc99, type: 3}
   useCustomSeed: 0
   seed: 12345
