@@ -30,6 +30,12 @@ public class BakonAI : MonoBehaviour
     [SerializeField]
     private int projectileDamage = 5;
 
+    private float repositionTimer;
+    private float attackCooldownTimer;
+    [SerializeField] private float cooldownLimit = 5f;
+
+    private bool reachedWaypoint;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -70,9 +76,19 @@ public class BakonAI : MonoBehaviour
 
         attack.AddTransition(
             new Transition(
-            () => !CanSeePlayer(),
+            () => wasHit,
+            null,
+        stagger));
+
+        attack.AddTransition(new Transition(
+            () => repositionTimer >= 3f,
             null,
         move));
+
+        attack.AddTransition(new Transition(
+            () => wasHit,
+            null,
+        stagger));
 
         move.AddTransition(new Transition(
             () => bakonHealth.CurrentHealth <= 0,
@@ -84,10 +100,11 @@ public class BakonAI : MonoBehaviour
             null,
             stagger));
 
-        move.AddTransition(new Transition(
-            () => CanSeePlayer(),
+        move.AddTransition(
+            new Transition(
+            () => reachedWaypoint,
             null,
-            attack));
+        attack));
 
         stagger.AddTransition(
             new Transition(
@@ -114,10 +131,7 @@ public class BakonAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bakonHealth.IsDead)
-        {
-            return;
-        }
+        attackCooldownTimer -= Time.deltaTime;
 
         fsm.Update()?.Invoke();
     }
@@ -131,44 +145,51 @@ public class BakonAI : MonoBehaviour
     private void EnterAttack()
     {
         agent.isStopped = true;
-        attackTimer = 0f;
+        repositionTimer = 0f;
     }
 
     public void AttackPlayer()
     {
         //aim at player for 1-2 seconds, use Raycast to check if projectile path is clear then spawn projectile
         //if Raycast fails to return clear path to player switch to "move" State
-        agent.isStopped = true;
+        Vector3 targetPos =
+        playerAgent.transform.position + Vector3.up * 1.5f;
 
-        Vector3 targetPosition = playerAgent.transform.position + Vector3.up * 1.5f;
+        Vector3 dir =
+            (targetPos - transform.position).normalized;
 
-        Vector3 dir = (targetPosition - transform.position).normalized;
+        transform.forward =
+            Vector3.Lerp(
+                transform.forward,
+                dir,
+                Time.deltaTime * 10f);
 
-        transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime* 5f);
+        float angle = Vector3.Angle(transform.forward, dir);
 
-        attackTimer += Time.deltaTime;
-
-        if(attackTimer >= attackCooldown)
+        if (HasClearShot())
         {
-            if(CanSeePlayer())
+            repositionTimer = 0f;
+
+            if (attackCooldownTimer <= 0f && angle < 30f)
             {
                 Shoot();
+                attackCooldownTimer = cooldownLimit;
             }
-            attackTimer = 0f;
+        }
+        else
+        {
+            repositionTimer += Time.deltaTime;
         }
     }
 
     public void MoveToPosition()
     {
-        //move to a specific map waypoint/ or random navmesh position if failed to aim at player or if attacked by player
+        if (agent.pathPending)
+        return;
 
-        if (wasHit) return;
-
-        agent.isStopped = false;
-
-        if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            SelectRandomWaypoint();
+            reachedWaypoint = true;
         }
     }
 
@@ -199,23 +220,6 @@ public class BakonAI : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    private bool CanSeePlayer()
-    {
-        Vector3 dir =
-        playerAgent.transform.position - transform.position;
-
-        if (Physics.Raycast(
-            transform.position + Vector3.up,
-            dir.normalized,
-            out RaycastHit hit,
-            50f))
-        {
-            return hit.collider.GetComponentInParent<PlayerHealth>() != null;
-        }
-
-        return false;
-    }
-
     private void SelectRandomWaypoint()
     {
         if(waypoints.Length == 0)
@@ -234,11 +238,14 @@ public class BakonAI : MonoBehaviour
         currentWaypoint = nextWaypoint;
 
         agent.SetDestination(currentWaypoint.position);
+
+        Debug.Log(agent.pathStatus);
     }
 
     private void EnterMove()
     {
         agent.isStopped = false;
+        reachedWaypoint = false;
         SelectRandomWaypoint();
     }
 
@@ -268,7 +275,27 @@ public class BakonAI : MonoBehaviour
     private void HandleDamaged()
     {
         wasHit = true;
-        EnterStagger();
-        Debug.Log("HIT REGISTERED");
+    }
+
+    private bool HasClearShot()
+    {
+        Vector3 origin =
+            firePoint.position;
+
+        Vector3 target =
+            playerAgent.transform.position + Vector3.up * 1.5f;
+
+        Vector3 dir = target - origin;
+
+        if (Physics.Raycast(
+            origin,
+            dir.normalized,
+            out RaycastHit hit,
+            dir.magnitude))
+        {
+            return hit.collider.GetComponentInParent<PlayerHealth>() != null;
+        }
+
+        return false;
     }
 }

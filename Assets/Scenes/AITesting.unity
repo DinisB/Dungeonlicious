@@ -424,14 +424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bakon
       objectReference: {fileID: 0}
-    - target: {fileID: 1522927698780373052, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522927698780373052, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4449995131534377423, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.798905
@@ -472,129 +464,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6052613959183161641, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.40499997
-      objectReference: {fileID: 0}
-    - target: {fileID: 6052613959183161641, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.276
-      objectReference: {fileID: 0}
-    - target: {fileID: 7451822541834827872, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_Radius
-      value: 0.439821
-      objectReference: {fileID: 0}
-    - target: {fileID: 7451822541834827872, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_Center.z
-      value: 0.060178995
-      objectReference: {fileID: 0}
-    - target: {fileID: 7793871344991952258, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 474514130228651924, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-    - {fileID: 7793871344991952258, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-    - {fileID: 6908302889862521420, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-    - {fileID: 1522927698780373052, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: 'waypoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1946798914}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: 'waypoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 274943528}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: 'waypoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 145756003}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: 'waypoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1281240289}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: 'waypoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1216708980}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 907402190}
-    - targetCorrespondingSourceObject: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 907402189}
-    - targetCorrespondingSourceObject: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 907402188}
-    - targetCorrespondingSourceObject: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 907402187}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
---- !u!1 &907402185 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-  m_PrefabInstance: {fileID: 907402184}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &907402186 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6052613959183161641, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
-  m_PrefabInstance: {fileID: 907402184}
-  m_PrefabAsset: {fileID: 0}
---- !u!195 &907402187
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907402185}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0.96
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &907402188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907402185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473d38f41d20eb549b8ef6ba3618c346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BakonAI
-  attackCooldown: 3
-  staggerTimer: 2
-  waypoints:
-  - {fileID: 1946798914}
-  - {fileID: 274943528}
-  - {fileID: 145756003}
-  - {fileID: 1281240289}
-  - {fileID: 1216708980}
-  projectilePrefab: {fileID: 5407816022253933593, guid: a5f365b2b385e474bbfed6bd5c291b23, type: 3}
-  firePoint: {fileID: 907402186}
-  projectileSpeed: 20
-  projectileDamage: 5
---- !u!114 &907402189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907402185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 635dd2530907f734f92b77ad2cec795f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BakonCombat
---- !u!114 &907402190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907402185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af0e38278e71fc46bc54f9e55fbad9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BakonHealth
-  maxHealth: 30
-  currentHealth: 0
 --- !u!1 &1207078485
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +526,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
