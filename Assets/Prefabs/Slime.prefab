@@ -165,6 +165,7 @@ MonoBehaviour:
   playerAgent: {fileID: 0}
   attackRange: 1.25
   damageInterval: 1
+  damageValue: 5
   staggerDuration: 0.3
   staggerDistance: 1.5
   deathDuration: 0.4

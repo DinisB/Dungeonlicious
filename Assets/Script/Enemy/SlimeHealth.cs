@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SlimeHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 30;
+    [SerializeField] private int maxHealth = 20;
     private int currentHealth;
     private SlimeAI slimeAI;
     public Vector3 position => transform.position;

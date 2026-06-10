@@ -9,13 +9,22 @@ namespace Dungeonlicious.Assets.Script
 
         private Vector3 direction;
         [SerializeField] private int damage;
+        private Rigidbody rb;
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+
+            Destroy(gameObject, lifeTime);
+        }
 
         public void Initialize(Vector3 direction, int damage)
         {
-            this.direction = direction;
+            rb.linearVelocity = direction.normalized * speed;
             this.damage = damage;
 
-            Destroy(gameObject, lifeTime);
+            transform.forward = direction.normalized;
+
         }
 
         private void Update()
@@ -25,14 +34,17 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Projectile hit: " + other.name);
+            
             IDamageable damageable =
                 other.GetComponent<IDamageable>();
 
             if (damageable != null)
             {
                 damageable.Damage(damage, gameObject);
-                Destroy(gameObject);
             }
+
+            Destroy(gameObject);
         }
     }
 }

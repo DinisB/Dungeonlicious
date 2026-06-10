@@ -1,6 +1,5 @@
 using Assets.Script.FSM;
 using Dungeonlicious.Assets.Script;
-using Dungeonlicious.Assets.Script.Enums;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +8,7 @@ public class SlimeAI : MonoBehaviour
     [SerializeField] private GameObject playerAgent;
     [SerializeField] private float attackRange = 1.25f;
     [SerializeField] private float damageInterval = 1f;
+    [SerializeField] private int damageValue = 3;
     private float damageTimer;
     private NavMeshAgent agent;
     private StateMachine fsm;
@@ -152,7 +152,7 @@ public class SlimeAI : MonoBehaviour
 
             if (target != null && target.CanBeDamaged())
             {
-                target.Damage(5, gameObject);
+                target.Damage(damageValue, gameObject);
             }
         }
     }
