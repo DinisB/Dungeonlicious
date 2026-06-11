@@ -67,10 +67,10 @@ namespace Dungeonlicious.Assets.Script
             wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
             cornerRightUpIdx = cornerRightDownIdx = cornerLeftUpIdx = cornerLeftDownIdx = 0;
 
-            int resolvedRoomCount = Random.Range(5, 5 + clampedLevel);
+            int resolvedRoomCount = Random.Range(5, 6 + clampedLevel);
 
             RectInt firstRect = RandomRect(Vector2Int.zero);
-            SpawnRoom("Room_1", firstRect);
+            SpawnRoom("Room_Start", firstRect);
             TeleportPlayerToCenter(firstRect);
 
             for (int a = 0; a < 20; a++)
@@ -91,7 +91,8 @@ namespace Dungeonlicious.Assets.Script
                     Direction dir = (Direction)Random.Range(0, 4);
                     RectInt rect = AdjacentRect(baseRect, dir);
                     if (Overlaps(rect)) continue;
-                    SpawnRoom($"Room_{i + 1}", rect);
+                    string roomName = (i == resolvedRoomCount - 1) ? "Room_End" : $"Room_{i + 1}";
+                    SpawnRoom(roomName, rect);
                     SpawnCorridor(baseRect, rect);
                     break;
                 }
@@ -99,7 +100,6 @@ namespace Dungeonlicious.Assets.Script
 
             PlaceWalls();
             FillDiagonalGaps();
-            PlaceFurnace();
         }
 
         private void SpawnRoom(string roomName, RectInt rect)
@@ -162,25 +162,25 @@ namespace Dungeonlicious.Assets.Script
 
                 if (needRight && needUp)
                 {
-                    SpawnCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, pos + new Vector3(1f,0f,1f));
+                    SpawnCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, pos + new Vector3(.5f, 0f, 1f));
                     skipRight = true;
                     skipUp = true;
                 }
                 if (needRight && needDown)
                 {
-                    SpawnCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, pos + new Vector3(1f,0f,-1f));
+                    SpawnCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, pos + new Vector3(1f, 0f, -.5f));
                     skipRight = true;
                     skipDown = true;
                 }
                 if (needLeft && needUp)
                 {
-                    SpawnCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, pos + new Vector3(-1f,0f,1f));
+                    SpawnCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, pos + new Vector3(-1f, 0f, .5f));
                     skipLeft = true;
                     skipUp = true;
                 }
                 if (needLeft && needDown)
                 {
-                    SpawnCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, pos + new Vector3(-1f,0f,-1f));
+                    SpawnCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, pos + new Vector3(-.5f, 0f, -1f));
                     skipLeft = true;
                     skipDown = true;
                 }
@@ -214,25 +214,25 @@ namespace Dungeonlicious.Assets.Script
                 bool w = floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y));
 
                 if (n && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y + 1)))
-                    SpawnRotatedCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, tile, Quaternion.Euler(0, 0, 0));
+                    SpawnRotatedCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, tile, Quaternion.Euler(0, 0, 0), new Vector3(0.5f,0f,0f));
 
                 if (n && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y + 1)))
-                    SpawnRotatedCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, tile, Quaternion.Euler(0, -90, 0));
+                    SpawnRotatedCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, tile, Quaternion.Euler(0, -90, 0), new Vector3(0f,0f,0.5f));
 
                 if (s && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y - 1)))
-                    SpawnRotatedCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, tile, Quaternion.Euler(0, 90, 0));
+                    SpawnRotatedCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, tile, Quaternion.Euler(0, 90, 0), new Vector3(0f,0f,-0.5f));
 
                 if (s && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y - 1)))
-                    SpawnRotatedCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, tile, Quaternion.Euler(0, 180, 0));
+                    SpawnRotatedCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, tile, Quaternion.Euler(0, 180, 0), new Vector3(-0.5f,0f,0f));
             }
         }
 
-        private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx, Vector2Int tilePos, Quaternion rotation)
+        private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx, Vector2Int tilePos, Quaternion rotation, Vector3 offset)
         {
             if (prefabs == null || prefabs.Count == 0) return;
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
-            Instantiate(p, GridToWorld(tilePos), rotation, transform);
+            Instantiate(p, GridToWorld(tilePos) + offset, rotation, transform);
         }
 
         private void SpawnCorner(List<GameObject> prefabs, ref int idx, Vector3 pos)
@@ -241,108 +241,6 @@ namespace Dungeonlicious.Assets.Script
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
             Instantiate(p, pos, p.transform.rotation, transform);
-        }
-
-        private void PlaceFurnace()
-        {
-            if (furnacePrefab == null || floorTiles.Count == 0) return;
-
-            int minX = int.MaxValue, maxX = int.MinValue;
-            int minZ = int.MaxValue, maxZ = int.MinValue;
-            foreach (Vector2Int t in floorTiles)
-            {
-                if (t.x < minX) minX = t.x;
-                if (t.x > maxX) maxX = t.x;
-                if (t.y < minZ) minZ = t.y;
-                if (t.y > maxZ) maxZ = t.y;
-            }
-
-            bool rightHasExit = false;
-            foreach (Vector2Int t in floorTiles)
-            {
-                if (t.x == maxX && floorTiles.Contains(new Vector2Int(t.x + 1, t.y)))
-                {
-                    rightHasExit = true;
-                    break;
-                }
-            }
-
-            bool upHasExit = false;
-            foreach (Vector2Int t in floorTiles)
-            {
-                if (t.y == maxZ && floorTiles.Contains(new Vector2Int(t.x, t.y + 1)))
-                {
-                    upHasExit = true;
-                    break;
-                }
-            }
-
-            if (!rightHasExit)
-            {
-                PlaceFurnaceOnRightEdge(maxX, minZ, maxZ);
-                return;
-            }
-            if (!upHasExit)
-            {
-                PlaceFurnaceOnUpEdge(maxZ, minX, maxX);
-                return;
-            }
-
-            int centreX = (minX + maxX) / 2;
-            int centreZ = (minZ + maxZ) / 2;
-            Instantiate(furnacePrefab, GridToWorld(new Vector2Int(centreX, centreZ)), Quaternion.identity, transform);
-        }
-
-        private void PlaceFurnaceOnRightEdge(int edgeX, int minZ, int maxZ)
-        {
-            List<Vector2Int> edgeTiles = new List<Vector2Int>();
-            foreach (Vector2Int t in floorTiles)
-                if (t.x == edgeX)
-                    edgeTiles.Add(t);
-
-            if (edgeTiles.Count == 0) return;
-
-            int centreZ = (minZ + maxZ) / 2;
-
-            Vector2Int best = edgeTiles[0];
-            int bestDist = Mathf.Abs(best.y - centreZ);
-            foreach (Vector2Int t in edgeTiles)
-            {
-                int dist = Mathf.Abs(t.y - centreZ);
-                if (dist < bestDist)
-                {
-                    bestDist = dist;
-                    best = t;
-                }
-            }
-
-            Instantiate(furnacePrefab, GridToWorld(best), Quaternion.identity, transform);
-        }
-
-        private void PlaceFurnaceOnUpEdge(int edgeZ, int minX, int maxX)
-        {
-            List<Vector2Int> edgeTiles = new List<Vector2Int>();
-            foreach (Vector2Int t in floorTiles)
-                if (t.y == edgeZ)
-                    edgeTiles.Add(t);
-
-            if (edgeTiles.Count == 0) return;
-
-            int centreX = (minX + maxX) / 2;
-
-            Vector2Int best = edgeTiles[0];
-            int bestDist = Mathf.Abs(best.x - centreX);
-            foreach (Vector2Int t in edgeTiles)
-            {
-                int dist = Mathf.Abs(t.x - centreX);
-                if (dist < bestDist)
-                {
-                    bestDist = dist;
-                    best = t;
-                }
-            }
-
-            Instantiate(furnacePrefab, GridToWorld(best), Quaternion.identity, transform);
         }
 
         private void TeleportPlayerToCenter(RectInt room)
