@@ -1135,6 +1135,7 @@ MonoBehaviour:
   cornerPrefabsLeftDown:
   - {fileID: 162727046732541057, guid: ec09c3885d5f27049adb65ddc69670bb, type: 3}
   furnacePrefab: {fileID: 2326484513191810937, guid: 9a1fabfb77ad72742a2bbb2f2918fc99, type: 3}
+  doorPrefab: {fileID: 3555357924980986982, guid: 49de7c2de6b0b534c996616f2c7028ee, type: 3}
   useCustomSeed: 0
   seed: 12345
   level: 1

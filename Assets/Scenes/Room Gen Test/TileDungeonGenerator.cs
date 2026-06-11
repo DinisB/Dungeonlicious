@@ -20,6 +20,7 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private List<GameObject> cornerPrefabsLeftDown;
 
         [SerializeField] private GameObject furnacePrefab;
+        [SerializeField] private GameObject doorPrefab;
 
         [SerializeField] private bool useCustomSeed = false;
         [SerializeField] private int seed = 1337;
@@ -35,8 +36,10 @@ namespace Dungeonlicious.Assets.Script
         private readonly HashSet<Vector2Int> floorTiles = new HashSet<Vector2Int>();
         private readonly List<RectInt> placedRoomRects = new List<RectInt>();
 
-        private int wallRightIdx, wallUpIdx, wallLeftIdx, wallDownIdx;
+        private readonly List<(Vector3 pos, Vector3 forward)> corridorEntrances
+            = new List<(Vector3, Vector3)>();
 
+        private int wallRightIdx, wallUpIdx, wallLeftIdx, wallDownIdx;
         private int cornerRightUpIdx, cornerRightDownIdx, cornerLeftUpIdx, cornerLeftDownIdx;
 
         public int Level => level;
@@ -64,6 +67,7 @@ namespace Dungeonlicious.Assets.Script
 
             floorTiles.Clear();
             placedRoomRects.Clear();
+            corridorEntrances.Clear();
             wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
             cornerRightUpIdx = cornerRightDownIdx = cornerLeftUpIdx = cornerLeftDownIdx = 0;
 
@@ -100,6 +104,84 @@ namespace Dungeonlicious.Assets.Script
 
             PlaceWalls();
             FillDiagonalGaps();
+            PlaceDoors();
+        }
+
+        private void SpawnCorridor(RectInt from, RectInt to)
+        {
+            Vector2Int cur = RectCenter(from);
+            Vector2Int end = RectCenter(to);
+
+            if (cur.x != end.x)
+            {
+                int sx = end.x >= cur.x ? 1 : -1;
+
+                int exitX  = sx > 0 ? from.xMax     : from.xMin - 1;
+                int entryX = sx > 0 ? to.xMin - 1   : to.xMax;
+
+                Vector2Int exitSecond = new Vector2Int(exitX + sx, cur.y);
+                
+                Vector3 forwardExit = new Vector3(sx, 0, 0);
+                RecordCorridorEntrance(exitSecond, forwardExit);
+
+                Vector2Int entrySecond = new Vector2Int(entryX - sx, cur.y);
+                Vector3 forwardEntry = new Vector3(-sx, 0, 0);
+                RecordCorridorEntrance(entrySecond, forwardEntry);
+
+                while (cur.x != end.x)
+                {
+                    cur.x += sx;
+                    PlaceFloorTile(cur);
+                    PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
+                    PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
+                }
+            }
+
+            if (cur.y != end.y)
+            {
+                int sz = end.y >= cur.y ? 1 : -1;
+
+                int exitZ  = sz > 0 ? from.yMax     : from.yMin - 1;
+                int entryZ = sz > 0 ? to.yMin - 1   : to.yMax;
+
+                Vector2Int exitSecond = new Vector2Int(cur.x, exitZ + sz);
+                Vector3 forwardExit = new Vector3(0, 0, sz);
+                RecordCorridorEntrance(exitSecond, forwardExit);
+
+                Vector2Int entrySecond = new Vector2Int(cur.x, entryZ - sz);
+                Vector3 forwardEntry = new Vector3(0, 0, -sz);
+                RecordCorridorEntrance(entrySecond, forwardEntry);
+
+                while (cur.y != end.y)
+                {
+                    cur.y += sz;
+                    PlaceFloorTile(cur);
+                    PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
+                    PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
+                }
+            }
+        }
+
+        private void RecordCorridorEntrance(Vector2Int midTile, Vector3 forward)
+        {
+            Vector3 worldPos = GridToWorld(midTile);
+            corridorEntrances.Add((worldPos, forward));
+        }
+
+        private void PlaceDoors()
+        {
+            if (doorPrefab == null) return;
+
+            HashSet<Vector3> placed = new HashSet<Vector3>();
+
+            foreach ((Vector3 pos, Vector3 forward) in corridorEntrances)
+            {
+                if (placed.Contains(pos)) continue;
+                placed.Add(pos);
+
+                Quaternion rot = Quaternion.LookRotation(forward);
+                Instantiate(doorPrefab, pos, rot, transform);
+            }
         }
 
         private void SpawnRoom(string roomName, RectInt rect)
@@ -112,30 +194,6 @@ namespace Dungeonlicious.Assets.Script
             for (int x = rect.x; x < rect.xMax; x++)
                 for (int z = rect.y; z < rect.yMax; z++)
                     PlaceFloorTile(new Vector2Int(x, z), root.transform);
-        }
-
-        private void SpawnCorridor(RectInt from, RectInt to)
-        {
-            Vector2Int cur = RectCenter(from);
-            Vector2Int end = RectCenter(to);
-
-            int sx = end.x >= cur.x ? 1 : -1;
-            while (cur.x != end.x)
-            {
-                cur.x += sx;
-                PlaceFloorTile(cur);
-                PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
-                PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
-            }
-
-            int sz = end.y >= cur.y ? 1 : -1;
-            while (cur.y != end.y)
-            {
-                cur.y += sz;
-                PlaceFloorTile(cur);
-                PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
-                PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
-            }
         }
 
         private void PlaceFloorTile(Vector2Int coord, Transform parent = null)
@@ -154,45 +212,37 @@ namespace Dungeonlicious.Assets.Script
                 Vector3 pos = GridToWorld(t);
 
                 bool needRight = !floorTiles.Contains(new Vector2Int(t.x + 1, t.y));
-                bool needUp = !floorTiles.Contains(new Vector2Int(t.x, t.y + 1));
-                bool needLeft = !floorTiles.Contains(new Vector2Int(t.x - 1, t.y));
-                bool needDown = !floorTiles.Contains(new Vector2Int(t.x, t.y - 1));
+                bool needUp    = !floorTiles.Contains(new Vector2Int(t.x, t.y + 1));
+                bool needLeft  = !floorTiles.Contains(new Vector2Int(t.x - 1, t.y));
+                bool needDown  = !floorTiles.Contains(new Vector2Int(t.x, t.y - 1));
 
                 bool skipRight = false, skipUp = false, skipLeft = false, skipDown = false;
 
                 if (needRight && needUp)
                 {
                     SpawnCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, pos + new Vector3(.5f, 0f, 1f));
-                    skipRight = true;
-                    skipUp = true;
+                    skipRight = true; skipUp = true;
                 }
                 if (needRight && needDown)
                 {
                     SpawnCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, pos + new Vector3(1f, 0f, -.5f));
-                    skipRight = true;
-                    skipDown = true;
+                    skipRight = true; skipDown = true;
                 }
                 if (needLeft && needUp)
                 {
                     SpawnCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, pos + new Vector3(-1f, 0f, .5f));
-                    skipLeft = true;
-                    skipUp = true;
+                    skipLeft = true; skipUp = true;
                 }
                 if (needLeft && needDown)
                 {
                     SpawnCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, pos + new Vector3(-.5f, 0f, -1f));
-                    skipLeft = true;
-                    skipDown = true;
+                    skipLeft = true; skipDown = true;
                 }
 
-                if (needRight && !skipRight)
-                    SpawnWall(wallPrefabsRight, ref wallRightIdx, pos);
-                if (needUp && !skipUp)
-                    SpawnWall(wallPrefabsUp, ref wallUpIdx, pos);
-                if (needLeft && !skipLeft)
-                    SpawnWall(wallPrefabsLeft, ref wallLeftIdx, pos);
-                if (needDown && !skipDown)
-                    SpawnWall(wallPrefabsDown, ref wallDownIdx, pos);
+                if (needRight && !skipRight) SpawnWall(wallPrefabsRight, ref wallRightIdx, pos);
+                if (needUp    && !skipUp)    SpawnWall(wallPrefabsUp,    ref wallUpIdx,    pos);
+                if (needLeft  && !skipLeft)  SpawnWall(wallPrefabsLeft,  ref wallLeftIdx,  pos);
+                if (needDown  && !skipDown)  SpawnWall(wallPrefabsDown,  ref wallDownIdx,  pos);
             }
         }
 
@@ -208,26 +258,31 @@ namespace Dungeonlicious.Assets.Script
         {
             foreach (Vector2Int tile in floorTiles)
             {
-                bool n = floorTiles.Contains(new Vector2Int(tile.x, tile.y + 1));
-                bool s = floorTiles.Contains(new Vector2Int(tile.x, tile.y - 1));
+                bool n = floorTiles.Contains(new Vector2Int(tile.x,     tile.y + 1));
+                bool s = floorTiles.Contains(new Vector2Int(tile.x,     tile.y - 1));
                 bool e = floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y));
                 bool w = floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y));
 
                 if (n && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y + 1)))
-                    SpawnRotatedCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, tile, Quaternion.Euler(0, 0, 0), new Vector3(0.5f,0f,0f));
+                    SpawnRotatedCorner(cornerPrefabsRightUp, ref cornerRightUpIdx,
+                        tile, Quaternion.Euler(0, 0, 0), new Vector3(0.5f, 0f, 0f));
 
                 if (n && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y + 1)))
-                    SpawnRotatedCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, tile, Quaternion.Euler(0, -90, 0), new Vector3(0f,0f,0.5f));
+                    SpawnRotatedCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx,
+                        tile, Quaternion.Euler(0, -90, 0), new Vector3(0f, 0f, 0.5f));
 
                 if (s && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y - 1)))
-                    SpawnRotatedCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, tile, Quaternion.Euler(0, 90, 0), new Vector3(0f,0f,-0.5f));
+                    SpawnRotatedCorner(cornerPrefabsRightDown, ref cornerRightDownIdx,
+                        tile, Quaternion.Euler(0, 90, 0), new Vector3(0f, 0f, -0.5f));
 
                 if (s && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y - 1)))
-                    SpawnRotatedCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, tile, Quaternion.Euler(0, 180, 0), new Vector3(-0.5f,0f,0f));
+                    SpawnRotatedCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx,
+                        tile, Quaternion.Euler(0, 180, 0), new Vector3(-0.5f, 0f, 0f));
             }
         }
 
-        private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx, Vector2Int tilePos, Quaternion rotation, Vector3 offset)
+        private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx,
+            Vector2Int tilePos, Quaternion rotation, Vector3 offset)
         {
             if (prefabs == null || prefabs.Count == 0) return;
             GameObject p = prefabs[idx % prefabs.Count];
@@ -260,8 +315,7 @@ namespace Dungeonlicious.Assets.Script
 
         private RectInt RandomRect(Vector2Int origin)
             => new RectInt(
-                origin.x,
-                origin.y,
+                origin.x, origin.y,
                 Random.Range(minRoomSize.x, maxRoomSize.x + 1),
                 Random.Range(minRoomSize.y, maxRoomSize.y + 1));
 
