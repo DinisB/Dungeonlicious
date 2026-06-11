@@ -109,26 +109,19 @@ namespace Dungeonlicious.Assets.Script
 
         private void SpawnCorridor(RectInt from, RectInt to)
         {
-            Vector2Int cur = RectCenter(from);
-            Vector2Int end = RectCenter(to);
+            Vector2Int fromCenter = RectCenter(from);
+            Vector2Int toCenter = RectCenter(to);
+            Vector2Int cur = fromCenter;
 
-            if (cur.x != end.x)
+            if (cur.x != toCenter.x)
             {
-                int sx = end.x >= cur.x ? 1 : -1;
+                int sx = toCenter.x > cur.x ? 1 : -1;
 
-                int exitX  = sx > 0 ? from.xMax     : from.xMin - 1;
-                int entryX = sx > 0 ? to.xMin - 1   : to.xMax;
+                int exitX = sx > 0 ? from.xMax : from.xMin - 1;
+                Vector2Int exitDoor = new Vector2Int(exitX, fromCenter.y);
+                RecordCorridorEntrance(exitDoor, new Vector3(sx, 0, 0));
 
-                Vector2Int exitSecond = new Vector2Int(exitX + sx, cur.y);
-                
-                Vector3 forwardExit = new Vector3(sx, 0, 0);
-                RecordCorridorEntrance(exitSecond, forwardExit);
-
-                Vector2Int entrySecond = new Vector2Int(entryX - sx, cur.y);
-                Vector3 forwardEntry = new Vector3(-sx, 0, 0);
-                RecordCorridorEntrance(entrySecond, forwardEntry);
-
-                while (cur.x != end.x)
+                while (cur.x != toCenter.x)
                 {
                     cur.x += sx;
                     PlaceFloorTile(cur);
@@ -137,28 +130,34 @@ namespace Dungeonlicious.Assets.Script
                 }
             }
 
-            if (cur.y != end.y)
+            if (cur.y != toCenter.y)
             {
-                int sz = end.y >= cur.y ? 1 : -1;
+                int sz = toCenter.y > cur.y ? 1 : -1;
 
-                int exitZ  = sz > 0 ? from.yMax     : from.yMin - 1;
-                int entryZ = sz > 0 ? to.yMin - 1   : to.yMax;
+                if (cur.x == fromCenter.x)
+                {
+                    int exitZ = sz > 0 ? from.yMax : from.yMin - 1;
+                    Vector2Int exitDoor = new Vector2Int(fromCenter.x, exitZ);
+                    RecordCorridorEntrance(exitDoor, new Vector3(0, 0, sz));
+                }
+                int entryZ = sz > 0 ? to.yMin - 1 : to.yMax;
+                Vector2Int entryDoor = new Vector2Int(cur.x, entryZ);
+                RecordCorridorEntrance(entryDoor, new Vector3(0, 0, -sz));
 
-                Vector2Int exitSecond = new Vector2Int(cur.x, exitZ + sz);
-                Vector3 forwardExit = new Vector3(0, 0, sz);
-                RecordCorridorEntrance(exitSecond, forwardExit);
-
-                Vector2Int entrySecond = new Vector2Int(cur.x, entryZ - sz);
-                Vector3 forwardEntry = new Vector3(0, 0, -sz);
-                RecordCorridorEntrance(entrySecond, forwardEntry);
-
-                while (cur.y != end.y)
+                while (cur.y != toCenter.y)
                 {
                     cur.y += sz;
                     PlaceFloorTile(cur);
                     PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
                     PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
                 }
+            }
+            else
+            {
+                int entryX = (toCenter.x > fromCenter.x) ? to.xMin - 1 : to.xMax;
+                Vector2Int entryDoor = new Vector2Int(entryX, cur.y);
+                int dirX = (toCenter.x > fromCenter.x) ? -1 : 1;
+                RecordCorridorEntrance(entryDoor, new Vector3(dirX, 0, 0));
             }
         }
 
@@ -212,9 +211,9 @@ namespace Dungeonlicious.Assets.Script
                 Vector3 pos = GridToWorld(t);
 
                 bool needRight = !floorTiles.Contains(new Vector2Int(t.x + 1, t.y));
-                bool needUp    = !floorTiles.Contains(new Vector2Int(t.x, t.y + 1));
-                bool needLeft  = !floorTiles.Contains(new Vector2Int(t.x - 1, t.y));
-                bool needDown  = !floorTiles.Contains(new Vector2Int(t.x, t.y - 1));
+                bool needUp = !floorTiles.Contains(new Vector2Int(t.x, t.y + 1));
+                bool needLeft = !floorTiles.Contains(new Vector2Int(t.x - 1, t.y));
+                bool needDown = !floorTiles.Contains(new Vector2Int(t.x, t.y - 1));
 
                 bool skipRight = false, skipUp = false, skipLeft = false, skipDown = false;
 
@@ -240,9 +239,9 @@ namespace Dungeonlicious.Assets.Script
                 }
 
                 if (needRight && !skipRight) SpawnWall(wallPrefabsRight, ref wallRightIdx, pos);
-                if (needUp    && !skipUp)    SpawnWall(wallPrefabsUp,    ref wallUpIdx,    pos);
-                if (needLeft  && !skipLeft)  SpawnWall(wallPrefabsLeft,  ref wallLeftIdx,  pos);
-                if (needDown  && !skipDown)  SpawnWall(wallPrefabsDown,  ref wallDownIdx,  pos);
+                if (needUp && !skipUp) SpawnWall(wallPrefabsUp, ref wallUpIdx, pos);
+                if (needLeft && !skipLeft) SpawnWall(wallPrefabsLeft, ref wallLeftIdx, pos);
+                if (needDown && !skipDown) SpawnWall(wallPrefabsDown, ref wallDownIdx, pos);
             }
         }
 
@@ -258,8 +257,8 @@ namespace Dungeonlicious.Assets.Script
         {
             foreach (Vector2Int tile in floorTiles)
             {
-                bool n = floorTiles.Contains(new Vector2Int(tile.x,     tile.y + 1));
-                bool s = floorTiles.Contains(new Vector2Int(tile.x,     tile.y - 1));
+                bool n = floorTiles.Contains(new Vector2Int(tile.x, tile.y + 1));
+                bool s = floorTiles.Contains(new Vector2Int(tile.x, tile.y - 1));
                 bool e = floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y));
                 bool w = floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y));
 
