@@ -47,6 +47,8 @@ public class BakonAI : MonoBehaviour
 
     [SerializeField] private ParticleSystem deathParticleSystem;
 
+    [SerializeField] private float patrolRadius = 10f;
+
     private void Awake()
     {
         renderers = GetComponentsInChildren<Renderer>();
@@ -251,6 +253,11 @@ public class BakonAI : MonoBehaviour
 
     private void SelectRandomWaypoint()
     {
+        if (TryGetRandomPoint(transform.position, patrolRadius, out Vector3 destination))
+        {
+            agent.SetDestination(destination);
+        }
+        /*
         if(waypoints.Length == 0)
         {
             return;
@@ -269,6 +276,7 @@ public class BakonAI : MonoBehaviour
         agent.SetDestination(currentWaypoint.position);
 
         Debug.Log(agent.pathStatus);
+        */
     }
 
     private void EnterMove()
@@ -388,5 +396,36 @@ public class BakonAI : MonoBehaviour
         }
 
         Destroy(gameObject, 2f);
+    }
+
+    private bool TryGetRandomPoint(
+    Vector3 center,
+    float radius,
+    out Vector3 result)
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            Vector3 randomPoint =
+                center + UnityEngine.Random.insideUnitSphere * radius;
+
+            if (NavMesh.SamplePosition(
+                randomPoint,
+                out NavMeshHit hit,
+                2f,
+                NavMesh.AllAreas))
+            {
+                NavMeshPath path = new NavMeshPath();
+
+                if (agent.CalculatePath(hit.position, path) &&
+                    path.status == NavMeshPathStatus.PathComplete)
+                {
+                    result = hit.position;
+                    return true;
+                }
+            }
+        }
+
+        result = center;
+        return false;
     }
 }
