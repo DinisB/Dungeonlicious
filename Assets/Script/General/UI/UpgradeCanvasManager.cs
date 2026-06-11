@@ -63,7 +63,7 @@ namespace Dungeonlicious.Assets.Script
             else if (upgradeType == UpgradeType.Speed)
                 return "Tomato soup - Makes you faster";
             else if (upgradeType == UpgradeType.Strength)
-                return "Meatloaf - Makes you beefier";
+                return "Beef Wellington - Makes you beefier";
             else if (upgradeType == UpgradeType.Knife)
                 return "Knizza slice - Adds additional knives";
             else
