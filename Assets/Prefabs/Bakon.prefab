@@ -113,7 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d38f41d20eb549b8ef6ba3618c346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BakonAI
-  attackCooldown: 3
   staggerTimer: 2
   waypoints:
   - {fileID: 0}
@@ -123,9 +122,9 @@ MonoBehaviour:
   - {fileID: 0}
   projectilePrefab: {fileID: 5407816022253933593, guid: a5f365b2b385e474bbfed6bd5c291b23, type: 3}
   firePoint: {fileID: 6052613959183161641}
-  projectileSpeed: 20
   projectileDamage: 5
   cooldownLimit: 5
+  deathParticleSystem: {fileID: 5670451886304342892, guid: 7d3c6d909a3ebdb4bb4f93ce7e71f6d0, type: 3}
 --- !u!195 &471270851200784900
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -136,7 +135,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

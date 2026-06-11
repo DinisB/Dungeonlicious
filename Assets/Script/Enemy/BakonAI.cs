@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Assets.Script.FSM;
 using Dungeonlicious.Assets.Script;
 using UnityEngine;
@@ -32,9 +33,37 @@ public class BakonAI : MonoBehaviour
 
     private bool reachedWaypoint;
 
+    [Header("Shake")]
+    private float shakeDuration = 0.15f;
+    private float shakeMagnitude = 0.1f;
+
+    [Header("Flash")]
+    private float flashDuration = 0.1f;
+    private Color hitColor = Color.white;
+
+    private Vector3 originalPosition;
+    private Renderer[] renderers;
+    private Color[] originalColors;
+
+    [SerializeField] private ParticleSystem deathParticleSystem;
+
+    private void Awake()
+    {
+        renderers = GetComponentsInChildren<Renderer>();
+        originalColors = new Color[renderers.Length];
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i].material.HasProperty("_Color"))
+            {
+                originalColors[i] = renderers[i].material.color;
+            }
+        }
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         BakonCombat combat = GetComponent<BakonCombat>();
         playerAgent = FindFirstObjectByType<PlayerHealth>().gameObject;
@@ -88,11 +117,6 @@ public class BakonAI : MonoBehaviour
             null,
         move));
 
-        attack.AddTransition(new Transition(
-            () => wasHit,
-            null,
-        stagger));
-
         move.AddTransition(new Transition(
             () => bakonHealth.CurrentHealth <= 0,
             null,
@@ -143,6 +167,8 @@ public class BakonAI : MonoBehaviour
     {
         if (bakonHealth != null)
             bakonHealth.OnDamaged -= HandleDamaged;
+
+        Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
 
     private void EnterAttack()
@@ -206,7 +232,7 @@ public class BakonAI : MonoBehaviour
 
     public void Stagger()
     {
-        //when attacked by enemy, shake model and flash
+        PlayDamageEffect();
         staggerTimer += Time.deltaTime;
 
         if(staggerTimer >= 0.5f)
@@ -217,10 +243,10 @@ public class BakonAI : MonoBehaviour
     public void EnterDead()
     {
         //when hp <= 0, destroy self object (perhaps add a particle system affect)
-        agent.isStopped = false;
-        agent.enabled = false;
+        //agent.isStopped = false;
+        //agent.enabled = false;
 
-        Destroy(gameObject, 2f);
+        StartCoroutine(DeathRoutine());
     }
 
     private void SelectRandomWaypoint()
@@ -300,5 +326,67 @@ public class BakonAI : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void PlayDamageEffect()
+    {
+        StartCoroutine(Shake());
+        StartCoroutine(Flash());
+    }
+
+    private IEnumerator Shake()
+    {
+        Vector3 originalPos = transform.localPosition;
+
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            transform.localPosition =
+                originalPos + UnityEngine.Random.insideUnitSphere * shakeMagnitude;
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = originalPos;
+    }
+
+    private IEnumerator Flash()
+    {
+        foreach (var rend in renderers)
+        {
+            if (rend.material.HasProperty("_Color"))
+                rend.material.color = hitColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i].material.HasProperty("_Color"))
+                renderers[i].material.color = originalColors[i];
+        }
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        agent.isStopped = true;
+        agent.enabled = false;
+
+        Quaternion start = transform.rotation;
+        Quaternion end = start * Quaternion.Euler(0, 0, 90);
+
+        float duration = 0.5f;
+        float t = 0;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(start, end, t / duration);
+            yield return null;
+        }
+
+        Destroy(gameObject, 2f);
     }
 }
