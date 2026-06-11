@@ -36,7 +36,7 @@ namespace Dungeonlicious.Assets.Script
 
         public void ChangeUpgradeInfo(IUpgrade upgrade, Sprite bannerSprite)
         {
-            upgradeText.text = $"{upgrade.upgradeType} + {upgrade.upgradeValue}";
+            upgradeText.text = $"{upgrade.upgradeType} + {upgrade.upgradeValue} \n{upgrade.upgradeDesc}";
             banner.sprite = bannerSprite;
             this.upgrade = upgrade;
         }

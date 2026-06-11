@@ -18,17 +18,27 @@ namespace Dungeonlicious.Assets.Script
         {
             Array values = Enum.GetValues(typeof(UpgradeType));
             upgrades = new List<IUpgrade>();
+
             for (int i = 0; i < 3; i++)
             {
-                IUpgrade upgrade = new Upgrade((UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length)), 0);
-                upgrade.upgradeValue = UnityEngine.Random.Range(1, GetUpgradeValue(upgrade.upgradeType));
+                UpgradeType type = (UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+
+                IUpgrade upgrade = new Upgrade(
+                    type,
+                    0,
+                    GetUpgradeDesc(type)
+                );
+
+                upgrade.upgradeValue = UnityEngine.Random.Range(1, GetUpgradeValue(type) + 1);
+
                 upgrades.Add(upgrade);
             }
+
             UpdateUpgradeCanvas();
+
             for (int i = 0; i < 3; i++)
             {
                 UpgradeCanvas[i].GetComponent<UpgradeCanvas>().onUpgradeSelected.AddListener(NextLevel);
-                UpgradeCanvas[i].GetComponentInParent<Transform>().gameObject.SetActive(false);
             }
         }
 
@@ -44,6 +54,20 @@ namespace Dungeonlicious.Assets.Script
                 return 1;
             else
                 return 0;
+        }
+
+        public string GetUpgradeDesc(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return "Carrot soup - Betters your health";
+            else if (upgradeType == UpgradeType.Speed)
+                return "Tomato soup - Makes you faster";
+            else if (upgradeType == UpgradeType.Strength)
+                return "Meatloaf - Makes you beefier";
+            else if (upgradeType == UpgradeType.Knife)
+                return "Knizza slice - Adds additional knives";
+            else
+                return "Idk man";
         }
 
         // Update is called once per frame

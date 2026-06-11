@@ -17996,6 +17996,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1346129917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &212166131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4349146969920352428, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
+  m_PrefabInstance: {fileID: 4429638411269352961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212273575
 GameObject:
   m_ObjectHideFlags: 0
@@ -87510,6 +87515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071159827d144b14a9bcfda251ed9b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  canvas: {fileID: 212166131}
 --- !u!4 &773739932
 Transform:
   m_ObjectHideFlags: 0
@@ -136103,7 +136109,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6901557319965334655, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
   m_PrefabInstance: {fileID: 4429638411269352961}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 212166131}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7840665cdc84104884e76dc4cb80bdd, type: 3}

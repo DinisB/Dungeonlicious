@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8101114758516950030}
-  - component: {fileID: 7649824558565051170}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -35,27 +34,6 @@ Transform:
   - {fileID: 4313690729920792445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7649824558565051170
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3555357924980986982}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.0197363, y: 6.111908, z: 1.1053591}
-  m_Center: {x: -2.0153408, y: 2.9193702, z: 0.27565145}
 --- !u!1001 &4348216233249628310
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,11 +6,17 @@ namespace Dungeonlicious.Assets.Script
     public class GameManager : MonoBehaviour
     {
         static public GameManager instance;
+        [SerializeField] GameObject canvas;
 
         void Awake()
         {
             EnforceSingleton();
             RegisterEventListeners();
+        }
+
+        void Start()
+        {
+            canvas.SetActive(false);
         }
 
         private void EnforceSingleton()
