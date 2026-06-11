@@ -98,6 +98,7 @@ namespace Dungeonlicious.Assets.Script
             }
 
             PlaceWalls();
+            FillDiagonalGaps();
             PlaceFurnace();
         }
 
@@ -201,6 +202,37 @@ namespace Dungeonlicious.Assets.Script
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
             Instantiate(p, pos, p.transform.rotation, transform);
+        }
+
+        private void FillDiagonalGaps()
+        {
+            foreach (Vector2Int tile in floorTiles)
+            {
+                bool n = floorTiles.Contains(new Vector2Int(tile.x, tile.y + 1));
+                bool s = floorTiles.Contains(new Vector2Int(tile.x, tile.y - 1));
+                bool e = floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y));
+                bool w = floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y));
+
+                if (n && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y + 1)))
+                    SpawnRotatedCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, tile, Quaternion.Euler(0, 0, 0));
+
+                if (n && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y + 1)))
+                    SpawnRotatedCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, tile, Quaternion.Euler(0, -90, 0));
+
+                if (s && e && !floorTiles.Contains(new Vector2Int(tile.x + 1, tile.y - 1)))
+                    SpawnRotatedCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, tile, Quaternion.Euler(0, 90, 0));
+
+                if (s && w && !floorTiles.Contains(new Vector2Int(tile.x - 1, tile.y - 1)))
+                    SpawnRotatedCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, tile, Quaternion.Euler(0, 180, 0));
+            }
+        }
+
+        private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx, Vector2Int tilePos, Quaternion rotation)
+        {
+            if (prefabs == null || prefabs.Count == 0) return;
+            GameObject p = prefabs[idx % prefabs.Count];
+            idx++;
+            Instantiate(p, GridToWorld(tilePos), rotation, transform);
         }
 
         private void SpawnCorner(List<GameObject> prefabs, ref int idx, Vector3 pos)
