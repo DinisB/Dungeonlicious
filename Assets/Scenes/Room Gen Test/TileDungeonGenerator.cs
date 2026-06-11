@@ -36,8 +36,8 @@ namespace Dungeonlicious.Assets.Script
         private readonly HashSet<Vector2Int> floorTiles = new HashSet<Vector2Int>();
         private readonly List<RectInt> placedRoomRects = new List<RectInt>();
 
-        private readonly List<(Vector3 pos, Vector3 forward)> corridorEntrances
-            = new List<(Vector3, Vector3)>();
+        private readonly List<(Vector2Int grid, Vector3 pos, Vector3 forward)> corridorEntrances
+            = new List<(Vector2Int, Vector3, Vector3)>();
 
         private int wallRightIdx, wallUpIdx, wallLeftIdx, wallDownIdx;
         private int cornerRightUpIdx, cornerRightDownIdx, cornerLeftUpIdx, cornerLeftDownIdx;
@@ -111,16 +111,12 @@ namespace Dungeonlicious.Assets.Script
         {
             Vector2Int fromCenter = RectCenter(from);
             Vector2Int toCenter = RectCenter(to);
+
             Vector2Int cur = fromCenter;
 
             if (cur.x != toCenter.x)
             {
                 int sx = toCenter.x > cur.x ? 1 : -1;
-
-                int exitX = sx > 0 ? from.xMax : from.xMin - 1;
-                Vector2Int exitDoor = new Vector2Int(exitX, fromCenter.y);
-                RecordCorridorEntrance(exitDoor, new Vector3(sx, 0, 0));
-
                 while (cur.x != toCenter.x)
                 {
                     cur.x += sx;
@@ -133,17 +129,6 @@ namespace Dungeonlicious.Assets.Script
             if (cur.y != toCenter.y)
             {
                 int sz = toCenter.y > cur.y ? 1 : -1;
-
-                if (cur.x == fromCenter.x)
-                {
-                    int exitZ = sz > 0 ? from.yMax : from.yMin - 1;
-                    Vector2Int exitDoor = new Vector2Int(fromCenter.x, exitZ);
-                    RecordCorridorEntrance(exitDoor, new Vector3(0, 0, sz));
-                }
-                int entryZ = sz > 0 ? to.yMin - 1 : to.yMax;
-                Vector2Int entryDoor = new Vector2Int(cur.x, entryZ);
-                RecordCorridorEntrance(entryDoor, new Vector3(0, 0, -sz));
-
                 while (cur.y != toCenter.y)
                 {
                     cur.y += sz;
@@ -152,34 +137,58 @@ namespace Dungeonlicious.Assets.Script
                     PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
                 }
             }
+
+            Vector2Int exitDoorPos, entryDoorPos;
+            Vector3 exitForward, entryForward;
+
+            int dx = toCenter.x - fromCenter.x;
+            int dy = toCenter.y - fromCenter.y;
+
+            if (Mathf.Abs(dx) >= Mathf.Abs(dy))
+            {
+                int sx = dx > 0 ? 1 : -1;
+                exitDoorPos = sx > 0 ? new Vector2Int(from.xMax, fromCenter.y)
+                                      : new Vector2Int(from.xMin - 1, fromCenter.y);
+                exitForward = new Vector3(sx, 0, 0);
+
+                entryDoorPos = sx > 0 ? new Vector2Int(to.xMin - 1, toCenter.y)
+                                      : new Vector2Int(to.xMax, toCenter.y);
+                entryForward = new Vector3(-sx, 0, 0);
+            }
             else
             {
-                int entryX = (toCenter.x > fromCenter.x) ? to.xMin - 1 : to.xMax;
-                Vector2Int entryDoor = new Vector2Int(entryX, cur.y);
-                int dirX = (toCenter.x > fromCenter.x) ? -1 : 1;
-                RecordCorridorEntrance(entryDoor, new Vector3(dirX, 0, 0));
+                int sz = dy > 0 ? 1 : -1;
+                exitDoorPos = sz > 0 ? new Vector2Int(fromCenter.x, from.yMax)
+                                      : new Vector2Int(fromCenter.x, from.yMin - 1);
+                exitForward = new Vector3(0, 0, sz);
+
+                entryDoorPos = sz > 0 ? new Vector2Int(toCenter.x, to.yMin - 1)
+                                      : new Vector2Int(toCenter.x, to.yMax);
+                entryForward = new Vector3(0, 0, -sz);
             }
+
+            PlaceFloorTile(exitDoorPos);
+            PlaceFloorTile(entryDoorPos);
+            RecordCorridorEntrance(exitDoorPos, exitForward);
+            RecordCorridorEntrance(entryDoorPos, entryForward);
         }
 
         private void RecordCorridorEntrance(Vector2Int midTile, Vector3 forward)
         {
             Vector3 worldPos = GridToWorld(midTile);
-            corridorEntrances.Add((worldPos, forward));
+            corridorEntrances.Add((midTile, worldPos, forward));
         }
 
         private void PlaceDoors()
         {
-            if (doorPrefab == null) return;
+            HashSet<Vector2Int> placed = new HashSet<Vector2Int>();
 
-            HashSet<Vector3> placed = new HashSet<Vector3>();
-
-            foreach ((Vector3 pos, Vector3 forward) in corridorEntrances)
+            foreach ((Vector2Int grid, Vector3 pos, Vector3 forward) in corridorEntrances)
             {
-                if (placed.Contains(pos)) continue;
-                placed.Add(pos);
+                if (!placed.Add(grid))
+                    continue;
 
-                Quaternion rot = Quaternion.LookRotation(forward);
-                Instantiate(doorPrefab, pos, rot, transform);
+                Instantiate(doorPrefab, pos, Quaternion.LookRotation(forward), transform);
             }
         }
 
