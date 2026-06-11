@@ -1001,6 +1001,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1906163982 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893895753809033130, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+  m_PrefabInstance: {fileID: 2127487397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2028253546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1183,7 @@ MonoBehaviour:
   - {fileID: 162727046732541057, guid: f1c526e6c33c7304e81d6e019f0c3f55, type: 3}
   cornerPrefabsLeftDown:
   - {fileID: 162727046732541057, guid: ec09c3885d5f27049adb65ddc69670bb, type: 3}
-  furnacePrefab: {fileID: 2326484513191810937, guid: 9a1fabfb77ad72742a2bbb2f2918fc99, type: 3}
+  furnace: {fileID: 1906163982}
   doorPrefab: {fileID: 3555357924980986982, guid: 49de7c2de6b0b534c996616f2c7028ee, type: 3}
   useCustomSeed: 0
   seed: 12345
@@ -1208,6 +1213,78 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4349146969920352428, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
   m_PrefabInstance: {fileID: 1818763185}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2103943366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6901557319965334655, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
+  m_PrefabInstance: {fileID: 1818763185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103943365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7840665cdc84104884e76dc4cb80bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvasManager
+--- !u!1001 &2127487397
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 493968210468887714, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: upgradeCanvasManager
+      value: 
+      objectReference: {fileID: 2103943366}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.86587
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.31474
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.64418
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482973424000675170, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893895753809033130, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
+      propertyPath: m_Name
+      value: FurnaceGen
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 737496bc03e88794ab9b50eeb00bcab6, type: 3}
 --- !u!4 &2130901054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6251545353651545874, guid: 9eeccbbf918ee854dbb95383401a4063, type: 3}
@@ -1228,3 +1305,4 @@ SceneRoots:
   - {fileID: 1818763185}
   - {fileID: 661677331}
   - {fileID: 346511603}
+  - {fileID: 2127487397}
