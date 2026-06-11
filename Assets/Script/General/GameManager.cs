@@ -2,11 +2,14 @@ namespace Dungeonlicious.Assets.Script
 {
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using UnityEngine.InputSystem;
 
     public class GameManager : MonoBehaviour
     {
         static public GameManager instance;
         [SerializeField] GameObject canvas;
+        [SerializeField] GameObject pauseScreen;
+        private bool paused = false;
 
         void Awake()
         {
@@ -17,6 +20,22 @@ namespace Dungeonlicious.Assets.Script
         void Start()
         {
             canvas.SetActive(false);
+        }
+
+        void Update()
+        {
+            if (InputSystem.actions.FindAction("UI/Pause").WasPressedThisFrame())
+            {
+                TogglePause();
+            }
+        }
+
+        void TogglePause()
+        {
+            paused = !paused;
+
+            pauseScreen.SetActive(paused);
+            Time.timeScale = paused ? 0f : 1f;
         }
 
         private void EnforceSingleton()
@@ -55,6 +74,7 @@ namespace Dungeonlicious.Assets.Script
         {
             //TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
             // if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
+            canvas.SetActive(false);
             SceneManager.LoadScene(levelName);
         }
     }
