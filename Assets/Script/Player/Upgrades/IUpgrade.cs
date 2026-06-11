@@ -7,5 +7,6 @@ namespace Dungeonlicious.Assets.Script
         UpgradeType upgradeType { get; set; }
         float upgradeValue { get; set; }
         string upgradeDesc { get; set; }
+        public string upgradeName { get; set; }
     }
 }

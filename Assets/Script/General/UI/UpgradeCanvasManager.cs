@@ -26,7 +26,8 @@ namespace Dungeonlicious.Assets.Script
                 IUpgrade upgrade = new Upgrade(
                     type,
                     0,
-                    GetUpgradeDesc(type)
+                    GetUpgradeDesc(type),
+                    GetUpgradeName(type)
                 );
 
                 upgrade.upgradeValue = UnityEngine.Random.Range(1, GetUpgradeValue(type) + 1);
@@ -59,16 +60,31 @@ namespace Dungeonlicious.Assets.Script
         public string GetUpgradeDesc(UpgradeType upgradeType)
         {
             if (upgradeType == UpgradeType.Health)
-                return "Carrot soup - Betters your health";
+                return "Betters your health";
             else if (upgradeType == UpgradeType.Speed)
-                return "Tomato soup - Makes you faster";
+                return "Makes you faster";
             else if (upgradeType == UpgradeType.Strength)
-                return "Beef Wellington - Makes you beefier";
+                return "Makes you beefier";
             else if (upgradeType == UpgradeType.Knife)
-                return "Knizza slice - Adds additional knives";
+                return "Adds additional knives";
             else
                 return "Idk man";
         }
+
+        public string GetUpgradeName(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return "Carrot soup";
+            else if (upgradeType == UpgradeType.Speed)
+                return "Tomato soup";
+            else if (upgradeType == UpgradeType.Strength)
+                return "Beef Wellington";
+            else if (upgradeType == UpgradeType.Knife)
+                return "Knizza slice";
+            else
+                return "Idk man";
+        }
+
 
         // Update is called once per frame
         void Update()

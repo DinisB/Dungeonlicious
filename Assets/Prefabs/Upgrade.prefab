@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5628424, y: -21.639}
-  m_SizeDelta: {x: 132.3, y: 30.6781}
+  m_AnchoredPosition: {x: -1.5624863, y: -25.389013}
+  m_SizeDelta: {x: 132.3, y: 38.178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5502649577156011486
 CanvasRenderer:
@@ -231,15 +231,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 6978924236551830203}
+  upgradeName: {fileID: 8578041930753019382}
   banner: {fileID: 6555904734740653008}
   onUpgradeSelected:
     m_PersistentCalls:
@@ -614,6 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 6624745858015957288}
+  upgradeName: {fileID: 2635703408347893244}
   banner: {fileID: 6492358648002254607}
   onUpgradeSelected:
     m_PersistentCalls:
@@ -838,15 +840,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -975,6 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.UpgradeCanvas
   upgradeText: {fileID: 5339053727164759567}
+  upgradeName: {fileID: 1735355140709249563}
   banner: {fileID: 7763906026528538042}
   onUpgradeSelected:
     m_PersistentCalls:
@@ -1362,8 +1365,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6666603, y: -22.680658}
-  m_SizeDelta: {x: 132.51, y: 32.7614}
+  m_AnchoredPosition: {x: -1.6666603, y: -24.034838}
+  m_SizeDelta: {x: 132.51, y: 35.4697}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &986616394733216926
 CanvasRenderer:
@@ -1422,15 +1425,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1

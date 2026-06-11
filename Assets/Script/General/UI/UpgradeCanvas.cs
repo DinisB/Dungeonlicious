@@ -11,6 +11,8 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField]
         private TextMeshProUGUI upgradeText;
         [SerializeField]
+        private TextMeshProUGUI upgradeName;
+        [SerializeField]
         private Image banner;
         private IUpgrade upgrade;
         public UnityEvent onUpgradeSelected;
@@ -39,6 +41,7 @@ namespace Dungeonlicious.Assets.Script
             upgradeText.text = $"{upgrade.upgradeType} + {upgrade.upgradeValue} \n{upgrade.upgradeDesc}";
             banner.sprite = bannerSprite;
             this.upgrade = upgrade;
+            upgradeName.text = upgrade.upgradeName;
         }
     }
 }
