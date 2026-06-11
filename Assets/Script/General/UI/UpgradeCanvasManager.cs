@@ -104,6 +104,7 @@ namespace Dungeonlicious.Assets.Script
         {
             for (int i = 0; i < UpgradeCanvas.Length; i++)
             {
+                Time.timeScale = 1f;
                 UpgradeCanvas[i].SetActive(false);
                 GameManager gameManager = FindFirstObjectByType<GameManager>();
                 gameManager.NextLevel(SceneManager.GetActiveScene().name);

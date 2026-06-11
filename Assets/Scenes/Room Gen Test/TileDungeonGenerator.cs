@@ -19,13 +19,14 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private List<GameObject> cornerPrefabsLeftUp;
         [SerializeField] private List<GameObject> cornerPrefabsLeftDown;
 
-        [SerializeField] private GameObject furnacePrefab;
+        [SerializeField] private GameObject furnace;
         [SerializeField] private GameObject doorPrefab;
 
         [SerializeField] private bool useCustomSeed = false;
         [SerializeField] private int seed = 1337;
         [SerializeField, Range(1, 9)] private int level = 1;
         [SerializeField] private int maxLevel = 9;
+        public int MaxLevel => maxLevel;
         [SerializeField] private int roomCount = 5;
         [SerializeField] private Vector2Int minRoomSize = new Vector2Int(3, 3);
         [SerializeField] private Vector2Int maxRoomSize = new Vector2Int(7, 7);
@@ -216,6 +217,13 @@ namespace Dungeonlicious.Assets.Script
             for (int x = rect.x; x < rect.xMax; x++)
                 for (int z = rect.y; z < rect.yMax; z++)
                     PlaceFloorTile(new Vector2Int(x, z), root.transform);
+
+            if (roomName == "Room_End")
+            {
+                Vector3 centerPos = GridToWorld(RectCenter(rect));
+                centerPos.y = tileSize.y;
+                furnace.transform.position = centerPos;
+            }
         }
 
         private void PlaceFloorTile(Vector2Int coord, Transform parent = null)

@@ -72,10 +72,17 @@ namespace Dungeonlicious.Assets.Script
 
         public void NextLevel(string levelName)
         {
-            //TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
-            // if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
+            TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
+            if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
             canvas.SetActive(false);
-            SceneManager.LoadScene(levelName);
+            if (tileDungeonGenerator.Level <= tileDungeonGenerator.MaxLevel)
+            {
+                SceneManager.LoadScene(levelName);
+            }
+            else
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
         }
     }
 }
