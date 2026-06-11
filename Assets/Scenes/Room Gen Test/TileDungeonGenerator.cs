@@ -162,25 +162,25 @@ namespace Dungeonlicious.Assets.Script
 
                 if (needRight && needUp)
                 {
-                    SpawnCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, pos);
+                    SpawnCorner(cornerPrefabsRightUp, ref cornerRightUpIdx, pos + new Vector3(1f,0f,1f));
                     skipRight = true;
                     skipUp = true;
                 }
                 if (needRight && needDown)
                 {
-                    SpawnCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, pos);
+                    SpawnCorner(cornerPrefabsRightDown, ref cornerRightDownIdx, pos + new Vector3(1f,0f,-1f));
                     skipRight = true;
                     skipDown = true;
                 }
                 if (needLeft && needUp)
                 {
-                    SpawnCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, pos);
+                    SpawnCorner(cornerPrefabsLeftUp, ref cornerLeftUpIdx, pos + new Vector3(-1f,0f,1f));
                     skipLeft = true;
                     skipUp = true;
                 }
                 if (needLeft && needDown)
                 {
-                    SpawnCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, pos);
+                    SpawnCorner(cornerPrefabsLeftDown, ref cornerLeftDownIdx, pos + new Vector3(-1f,0f,-1f));
                     skipLeft = true;
                     skipDown = true;
                 }
@@ -245,23 +245,104 @@ namespace Dungeonlicious.Assets.Script
 
         private void PlaceFurnace()
         {
-            if (furnacePrefab == null || placedRoomRects.Count == 0) return;
+            if (furnacePrefab == null || floorTiles.Count == 0) return;
 
-            RectInt last = placedRoomRects[placedRoomRects.Count - 1];
-
-            for (int z = last.y; z < last.yMax; z++)
+            int minX = int.MaxValue, maxX = int.MinValue;
+            int minZ = int.MaxValue, maxZ = int.MinValue;
+            foreach (Vector2Int t in floorTiles)
             {
-                Vector2Int candidate = new Vector2Int(last.xMax - 1, z);
-                if (floorTiles.Contains(candidate) &&
-                    !floorTiles.Contains(new Vector2Int(candidate.x + 1, candidate.y)))
+                if (t.x < minX) minX = t.x;
+                if (t.x > maxX) maxX = t.x;
+                if (t.y < minZ) minZ = t.y;
+                if (t.y > maxZ) maxZ = t.y;
+            }
+
+            bool rightHasExit = false;
+            foreach (Vector2Int t in floorTiles)
+            {
+                if (t.x == maxX && floorTiles.Contains(new Vector2Int(t.x + 1, t.y)))
                 {
-                    Instantiate(furnacePrefab, GridToWorld(candidate), Quaternion.identity, transform);
-                    return;
+                    rightHasExit = true;
+                    break;
                 }
             }
 
-            Vector2Int c = RectCenter(last);
-            Instantiate(furnacePrefab, GridToWorld(c), Quaternion.identity, transform);
+            bool upHasExit = false;
+            foreach (Vector2Int t in floorTiles)
+            {
+                if (t.y == maxZ && floorTiles.Contains(new Vector2Int(t.x, t.y + 1)))
+                {
+                    upHasExit = true;
+                    break;
+                }
+            }
+
+            if (!rightHasExit)
+            {
+                PlaceFurnaceOnRightEdge(maxX, minZ, maxZ);
+                return;
+            }
+            if (!upHasExit)
+            {
+                PlaceFurnaceOnUpEdge(maxZ, minX, maxX);
+                return;
+            }
+
+            int centreX = (minX + maxX) / 2;
+            int centreZ = (minZ + maxZ) / 2;
+            Instantiate(furnacePrefab, GridToWorld(new Vector2Int(centreX, centreZ)), Quaternion.identity, transform);
+        }
+
+        private void PlaceFurnaceOnRightEdge(int edgeX, int minZ, int maxZ)
+        {
+            List<Vector2Int> edgeTiles = new List<Vector2Int>();
+            foreach (Vector2Int t in floorTiles)
+                if (t.x == edgeX)
+                    edgeTiles.Add(t);
+
+            if (edgeTiles.Count == 0) return;
+
+            int centreZ = (minZ + maxZ) / 2;
+
+            Vector2Int best = edgeTiles[0];
+            int bestDist = Mathf.Abs(best.y - centreZ);
+            foreach (Vector2Int t in edgeTiles)
+            {
+                int dist = Mathf.Abs(t.y - centreZ);
+                if (dist < bestDist)
+                {
+                    bestDist = dist;
+                    best = t;
+                }
+            }
+
+            Instantiate(furnacePrefab, GridToWorld(best), Quaternion.identity, transform);
+        }
+
+        private void PlaceFurnaceOnUpEdge(int edgeZ, int minX, int maxX)
+        {
+            List<Vector2Int> edgeTiles = new List<Vector2Int>();
+            foreach (Vector2Int t in floorTiles)
+                if (t.y == edgeZ)
+                    edgeTiles.Add(t);
+
+            if (edgeTiles.Count == 0) return;
+
+            int centreX = (minX + maxX) / 2;
+
+            Vector2Int best = edgeTiles[0];
+            int bestDist = Mathf.Abs(best.x - centreX);
+            foreach (Vector2Int t in edgeTiles)
+            {
+                int dist = Mathf.Abs(t.x - centreX);
+                if (dist < bestDist)
+                {
+                    bestDist = dist;
+                    best = t;
+                }
+            }
+
+            Instantiate(furnacePrefab, GridToWorld(best), Quaternion.identity, transform);
         }
 
         private void TeleportPlayerToCenter(RectInt room)
