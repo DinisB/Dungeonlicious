@@ -111,8 +111,10 @@ namespace Dungeonlicious.Assets.Script
         {
             Vector2Int fromCenter = RectCenter(from);
             Vector2Int toCenter = RectCenter(to);
-
             Vector2Int cur = fromCenter;
+
+            Vector2Int? exitDoorPos = null;
+            Vector2Int? entryDoorPos = null;
 
             if (cur.x != toCenter.x)
             {
@@ -123,6 +125,12 @@ namespace Dungeonlicious.Assets.Script
                     PlaceFloorTile(cur);
                     PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
                     PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
+
+                    if (exitDoorPos == null && !from.Contains(cur))
+                        exitDoorPos = cur;
+
+                    if (entryDoorPos == null && to.Contains(cur))
+                        entryDoorPos = new Vector2Int(cur.x - sx, cur.y);
                 }
             }
 
@@ -135,42 +143,48 @@ namespace Dungeonlicious.Assets.Script
                     PlaceFloorTile(cur);
                     PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
                     PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
+
+                    if (exitDoorPos == null && !from.Contains(cur))
+                        exitDoorPos = cur;
+
+                    if (entryDoorPos == null && to.Contains(cur))
+                        entryDoorPos = new Vector2Int(cur.x, cur.y - sz);
                 }
             }
 
-            Vector2Int exitDoorPos, entryDoorPos;
-            Vector3 exitForward, entryForward;
-
             int dx = toCenter.x - fromCenter.x;
             int dy = toCenter.y - fromCenter.y;
+            Vector3 exitFwd, entryFwd;
 
             if (Mathf.Abs(dx) >= Mathf.Abs(dy))
             {
                 int sx = dx > 0 ? 1 : -1;
-                exitDoorPos = sx > 0 ? new Vector2Int(from.xMax, fromCenter.y)
-                                      : new Vector2Int(from.xMin - 1, fromCenter.y);
-                exitForward = new Vector3(sx, 0, 0);
-
-                entryDoorPos = sx > 0 ? new Vector2Int(to.xMin - 1, toCenter.y)
-                                      : new Vector2Int(to.xMax, toCenter.y);
-                entryForward = new Vector3(-sx, 0, 0);
+                exitFwd = new Vector3(sx, 0, 0);
+                entryFwd = new Vector3(-sx, 0, 0);
+                if (exitDoorPos == null) exitDoorPos = sx > 0
+                    ? new Vector2Int(from.xMax, fromCenter.y)
+                    : new Vector2Int(from.xMin - 1, fromCenter.y);
+                if (entryDoorPos == null) entryDoorPos = sx > 0
+                    ? new Vector2Int(to.xMin - 1, toCenter.y)
+                    : new Vector2Int(to.xMax, toCenter.y);
             }
             else
             {
                 int sz = dy > 0 ? 1 : -1;
-                exitDoorPos = sz > 0 ? new Vector2Int(fromCenter.x, from.yMax)
-                                      : new Vector2Int(fromCenter.x, from.yMin - 1);
-                exitForward = new Vector3(0, 0, sz);
-
-                entryDoorPos = sz > 0 ? new Vector2Int(toCenter.x, to.yMin - 1)
-                                      : new Vector2Int(toCenter.x, to.yMax);
-                entryForward = new Vector3(0, 0, -sz);
+                exitFwd = new Vector3(0, 0, sz);
+                entryFwd = new Vector3(0, 0, -sz);
+                if (exitDoorPos == null) exitDoorPos = sz > 0
+                    ? new Vector2Int(fromCenter.x, from.yMax)
+                    : new Vector2Int(fromCenter.x, from.yMin - 1);
+                if (entryDoorPos == null) entryDoorPos = sz > 0
+                    ? new Vector2Int(toCenter.x, to.yMin - 1)
+                    : new Vector2Int(toCenter.x, to.yMax);
             }
 
-            PlaceFloorTile(exitDoorPos);
-            PlaceFloorTile(entryDoorPos);
-            RecordCorridorEntrance(exitDoorPos, exitForward);
-            RecordCorridorEntrance(entryDoorPos, entryForward);
+            PlaceFloorTile(exitDoorPos.Value);
+            PlaceFloorTile(entryDoorPos.Value);
+            RecordCorridorEntrance(exitDoorPos.Value, exitFwd);
+            RecordCorridorEntrance(entryDoorPos.Value, entryFwd);
         }
 
         private void RecordCorridorEntrance(Vector2Int midTile, Vector3 forward)
