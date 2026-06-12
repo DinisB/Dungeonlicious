@@ -47,7 +47,15 @@ public class BakonAI : MonoBehaviour
 
     [SerializeField] private ParticleSystem deathParticleSystem;
 
-    [SerializeField] private float patrolRadius = 10f;
+    [SerializeField] private float movementRadius = 10f;
+    [SerializeField] private float minMovementDistance = 4f;
+
+    [SerializeField] private int maxAmmo = 5;
+    [SerializeField] private float ammoRestoreTime = 2f;
+
+    private int currentAmmo;
+    private float ammoRestoreTimer;
+    private bool restoringAmmo;
 
     private void Awake()
     {
@@ -72,6 +80,8 @@ public class BakonAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = playerAgent.GetComponent<IDamageable>();
         bakonHealth = GetComponent<BakonHealth>();
+
+        currentAmmo = maxAmmo;
 
         if (combat != null)
         {
@@ -177,10 +187,30 @@ public class BakonAI : MonoBehaviour
     {
         agent.isStopped = true;
         repositionTimer = 0f;
+
+        if (currentAmmo <= 0)
+        {
+            restoringAmmo = true;
+            ammoRestoreTimer = ammoRestoreTime;
+        }
     }
 
     public void AttackPlayer()
     {
+        if (restoringAmmo)
+        {
+            ammoRestoreTimer -= Time.deltaTime;
+
+            if (ammoRestoreTimer <= 0f)
+            {
+                currentAmmo = maxAmmo;
+                restoringAmmo = false;
+
+                repositionTimer = 3f;
+            }
+
+            return;
+        }
         //aim at player for 1-2 seconds, use Raycast to check if projectile path is clear then spawn projectile
         //if Raycast fails to return clear path to player switch to "move" State
         Vector3 targetPos =
@@ -204,7 +234,15 @@ public class BakonAI : MonoBehaviour
             if (attackCooldownTimer <= 0f && angle < 30f)
             {
                 Shoot();
+                currentAmmo--;
+
                 attackCooldownTimer = cooldownLimit;
+
+                if (currentAmmo <= 0)
+                {
+                    restoringAmmo = true;
+                    ammoRestoreTimer = ammoRestoreTime;
+                }
             }
         }
         else
@@ -253,7 +291,7 @@ public class BakonAI : MonoBehaviour
 
     private void SelectRandomWaypoint()
     {
-        if (TryGetRandomPoint(transform.position, patrolRadius, out Vector3 destination))
+        if (TryGetRandomPoint(transform.position, movementRadius, out Vector3 destination))
         {
             agent.SetDestination(destination);
         }
@@ -414,6 +452,12 @@ public class BakonAI : MonoBehaviour
                 2f,
                 NavMesh.AllAreas))
             {
+                float distance =
+                    Vector3.Distance(center, hit.position);
+
+                if (distance < minMovementDistance)
+                    continue;
+
                 NavMeshPath path = new NavMeshPath();
 
                 if (agent.CalculatePath(hit.position, path) &&
@@ -424,7 +468,6 @@ public class BakonAI : MonoBehaviour
                 }
             }
         }
-
         result = center;
         return false;
     }
