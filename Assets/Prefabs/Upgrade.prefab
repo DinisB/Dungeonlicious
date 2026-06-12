@@ -743,7 +743,7 @@ MonoBehaviour:
   - {fileID: 4530039816247539875}
   banners:
   - {fileID: 21300000, guid: 7e142a29bfa786d409b350b2376abefd, type: 3}
-  - {fileID: 21300000, guid: 3ac9d48b572d56b44ac9ed9054380a8e, type: 3}
+  - {fileID: 21300000, guid: 426337fb093dd18478ac478f4fc47856, type: 3}
   - {fileID: 21300000, guid: 2eaea589d143c174b8697fa48cb9b90a, type: 3}
   - {fileID: 21300000, guid: 3a8d569fc0ccd484e8a52255ed30706c, type: 3}
 --- !u!1 &4408218806110231635

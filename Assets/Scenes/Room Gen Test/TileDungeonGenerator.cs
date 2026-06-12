@@ -32,6 +32,9 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private Vector2Int maxRoomSize = new Vector2Int(7, 7);
         [SerializeField] private int roomSpacing = 2;
 
+        [SerializeField] private RoomPropSpawner propSpawner;
+        private readonly List<RoomData> placedRooms = new List<RoomData>();
+
         private Vector3 tileSize;
 
         private readonly HashSet<Vector2Int> floorTiles = new HashSet<Vector2Int>();
@@ -67,6 +70,7 @@ namespace Dungeonlicious.Assets.Script
             Random.InitState(actualSeed);
 
             floorTiles.Clear();
+            placedRooms.Clear();
             placedRoomRects.Clear();
             corridorEntrances.Clear();
             wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
@@ -106,6 +110,8 @@ namespace Dungeonlicious.Assets.Script
             PlaceWalls();
             FillDiagonalGaps();
             PlaceDoors();
+
+            propSpawner.SpawnProps(placedRooms, tileSize);
         }
 
         private void SpawnCorridor(RectInt from, RectInt to)
@@ -213,6 +219,8 @@ namespace Dungeonlicious.Assets.Script
 
             GameObject root = new GameObject(roomName);
             root.transform.parent = transform;
+
+            placedRooms.Add(new RoomData(rect, GridToWorld(RectCenter(rect)), root.transform));
 
             for (int x = rect.x; x < rect.xMax; x++)
                 for (int z = rect.y; z < rect.yMax; z++)
