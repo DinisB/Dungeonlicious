@@ -13,9 +13,7 @@ namespace Dungeonlicious.Assets.Script
         }
         private void OnTriggerEnter(Collider other)
         {
-            PlayerHealth player = other.GetComponent<PlayerHealth>();
-
-            upgradeCanvasManager.gameObject.SetActive(true);
+            UpgradeCanvasManager.Instance.gameObject.SetActive(true);
             Time.timeScale = 0f;
         }
 

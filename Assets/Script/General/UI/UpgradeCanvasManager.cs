@@ -144,10 +144,7 @@ namespace Dungeonlicious.Assets.Script
         {
             Time.timeScale = 1f;
 
-            gameObject.SetActive(false);
-
-            GameManager gameManager =
-                FindFirstObjectByType<GameManager>();
+            GameManager gameManager = GameManager.instance;
 
             gameManager.NextLevel(scene);
         }
