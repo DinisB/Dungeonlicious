@@ -1,6 +1,8 @@
 namespace Dungeonlicious.Assets.Script
 {
     using System.Collections.Generic;
+    using TMPro;
+    using System;
     using UnityEngine;
     using UnityEngine.SceneManagement;
 
@@ -34,6 +36,7 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private int roomSpacing = 2;
 
         [SerializeField] private RoomPropSpawner propSpawner;
+        [SerializeField] private RoomFoodSpawner foodSpawner;
         private readonly List<RoomData> placedRooms = new List<RoomData>();
 
         private Vector3 tileSize;
@@ -58,6 +61,12 @@ namespace Dungeonlicious.Assets.Script
 
         private void Start()
         {
+            SeedKeeper seedKeeper = FindFirstObjectByType<SeedKeeper>();
+            if (seedKeeper != null)
+            {
+                seed = Int32.Parse(seedKeeper.GetSeed);
+                useCustomSeed = true;
+            }
             if (!useCustomSeed) { useCustomSeed = true; }
         }
 
@@ -88,7 +97,7 @@ namespace Dungeonlicious.Assets.Script
             int actualSeed = useCustomSeed
                 ? seed + clampedLevel
                 : System.Environment.TickCount + clampedLevel;
-            Random.InitState(actualSeed);
+            UnityEngine.Random.InitState(actualSeed);
 
             floorTiles.Clear();
             placedRooms.Clear();
@@ -97,7 +106,7 @@ namespace Dungeonlicious.Assets.Script
             wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
             cornerRightUpIdx = cornerRightDownIdx = cornerLeftUpIdx = cornerLeftDownIdx = 0;
 
-            int resolvedRoomCount = Random.Range(5, 6 + clampedLevel);
+            int resolvedRoomCount = UnityEngine.Random.Range(5, 6 + clampedLevel);
 
             RectInt firstRect = RandomRect(Vector2Int.zero);
             SpawnRoom("Room_Start", firstRect);
@@ -105,7 +114,7 @@ namespace Dungeonlicious.Assets.Script
 
             for (int a = 0; a < 20; a++)
             {
-                Direction dir = Random.value > 0.5f ? Direction.East : Direction.West;
+                Direction dir = UnityEngine.Random.value > 0.5f ? Direction.East : Direction.West;
                 RectInt rect = AdjacentRect(firstRect, dir);
                 if (Overlaps(rect)) continue;
                 SpawnRoom("Room_2", rect);
@@ -117,8 +126,8 @@ namespace Dungeonlicious.Assets.Script
             {
                 for (int a = 0; a < 20; a++)
                 {
-                    RectInt baseRect = placedRoomRects[Random.Range(1, placedRoomRects.Count)];
-                    Direction dir = (Direction)Random.Range(0, 4);
+                    RectInt baseRect = placedRoomRects[UnityEngine.Random.Range(1, placedRoomRects.Count)];
+                    Direction dir = (Direction)UnityEngine.Random.Range(0, 4);
                     RectInt rect = AdjacentRect(baseRect, dir);
                     if (Overlaps(rect)) continue;
                     string roomName = (i == resolvedRoomCount - 1) ? "Room_End" : $"Room_{i + 1}";
@@ -132,7 +141,10 @@ namespace Dungeonlicious.Assets.Script
             FillDiagonalGaps();
             PlaceDoors();
 
+            Dictionary<int, HashSet<Vector2Int>> usedTiles =
             propSpawner.SpawnProps(placedRooms, tileSize);
+
+            foodSpawner.SpawnFood(placedRooms, tileSize, usedTiles);
         }
 
         private void SpawnCorridor(RectInt from, RectInt to)
@@ -376,13 +388,13 @@ namespace Dungeonlicious.Assets.Script
         private RectInt RandomRect(Vector2Int origin)
             => new RectInt(
                 origin.x, origin.y,
-                Random.Range(minRoomSize.x, maxRoomSize.x + 1),
-                Random.Range(minRoomSize.y, maxRoomSize.y + 1));
+                UnityEngine.Random.Range(minRoomSize.x, maxRoomSize.x + 1),
+                UnityEngine.Random.Range(minRoomSize.y, maxRoomSize.y + 1));
 
         private RectInt AdjacentRect(RectInt baseRect, Direction dir)
         {
-            int w = Random.Range(minRoomSize.x, maxRoomSize.x + 1);
-            int d = Random.Range(minRoomSize.y, maxRoomSize.y + 1);
+            int w = UnityEngine.Random.Range(minRoomSize.x, maxRoomSize.x + 1);
+            int d = UnityEngine.Random.Range(minRoomSize.y, maxRoomSize.y + 1);
             switch (dir)
             {
                 case Direction.East:

@@ -1,13 +1,16 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private string _playSceneName;
+    [SerializeField] private TMP_InputField seedText;
+    private SeedKeeper seedKeeper;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        seedKeeper = FindFirstObjectByType<SeedKeeper>();
     }
 
     // Update is called once per frame
@@ -18,6 +21,11 @@ public class MenuManager : MonoBehaviour
 
     public void Play()
     {
+        if (seedText.text != "" || seedText != null)
+        {
+            DontDestroyOnLoad(seedKeeper);
+            seedKeeper.SetSeed(seedText.text);
+        }
         SceneManager.LoadScene(_playSceneName);
     }
 

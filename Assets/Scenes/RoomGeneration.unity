@@ -206,6 +206,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 982794043701404070, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bdfe5a62716d3504fa0be6213ace6a98, type: 3}
     - target: {fileID: 1535594604434973742, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
       propertyPath: m_Name
       value: PauseScreen
@@ -1144,6 +1148,7 @@ GameObject:
   - component: {fileID: 2060575984}
   - component: {fileID: 2060575983}
   - component: {fileID: 2060575985}
+  - component: {fileID: 2060575986}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -1195,6 +1200,7 @@ MonoBehaviour:
   maxRoomSize: {x: 16, y: 16}
   roomSpacing: 2
   propSpawner: {fileID: 2060575985}
+  foodSpawner: {fileID: 2060575986}
 --- !u!4 &2060575984
 Transform:
   m_ObjectHideFlags: 0
@@ -1229,6 +1235,23 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 3536f2f971a2bb44ab4723bf78d86ba9, type: 3}
   minProps: 1
   maxProps: 3
+--- !u!114 &2060575986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060575982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11a3233f60f5214495eaa9ca83ec663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.RoomFoodSpawner
+  ingredientPrefabs:
+  - {fileID: 7115522323572255251, guid: fe4e7c31717c00a4893100eb14d90b5c, type: 3}
+  - {fileID: 1174800367887691977, guid: c3a4a1f825619de4eaf9449a8985896c, type: 3}
+  minIngredients: 1
+  maxIngredients: 3
 --- !u!1 &2103943365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4349146969920352428, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
