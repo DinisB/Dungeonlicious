@@ -254289,18 +254289,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 752461115323959132, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 752461115323959132, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 752461115323959132, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3348790436457982528, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -254384,18 +254372,6 @@ PrefabInstance:
     - target: {fileID: 4349146969920352428, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
       propertyPath: m_Name
       value: Upgrade
-      objectReference: {fileID: 0}
-    - target: {fileID: 6492358648002254607, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6492358648002254607, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6492358648002254607, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

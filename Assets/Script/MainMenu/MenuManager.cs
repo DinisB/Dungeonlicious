@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuManager : MonoBehaviour
 {
@@ -21,10 +22,13 @@ public class MenuManager : MonoBehaviour
 
     public void Play()
     {
-        if (seedText.text != "" || seedText != null)
+        if (seedText != null && !string.IsNullOrEmpty(seedText.text))
         {
-            DontDestroyOnLoad(seedKeeper);
             seedKeeper.SetSeed(seedText.text);
+        }
+        else
+        {
+            seedKeeper.SetSeed(Environment.TickCount.ToString());
         }
         SceneManager.LoadScene(_playSceneName);
     }

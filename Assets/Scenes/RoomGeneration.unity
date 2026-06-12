@@ -1192,12 +1192,12 @@ MonoBehaviour:
   furnace: {fileID: 1906163982}
   doorPrefab: {fileID: 3555357924980986982, guid: 49de7c2de6b0b534c996616f2c7028ee, type: 3}
   useCustomSeed: 0
-  seed: 12345
+  seed: 0
   level: 1
   maxLevel: 9
   roomCount: 8
   minRoomSize: {x: 10, y: 10}
-  maxRoomSize: {x: 16, y: 16}
+  maxRoomSize: {x: 14, y: 14}
   roomSpacing: 2
   propSpawner: {fileID: 2060575985}
   foodSpawner: {fileID: 2060575986}

@@ -9,6 +9,8 @@ namespace Dungeonlicious.Assets.Script
         static public GameManager instance;
         [SerializeField] GameObject canvas;
         [SerializeField] GameObject pauseScreen;
+        private bool isLoading = false;
+
         private bool paused = false;
 
         void Awake()
@@ -72,6 +74,9 @@ namespace Dungeonlicious.Assets.Script
 
         public void NextLevel(string levelName)
         {
+            if (isLoading) return;
+            isLoading = true;
+
             if (canvas == null)
             {
                 canvas = FindAnyObjectByType<UpgradeCanvasManager>().gameObject;
