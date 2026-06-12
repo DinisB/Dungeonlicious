@@ -26,7 +26,7 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private GameObject doorPrefab;
 
         [SerializeField] private bool useCustomSeed = false;
-        [SerializeField] private int seed = 1337;
+        private static int seed = 1337;
         [SerializeField, Range(1, 9)] private int level = 1;
         [SerializeField] private int maxLevel = 9;
         public int MaxLevel => maxLevel;
@@ -67,6 +67,11 @@ namespace Dungeonlicious.Assets.Script
                 seed = Int32.Parse(seedKeeper.GetSeed);
                 useCustomSeed = true;
             }
+
+            if (level != 1)
+            {
+                useCustomSeed = true;
+            }
         }
 
         private void OnEnable()
@@ -81,8 +86,6 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (!useCustomSeed) { useCustomSeed = true; }
-            
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
@@ -95,10 +98,7 @@ namespace Dungeonlicious.Assets.Script
         private void GenerateDungeon()
         {
             int clampedLevel = Mathf.Clamp(level, 1, maxLevel);
-            int actualSeed = useCustomSeed
-                ? seed + clampedLevel
-                : System.Environment.TickCount + clampedLevel;
-            UnityEngine.Random.InitState(actualSeed);
+            UnityEngine.Random.InitState(seed);
 
             floorTiles.Clear();
             placedRooms.Clear();
