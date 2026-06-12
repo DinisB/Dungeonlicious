@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8780125713488881883}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Vines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4706985812962072223}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall 4 Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283830538683832000}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bottom_Wall_to_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5060421281500506839}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7316904319804342335}
   - component: {fileID: 1296200689080845489}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 8455836715160259167}
   - component: {fileID: 5124900525779209544}
   - component: {fileID: 2952357847931863328}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5030,7 +5030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1343833378591550368}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Top_Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5106,6 +5106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UV_VineVine_low (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f0442c75fb88ccb43abe62860ff0e0ea, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5176,6 +5180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewTorch_low
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f0b04728ebe17a4408e4cf30c70092b3, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5244,6 +5252,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 6f961c5ee4bc86a49b05de91fd91c38c, type: 2}
+    - target: {fileID: -4893031104349727640, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -1024094648696273164, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: -278389710737341946, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5251,6 +5267,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
       propertyPath: m_Name
       value: "Bottom_Pillar_to_Prefab\xB4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1066131886934708185, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -5267,6 +5287,10 @@ PrefabInstance:
     - target: {fileID: 6147279806306161660, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180871046234544309, guid: cc2c8abb844bb42449b0af88751a66a0, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5336,6 +5360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UV_VineVine_low
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f0442c75fb88ccb43abe62860ff0e0ea, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5394,9 +5422,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5870630636663241102, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4601012044272035125, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -578101138299426801, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
       propertyPath: m_Name
       value: Top_UV_Pillar (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695304551642739032, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5419,6 +5467,10 @@ PrefabInstance:
     - target: {fileID: 4766403221244987737, guid: 7dd20be78b1333d43b1275addc4da561, type: 3}
       propertyPath: m_Name
       value: Point Light (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766403221244987737, guid: 7dd20be78b1333d43b1275addc4da561, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8269322585709828372, guid: 7dd20be78b1333d43b1275addc4da561, type: 3}
       propertyPath: m_Type
@@ -5566,9 +5618,29 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7fdc8516c4268434d837d9559a6ddda4, type: 2}
+    - target: {fileID: -5870630636663241102, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4601012044272035125, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -578101138299426801, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
       propertyPath: m_Name
       value: Top_UV_Pillar (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695304551642739032, guid: a3cec90d38b66bb47b39090755cbfe50, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5631,6 +5703,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9e981b0a3132d2f4aa6326b3bd4377ce, type: 3}
       propertyPath: m_Name
       value: Temp_Torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9e981b0a3132d2f4aa6326b3bd4377ce, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9e981b0a3132d2f4aa6326b3bd4377ce, type: 3}
       propertyPath: m_IsActive

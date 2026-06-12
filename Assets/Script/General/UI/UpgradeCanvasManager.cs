@@ -85,6 +85,21 @@ namespace Dungeonlicious.Assets.Script
                 return "Idk man";
         }
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            gameObject.SetActive(false);
+        }
+
 
         // Update is called once per frame
         void Update()

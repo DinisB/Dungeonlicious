@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2447987679715007813}
   - component: {fileID: 285825543491931086}
   - component: {fileID: 3183560359327270354}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CornerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottom_UV_Corner2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 652e1150486e8924488d30e142feb88b, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -208,9 +212,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6068617187138265473, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -1760714182489039777, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
       propertyPath: m_Name
       value: Top_UV_Corner_2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1109301836820263754, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
       propertyPath: m_LocalPosition.x
@@ -294,9 +310,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6068617187138265473, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -1760714182489039777, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
       propertyPath: m_Name
       value: Top_UV_Corner_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1109301836820263754, guid: 6da03481fe4237e40938b527e79c0475, type: 3}
       propertyPath: m_LocalPosition.x

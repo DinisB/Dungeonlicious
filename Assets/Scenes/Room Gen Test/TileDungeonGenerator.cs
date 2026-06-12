@@ -2,6 +2,7 @@ namespace Dungeonlicious.Assets.Script
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     public class TileDungeonGenerator : MonoBehaviour
     {
@@ -57,7 +58,27 @@ namespace Dungeonlicious.Assets.Script
 
         private void Start()
         {
+            if (!useCustomSeed) { useCustomSeed = true; }
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
             tileSize = MeasureTileSize(tilePrefab);
+
             GenerateDungeon();
         }
 
@@ -230,6 +251,7 @@ namespace Dungeonlicious.Assets.Script
             {
                 Vector3 centerPos = GridToWorld(RectCenter(rect));
                 centerPos.y = tileSize.y;
+                if (furnace == null) furnace = GameObject.Find("FurnaceGen");
                 furnace.transform.position = centerPos;
             }
         }

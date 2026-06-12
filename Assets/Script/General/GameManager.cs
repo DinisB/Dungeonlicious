@@ -72,6 +72,15 @@ namespace Dungeonlicious.Assets.Script
 
         public void NextLevel(string levelName)
         {
+            if (canvas == null)
+            {
+                canvas = FindAnyObjectByType<UpgradeCanvasManager>().gameObject;
+            }
+
+            if (pauseScreen == null)
+            {
+                pauseScreen = GameObject.Find("PauseScreen");
+            }
             TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
             if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
             canvas.SetActive(false);

@@ -15,8 +15,8 @@ namespace Dungeonlicious.Assets.Script
             {
                 RoomData room = rooms[i];
                 List<Vector2Int> tiles = new List<Vector2Int>();
-                for (int x = room.rect.x + 1; x < room.rect.xMax - 1; x++)
-                    for (int z = room.rect.y + 1; z < room.rect.yMax - 1; z++)
+                for (int x = room.rect.x + 2; x < room.rect.xMax - 2; x++)
+                    for (int z = room.rect.y + 2; z < room.rect.yMax - 2; z++)
                         tiles.Add(new Vector2Int(x, z));
 
                 int count = Mathf.Min(Random.Range(minProps, maxProps + 1), tiles.Count);

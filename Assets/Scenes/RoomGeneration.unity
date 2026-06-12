@@ -1191,8 +1191,8 @@ MonoBehaviour:
   level: 1
   maxLevel: 9
   roomCount: 8
-  minRoomSize: {x: 8, y: 8}
-  maxRoomSize: {x: 14, y: 14}
+  minRoomSize: {x: 10, y: 10}
+  maxRoomSize: {x: 16, y: 16}
   roomSpacing: 2
   propSpawner: {fileID: 2060575985}
 --- !u!4 &2060575984
