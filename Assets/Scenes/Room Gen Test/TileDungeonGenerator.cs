@@ -42,8 +42,6 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private RoomPropSpawner propSpawner;
         [SerializeField] private RoomFoodSpawner foodSpawner;
         [SerializeField] private RoomEnemySpawner enemySpawner;
-
-        [SerializeField] private int corridorLayer;
         private readonly List<RoomData> placedRooms = new List<RoomData>();
 
         private Vector3 tileSize;
@@ -152,6 +150,13 @@ namespace Dungeonlicious.Assets.Script
             foodSpawner.SpawnFood(placedRooms, tileSize, usedTiles);
             enemySpawner.SpawnEnemies(placedRooms, tileSize, usedTiles, level);
 
+            StartCoroutine(BakeNavMeshNextFrame());
+        }
+
+        private IEnumerator BakeNavMeshNextFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
             navMeshSurface.BuildNavMesh();
         }
 
@@ -171,13 +176,13 @@ namespace Dungeonlicious.Assets.Script
                 {
                     cur.x += sx;
                     GameObject t1 = PlaceFloorTile(cur);
-                    if (t1 != null) t1.layer = corridorLayer;
+                    if (t1 != null) t1.layer = LayerMask.NameToLayer("Corridor");
 
                     GameObject t2 = PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
-                    if (t2 != null) t2.layer = corridorLayer;
+                    if (t2 != null) t2.layer = LayerMask.NameToLayer("Corridor");
 
                     GameObject t3 = PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
-                    if (t3 != null) t3.layer = corridorLayer;
+                    if (t3 != null) t3.layer = LayerMask.NameToLayer("Corridor");
 
                     if (exitDoorPos == null && !from.Contains(cur))
                         exitDoorPos = cur;
@@ -194,13 +199,13 @@ namespace Dungeonlicious.Assets.Script
                 {
                     cur.y += sz;
                     GameObject t1 = PlaceFloorTile(cur);
-                    if (t1 != null) t1.layer = corridorLayer;
+                    if (t1 != null) t1.layer = LayerMask.NameToLayer("Corridor");
 
                     GameObject t2 = PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
-                    if (t2 != null) t2.layer = corridorLayer;
+                    if (t2 != null) t2.layer = LayerMask.NameToLayer("Corridor");
 
                     GameObject t3 = PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
-                    if (t3 != null) t3.layer = corridorLayer;
+                    if (t3 != null) t3.layer = LayerMask.NameToLayer("Corridor");
 
                     if (exitDoorPos == null && !from.Contains(cur))
                         exitDoorPos = cur;
