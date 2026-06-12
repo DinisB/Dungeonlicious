@@ -82,7 +82,7 @@ namespace Dungeonlicious.Assets.Script
         {
             if (ratio <= 0f)
             {
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Game Over");
             }
         }
         /*

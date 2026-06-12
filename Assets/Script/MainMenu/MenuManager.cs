@@ -49,6 +49,12 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(_playSceneName);
     }
 
+    public void MainMenu()
+    {
+        DestroyAllDontDestroyOnLoad();
+        SceneManager.LoadScene("Main Menu");
+    }
+
     public void Quit()
     {
         Application.Quit();

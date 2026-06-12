@@ -206,17 +206,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 982794043701404070, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: bdfe5a62716d3504fa0be6213ace6a98, type: 3}
     - target: {fileID: 1535594604434973742, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
       propertyPath: m_Name
       value: PauseScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535594604434973742, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4370464035097350309, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
       propertyPath: m_Pivot.x
@@ -296,18 +288,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370464035097350309, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8929974667920925026, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3034400e7256b44ca9425d16881bfe3, type: 2}
-    - target: {fileID: 8929974667920925026, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -6080657869176083442, guid: a3034400e7256b44ca9425d16881bfe3, type: 2}
-    - target: {fileID: 8929974667920925026, guid: dfe28b5e451680745969cb5f521195e6, type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
