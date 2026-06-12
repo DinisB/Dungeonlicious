@@ -57,6 +57,8 @@ public class BakonAI : MonoBehaviour
     private float ammoRestoreTimer;
     private bool restoringAmmo;
 
+    [SerializeField] private Animator anim;
+
     private void Awake()
     {
         renderers = GetComponentsInChildren<Renderer>();
@@ -101,7 +103,7 @@ public class BakonAI : MonoBehaviour
             "move",
             EnterMove,
             MoveToPosition,
-            null
+            () => anim.SetBool("Move", false)
         );
 
         State stagger = new State(
@@ -319,6 +321,7 @@ public class BakonAI : MonoBehaviour
 
     private void EnterMove()
     {
+        anim.SetBool("Move", true);
         agent.isStopped = false;
         reachedWaypoint = false;
         SelectRandomWaypoint();
