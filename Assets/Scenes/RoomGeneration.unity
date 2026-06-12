@@ -1206,6 +1206,8 @@ GameObject:
   - component: {fileID: 2060575983}
   - component: {fileID: 2060575985}
   - component: {fileID: 2060575986}
+  - component: {fileID: 2060575987}
+  - component: {fileID: 2060575988}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -1246,6 +1248,7 @@ MonoBehaviour:
   - {fileID: 162727046732541057, guid: f1c526e6c33c7304e81d6e019f0c3f55, type: 3}
   cornerPrefabsLeftDown:
   - {fileID: 162727046732541057, guid: ec09c3885d5f27049adb65ddc69670bb, type: 3}
+  navMeshSurface: {fileID: 2060575988}
   furnace: {fileID: 1906163982}
   doorPrefab: {fileID: 3555357924980986982, guid: 49de7c2de6b0b534c996616f2c7028ee, type: 3}
   useCustomSeed: 0
@@ -1258,6 +1261,7 @@ MonoBehaviour:
   roomSpacing: 2
   propSpawner: {fileID: 2060575985}
   foodSpawner: {fileID: 2060575986}
+  enemySpawner: {fileID: 2060575987}
 --- !u!4 &2060575984
 Transform:
   m_ObjectHideFlags: 0
@@ -1309,6 +1313,54 @@ MonoBehaviour:
   - {fileID: 1174800367887691977, guid: c3a4a1f825619de4eaf9449a8985896c, type: 3}
   minIngredients: 1
   maxIngredients: 3
+--- !u!114 &2060575987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060575982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c13eaf963207944b40aafb563676d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.RoomEnemySpawner
+  commonEnemy: {fileID: 1172967001464519019, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
+  rareEnemy: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+  minEnemies: 1
+  maxEnemies: 3
+--- !u!114 &2060575988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060575982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &2103943365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4349146969920352428, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}

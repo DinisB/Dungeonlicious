@@ -6,6 +6,7 @@ namespace Dungeonlicious.Assets.Script
     using System;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using Unity.AI.Navigation;
 
     public class TileDungeonGenerator : MonoBehaviour
     {
@@ -23,6 +24,8 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private List<GameObject> cornerPrefabsLeftUp;
         [SerializeField] private List<GameObject> cornerPrefabsLeftDown;
 
+        [SerializeField] private NavMeshSurface navMeshSurface;
+
         [SerializeField] private GameObject furnace;
         [SerializeField] private GameObject doorPrefab;
 
@@ -38,6 +41,7 @@ namespace Dungeonlicious.Assets.Script
 
         [SerializeField] private RoomPropSpawner propSpawner;
         [SerializeField] private RoomFoodSpawner foodSpawner;
+        [SerializeField] private RoomEnemySpawner enemySpawner;
         private readonly List<RoomData> placedRooms = new List<RoomData>();
 
         private Vector3 tileSize;
@@ -85,7 +89,7 @@ namespace Dungeonlicious.Assets.Script
 
             foreach (Transform child in transform)
             {
-                Destroy(child.gameObject);
+                DestroyImmediate(child.gameObject);
             }
             tileSize = MeasureTileSize(tilePrefab);
 
@@ -144,6 +148,9 @@ namespace Dungeonlicious.Assets.Script
             propSpawner.SpawnProps(placedRooms, tileSize);
 
             foodSpawner.SpawnFood(placedRooms, tileSize, usedTiles);
+            enemySpawner.SpawnEnemies(placedRooms, tileSize, usedTiles, level);
+
+            navMeshSurface.BuildNavMesh();
         }
 
         private void SpawnCorridor(RectInt from, RectInt to)
