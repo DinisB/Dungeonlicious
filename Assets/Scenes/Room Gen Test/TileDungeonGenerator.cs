@@ -42,6 +42,8 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private RoomPropSpawner propSpawner;
         [SerializeField] private RoomFoodSpawner foodSpawner;
         [SerializeField] private RoomEnemySpawner enemySpawner;
+
+        [SerializeField] private int corridorLayer;
         private readonly List<RoomData> placedRooms = new List<RoomData>();
 
         private Vector3 tileSize;
@@ -168,9 +170,14 @@ namespace Dungeonlicious.Assets.Script
                 while (cur.x != toCenter.x)
                 {
                     cur.x += sx;
-                    PlaceFloorTile(cur);
-                    PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
-                    PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
+                    GameObject t1 = PlaceFloorTile(cur);
+                    if (t1 != null) t1.layer = corridorLayer;
+
+                    GameObject t2 = PlaceFloorTile(new Vector2Int(cur.x, cur.y + 1));
+                    if (t2 != null) t2.layer = corridorLayer;
+
+                    GameObject t3 = PlaceFloorTile(new Vector2Int(cur.x, cur.y - 1));
+                    if (t3 != null) t3.layer = corridorLayer;
 
                     if (exitDoorPos == null && !from.Contains(cur))
                         exitDoorPos = cur;
@@ -186,9 +193,14 @@ namespace Dungeonlicious.Assets.Script
                 while (cur.y != toCenter.y)
                 {
                     cur.y += sz;
-                    PlaceFloorTile(cur);
-                    PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
-                    PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
+                    GameObject t1 = PlaceFloorTile(cur);
+                    if (t1 != null) t1.layer = corridorLayer;
+
+                    GameObject t2 = PlaceFloorTile(new Vector2Int(cur.x + 1, cur.y));
+                    if (t2 != null) t2.layer = corridorLayer;
+
+                    GameObject t3 = PlaceFloorTile(new Vector2Int(cur.x - 1, cur.y));
+                    if (t3 != null) t3.layer = corridorLayer;
 
                     if (exitDoorPos == null && !from.Contains(cur))
                         exitDoorPos = cur;
@@ -226,6 +238,7 @@ namespace Dungeonlicious.Assets.Script
                     ? new Vector2Int(toCenter.x, to.yMin - 1)
                     : new Vector2Int(toCenter.x, to.yMax);
             }
+
 
             PlaceFloorTile(exitDoorPos.Value);
             PlaceFloorTile(entryDoorPos.Value);
@@ -274,13 +287,15 @@ namespace Dungeonlicious.Assets.Script
             }
         }
 
-        private void PlaceFloorTile(Vector2Int coord, Transform parent = null)
+        private GameObject PlaceFloorTile(Vector2Int coord, Transform parent = null)
         {
-            if (floorTiles.Contains(coord)) return;
+            if (floorTiles.Contains(coord)) return null;
             floorTiles.Add(coord);
 
             Vector3 pos = GridToWorld(coord);
-            Instantiate(tilePrefab, pos, Quaternion.identity, parent != null ? parent : transform);
+            GameObject t = Instantiate(tilePrefab, pos, Quaternion.identity, parent != null ? parent : transform);
+
+            return t;
         }
 
         private void PlaceWalls()
