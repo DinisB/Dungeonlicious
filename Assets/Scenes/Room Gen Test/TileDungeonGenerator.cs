@@ -449,14 +449,22 @@ namespace Dungeonlicious.Assets.Script
 
         private IEnumerator TeleportAfterFrame(Vector3 pos)
         {
+            pos.y = tileSize.y + 1f;
+
             yield return null;
+            yield return new WaitForEndOfFrame();
 
             GameObject player = GameObject.FindWithTag("Player");
             if (player == null) yield break;
 
-            pos.y = tileSize.y + 1f;
+            CharacterController cc = player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
 
             player.transform.position = pos;
+
+            yield return null;
+
+            if (cc != null) cc.enabled = true;
         }
 
         private Vector3 GridToWorld(Vector2Int coord)
