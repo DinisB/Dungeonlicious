@@ -1,6 +1,7 @@
 namespace Dungeonlicious.Assets.Script
 {
     using System.Collections.Generic;
+    using System.Collections;
     using TMPro;
     using System;
     using UnityEngine;
@@ -370,10 +371,19 @@ namespace Dungeonlicious.Assets.Script
 
         private void TeleportPlayerToCenter(RectInt room)
         {
+            Vector3 targetPos = GridToWorld(RectCenter(room));
+            StartCoroutine(TeleportAfterFrame(targetPos));
+        }
+
+        private IEnumerator TeleportAfterFrame(Vector3 pos)
+        {
+            yield return null;
+
             GameObject player = GameObject.FindWithTag("Player");
-            if (player == null) return;
-            Vector3 pos = GridToWorld(RectCenter(room));
-            pos.y = tileSize.y;
+            if (player == null) yield break;
+
+            pos.y = tileSize.y + 1f;
+
             player.transform.position = pos;
         }
 
