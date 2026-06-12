@@ -129,16 +129,19 @@ public class SlimeAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.isStopped = false;
+        if(HasLineOfSight() && CanReachPlayer())
+        {
+            agent.isStopped = false;
 
-        Vector3 direction = (playerAgent.transform.position 
-        - transform.position).normalized;
+            Vector3 direction = (playerAgent.transform.position 
+            - transform.position).normalized;
 
-        direction.y = 0;
+            direction.y = 0;
 
-        transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.LookRotation(direction);
 
-        agent.SetDestination(playerAgent.transform.position);
+            agent.SetDestination(playerAgent.transform.position);
+        }
     }
     private void AttackPlayer()
     {
@@ -217,5 +220,33 @@ public class SlimeAI : MonoBehaviour
 
         staggerTargetPos =
             staggerStartPos + direction * staggerDistance;
+    }
+
+    private bool HasLineOfSight()
+    {
+        Vector3 origin = transform.position + Vector3.up * 1.5f;
+        Vector3 target = playerAgent.transform.position + Vector3.up;
+
+        Vector3 direction = (target - origin).normalized;
+        float distance = Vector3.Distance(origin, target);
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
+        {
+            return hit.transform == playerAgent.transform;
+        }
+
+        return false;
+    }
+
+    private bool CanReachPlayer()
+    {
+        NavMeshPath path = new NavMeshPath();
+
+        if (agent.CalculatePath(playerAgent.transform.position, path))
+        {
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+
+        return false;
     }
 }
