@@ -61,6 +61,8 @@ public class BakonAI : MonoBehaviour
 
     private void Awake()
     {
+        anim = GetComponentInChildren<Animator>();
+        
         renderers = GetComponentsInChildren<Renderer>();
         originalColors = new Color[renderers.Length];
 

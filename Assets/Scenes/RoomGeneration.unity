@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.RoomEnemySpawner
   commonEnemy: {fileID: 1172967001464519019, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
-  rareEnemy: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+  rareEnemy: {fileID: 5569777003679322919, guid: ee5216175c0168348ae0667d5ccd0ff8, type: 3}
   minEnemies: 1
   maxEnemies: 3
 --- !u!114 &2060575988
