@@ -112,6 +112,8 @@ namespace Dungeonlicious.Assets.Script
 
         private void DestroyDungeon()
         {
+            StopAllCoroutines();
+
             floorTiles.Clear();
             placedRooms.Clear();
             placedRoomRects.Clear();
@@ -185,24 +187,21 @@ namespace Dungeonlicious.Assets.Script
             foodSpawner.SpawnFood(placedRooms, tileSize, usedTiles);
             enemySpawner.SpawnEnemies(placedRooms, tileSize, usedTiles, level);
 
-            StartCoroutine(BakeNavMeshNextFrame());
+            StartCoroutine(BakeNavMesh());
         }
 
-        private IEnumerator BakeNavMeshNextFrame()
+        private IEnumerator BakeNavMesh()
         {
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForFixedUpdate();
+            yield return null;
 
             if (navMeshSurface == null)
-            {
                 navMeshSurface = FindFirstObjectByType<NavMeshSurface>();
-            }
 
-            if (navMeshSurface == null)
-            {
+            if (navMeshSurface == null || navMeshSurface.gameObject == null)
                 yield break;
-            }
 
+            yield return new WaitForEndOfFrame();
+            navMeshSurface.RemoveData();
             navMeshSurface.BuildNavMesh();
         }
 

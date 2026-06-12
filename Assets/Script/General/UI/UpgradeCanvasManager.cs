@@ -3,86 +3,30 @@ namespace Dungeonlicious.Assets.Script
     using UnityEngine;
     using System.Collections.Generic;
     using System;
-    using UnityEngine.UI;
     using UnityEngine.SceneManagement;
 
     public class UpgradeCanvasManager : MonoBehaviour
     {
+        public static UpgradeCanvasManager Instance { get; private set; }
+
         [SerializeField]
         private GameObject[] UpgradeCanvas;
+
         private List<IUpgrade> upgrades;
+
         [SerializeField] private Sprite[] banners;
+        [SerializeField] private string scene;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private void Awake()
         {
-            Array values = Enum.GetValues(typeof(UpgradeType));
-            upgrades = new List<IUpgrade>();
-
-            for (int i = 0; i < 3; i++)
+            if (Instance != null && Instance != this)
             {
-                UpgradeType type = (UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
-
-                IUpgrade upgrade = new Upgrade(
-                    type,
-                    0,
-                    GetUpgradeDesc(type),
-                    GetUpgradeName(type)
-                );
-
-                upgrade.upgradeValue = UnityEngine.Random.Range(1, GetUpgradeValue(type) + 1);
-
-                upgrades.Add(upgrade);
+                Destroy(gameObject);
+                return;
             }
 
-            UpdateUpgradeCanvas();
-
-            for (int i = 0; i < 3; i++)
-            {
-                UpgradeCanvas[i].GetComponent<UpgradeCanvas>().onUpgradeSelected.AddListener(NextLevel);
-            }
-        }
-
-        public int GetUpgradeValue(UpgradeType upgradeType)
-        {
-            if (upgradeType == UpgradeType.Health)
-                return 10;
-            else if (upgradeType == UpgradeType.Speed)
-                return 1;
-            else if (upgradeType == UpgradeType.Strength)
-                return 2;
-            else if (upgradeType == UpgradeType.Knife)
-                return 1;
-            else
-                return 0;
-        }
-
-        public string GetUpgradeDesc(UpgradeType upgradeType)
-        {
-            if (upgradeType == UpgradeType.Health)
-                return "Betters your health";
-            else if (upgradeType == UpgradeType.Speed)
-                return "Makes you faster";
-            else if (upgradeType == UpgradeType.Strength)
-                return "Makes you beefier";
-            else if (upgradeType == UpgradeType.Knife)
-                return "Adds additional knives";
-            else
-                return "Idk man";
-        }
-
-        public string GetUpgradeName(UpgradeType upgradeType)
-        {
-            if (upgradeType == UpgradeType.Health)
-                return "Carrot soup";
-            else if (upgradeType == UpgradeType.Speed)
-                return "Tomato soup";
-            else if (upgradeType == UpgradeType.Strength)
-                return "Beef Wellington";
-            else if (upgradeType == UpgradeType.Knife)
-                return "Knizza slice";
-            else
-                return "Idk man";
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void OnEnable()
@@ -97,21 +41,102 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            gameObject.SetActive(false);
+            GenerateUpgrades();
         }
 
-
-        // Update is called once per frame
-        void Update()
+        private void GenerateUpgrades()
         {
+            gameObject.SetActive(false);
 
+            Array values = Enum.GetValues(typeof(UpgradeType));
+            upgrades = new List<IUpgrade>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                UpgradeType type =
+                    (UpgradeType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+
+                IUpgrade upgrade = new Upgrade(
+                    type,
+                    0,
+                    GetUpgradeDesc(type),
+                    GetUpgradeName(type)
+                );
+
+                upgrade.upgradeValue =
+                    UnityEngine.Random.Range(1, GetUpgradeValue(type) + 1);
+
+                upgrades.Add(upgrade);
+            }
+
+            UpdateUpgradeCanvas();
+
+            for (int i = 0; i < 3; i++)
+            {
+                UpgradeCanvas[i]
+                    .GetComponent<UpgradeCanvas>()
+                    .onUpgradeSelected
+                    .RemoveAllListeners();
+
+                UpgradeCanvas[i]
+                    .GetComponent<UpgradeCanvas>()
+                    .onUpgradeSelected
+                    .AddListener(NextLevel);
+            }
+        }
+
+        public int GetUpgradeValue(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return 10;
+            else if (upgradeType == UpgradeType.Speed)
+                return 1;
+            else if (upgradeType == UpgradeType.Strength)
+                return 2;
+            else if (upgradeType == UpgradeType.Knife)
+                return 1;
+
+            return 0;
+        }
+
+        public string GetUpgradeDesc(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return "Betters your health";
+            else if (upgradeType == UpgradeType.Speed)
+                return "Makes you faster";
+            else if (upgradeType == UpgradeType.Strength)
+                return "Makes you beefier";
+            else if (upgradeType == UpgradeType.Knife)
+                return "Adds additional knives";
+
+            return "Idk man";
+        }
+
+        public string GetUpgradeName(UpgradeType upgradeType)
+        {
+            if (upgradeType == UpgradeType.Health)
+                return "Carrot soup";
+            else if (upgradeType == UpgradeType.Speed)
+                return "Tomato soup";
+            else if (upgradeType == UpgradeType.Strength)
+                return "Beef Wellington";
+            else if (upgradeType == UpgradeType.Knife)
+                return "Knizza slice";
+
+            return "Idk man";
         }
 
         void UpdateUpgradeCanvas()
         {
             for (int i = 0; i < UpgradeCanvas.Length; i++)
             {
-                UpgradeCanvas[i].GetComponent<UpgradeCanvas>().ChangeUpgradeInfo(upgrades[i], banners[(int)upgrades[i].upgradeType]);
+                UpgradeCanvas[i]
+                    .GetComponent<UpgradeCanvas>()
+                    .ChangeUpgradeInfo(
+                        upgrades[i],
+                        banners[(int)upgrades[i].upgradeType]
+                    );
             }
         }
 
@@ -119,13 +144,12 @@ namespace Dungeonlicious.Assets.Script
         {
             Time.timeScale = 1f;
 
-            for (int i = 0; i < UpgradeCanvas.Length; i++)
-            {
-                UpgradeCanvas[i].SetActive(false);
-            }
+            gameObject.SetActive(false);
 
-            GameManager gameManager = FindFirstObjectByType<GameManager>();
-            gameManager.NextLevel(SceneManager.GetActiveScene().name);
+            GameManager gameManager =
+                FindFirstObjectByType<GameManager>();
+
+            gameManager.NextLevel(scene);
         }
     }
 }

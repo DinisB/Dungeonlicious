@@ -11,20 +11,20 @@ namespace Dungeonlicious.Assets.Script
 
         private void Awake()
         {
-            upgrades = new List<IUpgrade>();
-            EnforceSingleton();
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            if (upgrades == null)
+                upgrades = new List<IUpgrade>();
         }
 
-        private void EnforceSingleton()
-        {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-                Destroy(gameObject);
-        }
+
 
         // Update is called once per frame
         void Update()

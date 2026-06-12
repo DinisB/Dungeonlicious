@@ -820,6 +820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 6901557319965334655, guid: 201ed148b30b56f429541e5e8c025bf1, type: 3}
+      propertyPath: scene
+      value: RoomGeneration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1074,7 +1078,6 @@ MonoBehaviour:
   propSpawner: {fileID: 2060575985}
   foodSpawner: {fileID: 2060575986}
   enemySpawner: {fileID: 2060575987}
-  corridorLayer: 16
 --- !u!4 &2060575984
 Transform:
   m_ObjectHideFlags: 0
@@ -1162,7 +1165,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1

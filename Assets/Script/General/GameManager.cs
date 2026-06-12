@@ -22,6 +22,13 @@ namespace Dungeonlicious.Assets.Script
         void Start()
         {
             canvas.SetActive(false);
+
+            canvas = UpgradeCanvasManager.Instance.gameObject;
+
+            if (pauseScreen.scene.buildIndex != -1)
+            {
+                DontDestroyOnLoad(pauseScreen);
+            }
         }
 
         void Update()

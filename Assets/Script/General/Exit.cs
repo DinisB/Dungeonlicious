@@ -4,17 +4,12 @@ namespace Dungeonlicious.Assets.Script
 
     public class Exit : MonoBehaviour
     {
-        private UpgradeManager upgradeManager;
         [SerializeField]
         private UpgradeCanvasManager upgradeCanvasManager;
         void Start()
         {
-            upgradeManager = FindFirstObjectByType<UpgradeManager>();
-            if (upgradeCanvasManager == null)
-            {
-                upgradeCanvasManager = FindFirstObjectByType<UpgradeCanvasManager>();
-                upgradeCanvasManager.gameObject.SetActive(false);
-            }
+            upgradeCanvasManager = UpgradeCanvasManager.Instance;
+            upgradeCanvasManager.gameObject.SetActive(false);
         }
         private void OnTriggerEnter(Collider other)
         {

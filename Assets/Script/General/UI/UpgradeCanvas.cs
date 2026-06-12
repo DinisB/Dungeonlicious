@@ -16,10 +16,11 @@ namespace Dungeonlicious.Assets.Script
         private Image banner;
         private IUpgrade upgrade;
         public UnityEvent onUpgradeSelected;
+
+        private UpgradeManager upgradeManager;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            
         }
 
         // Update is called once per frame
@@ -30,9 +31,10 @@ namespace Dungeonlicious.Assets.Script
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            GameObject upgradeManager = FindFirstObjectByType<UpgradeManager>().gameObject;
-            upgradeManager.GetComponent<UpgradeManager>().AddUpgrade(upgrade);
-            DontDestroyOnLoad(upgradeManager);
+            upgradeManager = UpgradeManager.Instance;
+            if (upgradeManager == null) return;
+
+            upgradeManager.AddUpgrade(upgrade);
             onUpgradeSelected.Invoke();
         }
 
