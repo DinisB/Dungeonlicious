@@ -11,7 +11,23 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        DestroyAllDontDestroyOnLoad();
         seedKeeper = FindFirstObjectByType<SeedKeeper>();
+    }
+
+    public static void DestroyAllDontDestroyOnLoad()
+    {
+        GameObject temp = new GameObject();
+        DontDestroyOnLoad(temp);
+
+        Scene dontDestroyScene = temp.scene;
+
+        GameObject[] rootObjects = dontDestroyScene.GetRootGameObjects();
+
+        foreach (GameObject obj in rootObjects)
+        {
+            Destroy(obj);
+        }
     }
 
     // Update is called once per frame

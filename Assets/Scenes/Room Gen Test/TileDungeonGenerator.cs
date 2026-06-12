@@ -136,8 +136,8 @@ namespace Dungeonlicious.Assets.Script
         private void GenerateDungeon()
         {
             int clampedLevel = Mathf.Clamp(level, 1, maxLevel);
-            int finalSeed = seed + level * 1000;
-            UnityEngine.Random.InitState(finalSeed);
+            int levelSeed = seed ^ (level * 99991);
+            UnityEngine.Random.InitState(levelSeed);
 
             floorTiles.Clear();
             placedRooms.Clear();

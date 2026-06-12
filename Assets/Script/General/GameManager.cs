@@ -101,7 +101,11 @@ namespace Dungeonlicious.Assets.Script
             if (tileDungeonGenerator != null)
                 tileDungeonGenerator.IncreaseLevel();
 
-            SceneManager.LoadScene(levelName);
+            if (tileDungeonGenerator.Level > tileDungeonGenerator.MaxLevel - 1)
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
+            else { SceneManager.LoadScene(levelName); }
         }
     }
 }
