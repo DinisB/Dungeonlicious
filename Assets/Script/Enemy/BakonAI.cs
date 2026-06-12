@@ -83,6 +83,8 @@ public class BakonAI : MonoBehaviour
         target = playerAgent.GetComponent<IDamageable>();
         bakonHealth = GetComponent<BakonHealth>();
 
+        anim = GetComponentInChildren<Animator>();
+
         currentAmmo = maxAmmo;
 
         if (combat != null)
