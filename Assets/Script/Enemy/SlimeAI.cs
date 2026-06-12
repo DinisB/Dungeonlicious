@@ -31,14 +31,17 @@ public class SlimeAI : MonoBehaviour
     private float deathTimer;
     private Vector3 deathStartScale;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         playerAgent = FindFirstObjectByType<PlayerHealth>().gameObject;
         agent = GetComponent<NavMeshAgent>();
         target = playerAgent.GetComponent<IDamageable>();
         slimeHealth = GetComponent<SlimeHealth>();
+    }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Start()
+    {
         State attack = new State(
             "attack",
             () => Debug.Log("Enter Attack"),
