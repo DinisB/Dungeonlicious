@@ -13,6 +13,8 @@ namespace Dungeonlicious.Assets.Script
         private static TileDungeonGenerator _instance;
         public static TileDungeonGenerator Instance => _instance;
 
+        private bool isGenerating;
+
         [SerializeField] private GameObject tilePrefab;
         [SerializeField] private List<GameObject> wallPrefabsRight;
         [SerializeField] private List<GameObject> wallPrefabsUp;
@@ -60,8 +62,14 @@ namespace Dungeonlicious.Assets.Script
 
         private void Awake()
         {
-            if (_instance == null) { _instance = this; DontDestroyOnLoad(gameObject); }
-            else { Destroy(gameObject); }
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
@@ -81,19 +89,46 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (isGenerating) return;
+            isGenerating = true;
+
             SeedKeeper keeper = SeedKeeper.Instance;
+
+            navMeshSurface = FindFirstObjectByType<NavMeshSurface>();
+
             if (keeper != null && int.TryParse(keeper.Seed, out int parsedSeed))
                 seed = parsedSeed;
             else
                 seed = Environment.TickCount;
 
-            foreach (Transform child in transform)
-            {
-                DestroyImmediate(child.gameObject);
-            }
+            DestroyDungeon();
+
             tileSize = MeasureTileSize(tilePrefab);
 
             GenerateDungeon();
+
+            isGenerating = false;
+        }
+
+        private void DestroyDungeon()
+        {
+            floorTiles.Clear();
+            placedRooms.Clear();
+            placedRoomRects.Clear();
+            corridorEntrances.Clear();
+
+            wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
+            cornerRightUpIdx = cornerRightDownIdx = cornerLeftUpIdx = cornerLeftDownIdx = 0;
+
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+
+            if (navMeshSurface != null)
+            {
+                navMeshSurface.RemoveData();
+            }
         }
 
         private void GenerateDungeon()
@@ -157,6 +192,17 @@ namespace Dungeonlicious.Assets.Script
         {
             yield return new WaitForEndOfFrame();
             yield return new WaitForFixedUpdate();
+
+            if (navMeshSurface == null)
+            {
+                navMeshSurface = FindFirstObjectByType<NavMeshSurface>();
+            }
+
+            if (navMeshSurface == null)
+            {
+                yield break;
+            }
+
             navMeshSurface.BuildNavMesh();
         }
 

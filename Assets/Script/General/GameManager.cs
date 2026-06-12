@@ -77,26 +77,11 @@ namespace Dungeonlicious.Assets.Script
             if (isLoading) return;
             isLoading = true;
 
-            if (canvas == null)
-            {
-                canvas = FindAnyObjectByType<UpgradeCanvasManager>().gameObject;
-            }
-
-            if (pauseScreen == null)
-            {
-                pauseScreen = GameObject.Find("PauseScreen");
-            }
             TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
-            if (tileDungeonGenerator != null) tileDungeonGenerator.IncreaseLevel();
-            canvas.SetActive(false);
-            if (tileDungeonGenerator.Level <= tileDungeonGenerator.MaxLevel)
-            {
-                SceneManager.LoadScene(levelName);
-            }
-            else
-            {
-                SceneManager.LoadScene("Main Menu");
-            }
+            if (tileDungeonGenerator != null)
+                tileDungeonGenerator.IncreaseLevel();
+
+            SceneManager.LoadScene(levelName);
         }
     }
 }

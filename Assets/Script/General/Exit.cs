@@ -10,7 +10,6 @@ namespace Dungeonlicious.Assets.Script
         void Start()
         {
             upgradeManager = FindFirstObjectByType<UpgradeManager>();
-            DontDestroyOnLoad(upgradeManager.gameObject);
             if (upgradeCanvasManager == null)
             {
                 upgradeCanvasManager = FindFirstObjectByType<UpgradeCanvasManager>();

@@ -117,13 +117,15 @@ namespace Dungeonlicious.Assets.Script
 
         public void NextLevel()
         {
+            Time.timeScale = 1f;
+
             for (int i = 0; i < UpgradeCanvas.Length; i++)
             {
-                Time.timeScale = 1f;
                 UpgradeCanvas[i].SetActive(false);
-                GameManager gameManager = FindFirstObjectByType<GameManager>();
-                gameManager.NextLevel(SceneManager.GetActiveScene().name);
             }
+
+            GameManager gameManager = FindFirstObjectByType<GameManager>();
+            gameManager.NextLevel(SceneManager.GetActiveScene().name);
         }
     }
 }
