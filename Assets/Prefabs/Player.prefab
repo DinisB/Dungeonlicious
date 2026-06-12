@@ -46,7 +46,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -79,7 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6600188425338678350}
   - component: {fileID: 2362827190741135654}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4222187771953489414}
   - component: {fileID: 5165974812025081407}
   - component: {fileID: 7821638895692506579}
-  - component: {fileID: 561936785686302724}
+  - component: {fileID: 7414273818186673340}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -238,7 +238,7 @@ MonoBehaviour:
   throwSpot: {fileID: 8842940278943778960}
   knifeCount: 5
   knifeCountText: {fileID: 0}
-  lineRenderer: {fileID: 561936785686302724}
+  lineRenderer: {fileID: 7414273818186673340}
   lockOnScript: {fileID: 733003403375403705}
 --- !u!114 &5165974812025081407
 MonoBehaviour:
@@ -281,7 +281,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!120 &561936785686302724
+--- !u!120 &7414273818186673340
 LineRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
