@@ -67,7 +67,6 @@ namespace Dungeonlicious.Assets.Script
                 seed = Int32.Parse(seedKeeper.GetSeed);
                 useCustomSeed = true;
             }
-            if (!useCustomSeed) { useCustomSeed = true; }
         }
 
         private void OnEnable()
@@ -82,6 +81,8 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (!useCustomSeed) { useCustomSeed = true; }
+            
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
