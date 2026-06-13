@@ -2,6 +2,7 @@ namespace Dungeonlicious.Assets.Script
 {
     using System;
     using UnityEngine;
+    using UnityEngine.InputSystem;
 
     public class PlayerHealth : MonoBehaviour, IDamageable, IHealable, IAttackUpgrade
     {
@@ -18,6 +19,8 @@ namespace Dungeonlicious.Assets.Script
 
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip playerDamaged;
+
+        private bool godMode = false;
 
         private void Awake()
         {
@@ -69,6 +72,14 @@ namespace Dungeonlicious.Assets.Script
             DispatchHealthChanged();
         }
 
+        private void Update()
+        {
+            if(InputSystem.actions.FindAction("God1").IsPressed() && InputSystem.actions.FindAction("God2").WasPressedThisFrame())
+            {
+                TurnOnGodMode();
+            }
+        }
+
         private void DispatchHealthChanged()
         {
             OnHealthChanged?.Invoke((float)_health / (_data.maxHealth + _extraHealth));
@@ -89,6 +100,10 @@ namespace Dungeonlicious.Assets.Script
 
         public void Damage(int amount, GameObject damager)
         {
+            if(godMode)
+            {
+                return;
+            }
             audioSource.PlayOneShot(playerDamaged);
             _health = Mathf.Max(0, _health - amount);
 
@@ -130,6 +145,18 @@ namespace Dungeonlicious.Assets.Script
         public int GetKnifesAttack()
         {
             return _knifesAttack;
+        }
+
+        private void TurnOnGodMode()
+        {
+            if(godMode == false)
+            {
+                godMode = true;
+            }
+            else
+            {
+                godMode = false;
+            }
         }
 
     }
