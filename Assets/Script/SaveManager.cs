@@ -23,15 +23,15 @@ namespace Dungeonlicious.Assets.Script
             SaveData data = new SaveData
             {
                 dungeonLevel = TileDungeonGenerator.Instance.Level,
-                seed         = TileDungeonGenerator.Instance.CurrentSeed,
-                upgrades     = UpgradeManager.Instance
+                seed = TileDungeonGenerator.Instance.CurrentSeed,
+                upgrades = UpgradeManager.Instance
                     .GetUpgrades()
                     .Select(upgrade => new UpgradeSaveEntry
                     {
-                        upgradeType  = upgrade.upgradeType,
+                        upgradeType = upgrade.upgradeType,
                         upgradeValue = upgrade.upgradeValue,
-                        upgradeDesc  = upgrade.upgradeDesc,
-                        upgradeName  = upgrade.upgradeName
+                        upgradeDesc = upgrade.upgradeDesc,
+                        upgradeName = upgrade.upgradeName
                     })
                     .ToArray()
             };
@@ -46,29 +46,29 @@ namespace Dungeonlicious.Assets.Script
             SaveData data = JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath));
             if (data == null) return;
 
-            TileDungeonGenerator.Instance.SetLevel(data.dungeonLevel);
-            TileDungeonGenerator.Instance.SetSeed(data.seed.ToString());
+            TileDungeonGenerator.Instance.PrepareForLoad(data.dungeonLevel, data.seed);
 
-            foreach (UpgradeSaveEntry entry in data.upgrades)
+            if (data.upgrades != null)
             {
-                UpgradeManager.Instance.AddUpgrade(new Upgrade(
-                    entry.upgradeType,
-                    entry.upgradeValue,
-                    entry.upgradeDesc,
-                    entry.upgradeName
-                ));
+                foreach (UpgradeSaveEntry entry in data.upgrades)
+                {
+                    UpgradeManager.Instance.AddUpgrade(new Upgrade(
+                        entry.upgradeType,
+                        entry.upgradeValue,
+                        entry.upgradeDesc,
+                        entry.upgradeName
+                    ));
+                }
             }
-
-            Debug.Log($"[SaveManager] Carregado de: {SavePath}");
         }
 
-        public static bool HasSaveFile()   => File.Exists(SavePath);
-        public static void DeleteSaveFile() 
+        public static bool HasSaveFile() => File.Exists(SavePath);
+        public static void DeleteSaveFile()
         {
             if (File.Exists(SavePath)) File.Delete(SavePath);
         }
 
-        public bool HasSave()    => HasSaveFile();
+        public bool HasSave() => HasSaveFile();
         public void DeleteSave() => DeleteSaveFile();
     }
 }

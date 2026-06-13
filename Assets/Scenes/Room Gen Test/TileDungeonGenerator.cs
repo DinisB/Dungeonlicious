@@ -60,6 +60,8 @@ namespace Dungeonlicious.Assets.Script
         public int Level => level;
         public void IncreaseLevel() { level = Mathf.Min(level + 1, maxLevel); }
 
+        private bool _skipSeedKeeper = false;
+
         private void Awake()
         {
             if (_instance != null && _instance != this)
@@ -92,23 +94,34 @@ namespace Dungeonlicious.Assets.Script
             if (isGenerating) return;
             isGenerating = true;
 
-            SeedKeeper keeper = SeedKeeper.Instance;
-
             navMeshSurface = FindFirstObjectByType<NavMeshSurface>();
 
-            if (keeper != null && int.TryParse(keeper.Seed, out int parsedSeed))
-                seed = parsedSeed;
+            if (_skipSeedKeeper)
+            {
+                _skipSeedKeeper = false;
+            }
             else
-                seed = Environment.TickCount;
+            {
+                SeedKeeper keeper = SeedKeeper.Instance;
+                if (keeper != null && int.TryParse(keeper.Seed, out int parsedSeed))
+                    seed = parsedSeed;
+                else
+                    seed = Environment.TickCount;
+            }
 
             DestroyDungeon();
-
             tileSize = MeasureTileSize(tilePrefab);
-
             GenerateDungeon();
-
             isGenerating = false;
         }
+
+        public void PrepareForLoad(int savedLevel, int savedSeed)
+        {
+            level = Mathf.Clamp(savedLevel, 1, maxLevel);
+            seed = savedSeed;
+            _skipSeedKeeper = true;
+        }
+
 
         private void DestroyDungeon()
         {
