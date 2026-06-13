@@ -61,6 +61,7 @@ public class BakonAI : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip chickenShot;
 
     private void Awake()
     {
@@ -225,8 +226,6 @@ public class BakonAI : MonoBehaviour
 
             return;
         }
-        //aim at player for 1-2 seconds, use Raycast to check if projectile path is clear then spawn projectile
-        //if Raycast fails to return clear path to player switch to "move" State
         Vector3 targetPos =
         playerAgent.transform.position + Vector3.up;
 
@@ -341,6 +340,8 @@ public class BakonAI : MonoBehaviour
 
     private void Shoot()
     {
+        audioSource.PlayOneShot(chickenShot);
+        
         Vector3 targetPosition =
         playerAgent.transform.position + Vector3.up * 1.5f;
 

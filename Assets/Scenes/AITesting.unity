@@ -464,7 +464,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -509,7 +509,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -822,6 +822,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 577545630}
+    - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: chickenShot
+      value: 
+      objectReference: {fileID: 8300000, guid: 404477c7aefa6904c8d73f235f7a09d3, type: 3}
     - target: {fileID: 9204792482778501974, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
       value: 
