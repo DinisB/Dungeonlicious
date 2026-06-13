@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "VictoryCutscene")
+        if (SceneManager.GetActiveScene().name == "VictoryCutscene"||SceneManager.GetActiveScene().name == "Game Over")
         {
             DestroyAllDontDestroyOnLoad();
         }
