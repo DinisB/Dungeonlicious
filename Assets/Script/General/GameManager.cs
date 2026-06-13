@@ -115,7 +115,7 @@ namespace Dungeonlicious.Assets.Script
 
             if (TileDungeonGenerator.Instance.Level > TileDungeonGenerator.Instance.MaxLevel - 1)
             {
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("VictoryCutscene");
             }
             else
             {

@@ -8,6 +8,7 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private List<GameObject> propPrefabs;
         [SerializeField, Range(1, 4)] private int minProps = 1;
         [SerializeField, Range(1, 4)] private int maxProps = 2;
+        [SerializeField] private GameObject specialPropPrefab;
 
         public Dictionary<int, HashSet<Vector2Int>> SpawnProps(List<RoomData> rooms, Vector3 tileSize)
         {
@@ -32,6 +33,9 @@ namespace Dungeonlicious.Assets.Script
                     Vector3 pos = new Vector3(tile.x * tileSize.x, tileSize.y, tile.y * tileSize.z);
                     GameObject prefab = propPrefabs[Random.Range(0, propPrefabs.Count)];
                     Instantiate(prefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f), room.root);
+
+                    if (prefab == specialPropPrefab)
+                        break;
                 }
 
                 usedTiles[i] = roomUsed;
