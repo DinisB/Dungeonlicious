@@ -8,7 +8,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject _attackBox;
     [SerializeField] private Animator _anim;
     [SerializeField] private BoxCollider _attackCollider;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip spoonSwing;
     private bool _isAttacking;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -19,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame() && !_isAttacking)
         {
+            audioSource.PlayOneShot(spoonSwing);
             _isAttacking = true;
             _anim.SetBool("Attack", true);
             StartCoroutine(AttackCoroutine());

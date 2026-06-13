@@ -30,6 +30,7 @@ public class SlimeAI : MonoBehaviour
 
     private float deathTimer;
     private Vector3 deathStartScale;
+    //private AudioSource audioSource;
 
     private void Awake()
     {
