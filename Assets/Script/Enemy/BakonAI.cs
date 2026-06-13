@@ -240,7 +240,7 @@ public class BakonAI : MonoBehaviour
 
         float angle = Vector3.Angle(transform.forward, dir);
 
-        if (HasClearShot())
+        if (HasClearShot() && CanReachPlayer())
         {
             repositionTimer = 0f;
 
@@ -341,7 +341,7 @@ public class BakonAI : MonoBehaviour
     private void Shoot()
     {
         audioSource.PlayOneShot(chickenShot);
-        
+
         Vector3 targetPosition =
         playerAgent.transform.position + Vector3.up * 1.5f;
 
@@ -485,6 +485,18 @@ public class BakonAI : MonoBehaviour
             }
         }
         result = center;
+        return false;
+    }
+
+    private bool CanReachPlayer()
+    {
+        NavMeshPath path = new NavMeshPath();
+
+        if (agent.CalculatePath(playerAgent.transform.position, path))
+        {
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+
         return false;
     }
 }
