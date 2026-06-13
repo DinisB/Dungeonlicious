@@ -78,6 +78,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spoonOnSlime: {fileID: 0}
   knifeOnSlime: {fileID: 0}
+  bakonHit: {fileID: 8300000, guid: fe446181560a49b4b99fadd99b4148db, type: 3}
 --- !u!114 &1179431209320547350
 MonoBehaviour:
   m_ObjectHideFlags: 0

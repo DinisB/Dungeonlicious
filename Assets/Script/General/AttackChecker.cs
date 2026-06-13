@@ -5,11 +5,10 @@ public class AttackChecker : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     private IDamageable _damageable;
-    private SlimeAI slimeAI;
-    private BakonAI bakonAI;
     private AudioSource audioSource;
     [SerializeField] private AudioClip spoonOnSlime;
     [SerializeField] private AudioClip knifeOnSlime;
+    [SerializeField] private AudioClip bakonHit;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -28,6 +27,11 @@ public class AttackChecker : MonoBehaviour
             {
                 audioSource.PlayOneShot(spoonOnSlime);
             }
+
+            if (gameObject.GetComponent<BakonAI>() != null)
+            {
+                audioSource.PlayOneShot(bakonHit);
+            }
             _damageable.Damage(
                 collision.gameObject
                     .GetComponentInParent<PlayerHealth>()
@@ -41,6 +45,12 @@ public class AttackChecker : MonoBehaviour
             {
                 audioSource.PlayOneShot(spoonOnSlime);
             }
+
+            if (gameObject.GetComponent<BakonAI>() != null)
+            {
+                audioSource.PlayOneShot(bakonHit);
+            }
+
             _damageable.Damage(
                 collision.gameObject
                     .GetComponent<Knife>()

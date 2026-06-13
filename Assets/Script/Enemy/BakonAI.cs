@@ -227,7 +227,7 @@ public class BakonAI : MonoBehaviour
             return;
         }
         Vector3 targetPos =
-        playerAgent.transform.position + Vector3.up;
+        playerAgent.transform.position /*+ Vector3.up*/;
 
         Vector3 dir =
             (targetPos - transform.position).normalized;
