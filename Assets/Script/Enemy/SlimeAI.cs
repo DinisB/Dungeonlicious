@@ -34,6 +34,8 @@ public class SlimeAI : MonoBehaviour
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip slimeDeath;
+    [SerializeField] private AudioClip slimeBurn;
+    private bool attackSoundPlaying;
 
     private void Awake()
     {
@@ -50,7 +52,7 @@ public class SlimeAI : MonoBehaviour
             "attack",
             () => Debug.Log("Enter Attack"),
             AttackPlayer,
-            ()=> Debug.Log("Exit Attack"));
+            ExitAttackState);
 
         State chase = new State(
             "chase",
@@ -137,7 +139,7 @@ public class SlimeAI : MonoBehaviour
     private void OnDestroy()
     {
         AudioSource.PlayClipAtPoint(slimeDeath, transform.position);
-        
+
         Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
 
@@ -161,6 +163,15 @@ public class SlimeAI : MonoBehaviour
     {
         agent.isStopped = true;
 
+        if (!attackSoundPlaying)
+        {
+            audioSource.clip = slimeBurn;
+            audioSource.loop = true;
+            audioSource.Play();
+
+            attackSoundPlaying = true;
+        }
+
         damageTimer += Time.deltaTime;
 
         if (damageTimer >= damageInterval)
@@ -172,6 +183,12 @@ public class SlimeAI : MonoBehaviour
                 target.Damage(damageValue, gameObject);
             }
         }
+    }
+
+    private void ExitAttackState()
+    {
+        audioSource.Stop();
+        attackSoundPlaying = false;
     }
 
     private void UpdateStagger()

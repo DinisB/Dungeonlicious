@@ -186,6 +186,7 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 5670451886304342892, guid: 7d3c6d909a3ebdb4bb4f93ce7e71f6d0, type: 3}
   audioSource: {fileID: -8496727747012945938}
   slimeDeath: {fileID: 8300000, guid: 698126208d116684785ee2df50e8e313, type: 3}
+  slimeBurn: {fileID: 8300000, guid: ce6395cf1fab1f9488d0fd62bc85f938, type: 3}
 --- !u!114 &7218920411019080055
 MonoBehaviour:
   m_ObjectHideFlags: 0
