@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
         {
             DestroyAllDontDestroyOnLoad();
         }
+
+        Time.timeScale = 1f;
         seedKeeper = FindFirstObjectByType<SeedKeeper>();
     }
 
