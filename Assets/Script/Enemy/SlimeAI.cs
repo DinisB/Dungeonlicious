@@ -32,6 +32,8 @@ public class SlimeAI : MonoBehaviour
     private Vector3 deathStartScale;
     
     [SerializeField] private ParticleSystem deathParticleSystem;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip slimeDeath;
 
     private void Awake()
     {
@@ -134,6 +136,8 @@ public class SlimeAI : MonoBehaviour
 
     private void OnDestroy()
     {
+        AudioSource.PlayClipAtPoint(slimeDeath, transform.position);
+        
         Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
 

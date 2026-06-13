@@ -59,8 +59,13 @@ public class BakonAI : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip deathSound;
+
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         anim = GetComponentInChildren<Animator>();
         
         renderers = GetComponentsInChildren<Renderer>();
@@ -184,8 +189,11 @@ public class BakonAI : MonoBehaviour
     private void OnDestroy()
     {
         if (bakonHealth != null)
+        {
             bakonHealth.OnDamaged -= HandleDamaged;
+        }
 
+        AudioSource.PlayClipAtPoint(deathSound, transform.position);
         Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
 
