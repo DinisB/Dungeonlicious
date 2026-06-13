@@ -15,16 +15,6 @@ public class LockOnScript : MonoBehaviour
         _lockOnAction = InputSystem.actions.FindAction("LockOn");
     }
 
-    void OnEnable()
-    {
-        EnemyController.OnEnemyDeath += (enemy) => EnemyDied(enemy);
-    }
-
-    void OnDisable()
-    {
-        EnemyController.OnEnemyDeath -= (enemy) => EnemyDied(enemy);
-    }
-
     private void Update()
     {
         if (_lockOnAction.WasPressedThisFrame() && _targets.Count > 0)
@@ -47,6 +37,7 @@ public class LockOnScript : MonoBehaviour
         if (other.gameObject.layer == 8 && !_targets.Contains(other.gameObject))
         {
             _targets.Add(other.gameObject);
+            other.gameObject.GetComponent<EnemyDeathNotifier>().OnDeath += () => EnemyDied(other.gameObject);
         }
     }
 
@@ -55,6 +46,7 @@ public class LockOnScript : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             _targets.Remove(other.gameObject);
+            other.gameObject.GetComponent<EnemyDeathNotifier>().OnDeath -= () => EnemyDied(other.gameObject);
 
             _cameraController.IsLocked = false;
 
@@ -69,7 +61,7 @@ public class LockOnScript : MonoBehaviour
             }
         }
     }
-
+    
     private void EnemyDied(GameObject enemy)
     {
         if (_targets.Contains(enemy))
