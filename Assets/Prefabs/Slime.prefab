@@ -176,6 +176,7 @@ MonoBehaviour:
   staggerDuration: 0.3
   staggerDistance: 1.5
   deathDuration: 0.4
+  deathParticleSystem: {fileID: 5670451886304342892, guid: 7d3c6d909a3ebdb4bb4f93ce7e71f6d0, type: 3}
 --- !u!114 &7218920411019080055
 MonoBehaviour:
   m_ObjectHideFlags: 0

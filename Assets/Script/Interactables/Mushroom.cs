@@ -7,6 +7,13 @@ public class Mushroom : MonoBehaviour
     [SerializeField] private int healAmount;
     [SerializeField] private InputActionReference interactAction;
     [SerializeField] private GameObject _indicator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip eatClip;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnTriggerStay(Collider other)
     {
@@ -34,6 +41,8 @@ public class Mushroom : MonoBehaviour
 
         if(healable != null && healable.CanBeHealed() && interactAction.action.IsPressed())
         {
+            AudioSource.PlayClipAtPoint(eatClip, transform.position);
+
             healable.Heal(healAmount);
 
             _indicator.SetActive(false);

@@ -30,7 +30,8 @@ public class SlimeAI : MonoBehaviour
 
     private float deathTimer;
     private Vector3 deathStartScale;
-    //private AudioSource audioSource;
+    
+    [SerializeField] private ParticleSystem deathParticleSystem;
 
     private void Awake()
     {
@@ -129,6 +130,11 @@ public class SlimeAI : MonoBehaviour
     void Update()
     {
         fsm.Update()?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
 
     private void ChasePlayer()

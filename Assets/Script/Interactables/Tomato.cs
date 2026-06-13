@@ -10,6 +10,14 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private int attackAmmount;
         [SerializeField] private GameObject _indicator;
 
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip eatClip;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         private void OnTriggerStay(Collider other)
         {
             CheckIfPickable(other);
@@ -36,6 +44,7 @@ namespace Dungeonlicious.Assets.Script
 
             if (attackable != null && interactAction.action.IsPressed())
             {
+                AudioSource.PlayClipAtPoint(eatClip, transform.position);
                 _indicator.SetActive(false);
                 StartCoroutine(IncreaseAttack(attackable));
                 FindFirstObjectByType<HealthUI>().GetComponent<HealthUI>().StartTomatoBarCoroutine(20f);
