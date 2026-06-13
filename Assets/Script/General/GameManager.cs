@@ -19,8 +19,6 @@ namespace Dungeonlicious.Assets.Script
         {
             EnforceSingleton();
             RegisterEventListeners();
-            audioSource.clip = music[Random.Range(0, music.Length)];
-            audioSource.Play();
         }
 
         private void OnEnable()
@@ -35,6 +33,9 @@ namespace Dungeonlicious.Assets.Script
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            audioSource.clip = music[Random.Range(0, music.Length)];
+            audioSource.Play();
+
             isLoading = false;
 
             if (PendingSeed.UseExisting)
