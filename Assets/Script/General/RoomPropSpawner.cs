@@ -6,8 +6,8 @@ namespace Dungeonlicious.Assets.Script
     public class RoomPropSpawner : MonoBehaviour
     {
         [SerializeField] private List<GameObject> propPrefabs;
-        [SerializeField, Range(1, 4)] private int minProps = 1;
-        [SerializeField, Range(1, 4)] private int maxProps = 2;
+        [SerializeField, Range(1, 6)] private int minProps = 1;
+        [SerializeField, Range(1, 6)] private int maxProps = 2;
         [SerializeField] private GameObject fountainPrefab;
 
         public Dictionary<int, HashSet<Vector2Int>> SpawnProps(List<RoomData> rooms, Vector3 tileSize)

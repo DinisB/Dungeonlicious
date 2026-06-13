@@ -1218,8 +1218,8 @@ MonoBehaviour:
   - {fileID: 1542621055641306506, guid: 69616bd8f127197459ae2a13c91c6cb3, type: 3}
   - {fileID: 1962826918851159882, guid: e73041d7afabedc43b1d870f7ae4dfab, type: 3}
   - {fileID: 4658620284041958420, guid: 0f206ed8cb590624fa1fd9192ab4697c, type: 3}
-  minProps: 1
-  maxProps: 3
+  minProps: 4
+  maxProps: 6
   fountainPrefab: {fileID: 4658620284041958420, guid: 0f206ed8cb590624fa1fd9192ab4697c, type: 3}
 --- !u!114 &2060575986
 MonoBehaviour:
