@@ -1095,7 +1095,7 @@ MonoBehaviour:
   - {fileID: 4658620284041958420, guid: 0f206ed8cb590624fa1fd9192ab4697c, type: 3}
   minProps: 1
   maxProps: 3
-  specialPropPrefab: {fileID: 4658620284041958420, guid: 0f206ed8cb590624fa1fd9192ab4697c, type: 3}
+  fountainPrefab: {fileID: 4658620284041958420, guid: 0f206ed8cb590624fa1fd9192ab4697c, type: 3}
 --- !u!114 &2060575986
 MonoBehaviour:
   m_ObjectHideFlags: 0
