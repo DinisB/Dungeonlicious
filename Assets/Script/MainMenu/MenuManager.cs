@@ -11,26 +11,22 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TMP_InputField seedText;
     [SerializeField] private Image background;
     [SerializeField] private Sprite rooster;
-    [SerializeField] private Dropdown drop;
-    private SeedKeeper seedKeeper;
+    [SerializeField] private TMP_Dropdown drop;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "VictoryCutscene")
+        if (SceneManager.GetActiveScene().name == "VictoryCutscene")
         {
             DestroyAllDontDestroyOnLoad();
         }
 
         if (drop != null)
-        {
             drop.onValueChanged.AddListener(ChangeResolution);
-        }
 
         Time.timeScale = 1f;
-        seedKeeper = FindFirstObjectByType<SeedKeeper>();
     }
 
-    public static void DestroyAllDontDestroyOnLoad()
+    public void DestroyAllDontDestroyOnLoad()
     {
         GameObject temp = new GameObject();
         DontDestroyOnLoad(temp);
@@ -76,14 +72,13 @@ public class MenuManager : MonoBehaviour
 
     public void Play()
     {
-        if (seedText != null && !string.IsNullOrEmpty(seedText.text))
-        {
-            seedKeeper.SetSeed(seedText.text);
-        }
-        else
-        {
-            seedKeeper.SetSeed(Environment.TickCount.ToString());
-        }
+        string seedValue = (seedText != null && !string.IsNullOrEmpty(seedText.text))
+            ? seedText.text
+            : Environment.TickCount.ToString();
+
+        if (SeedKeeper.Instance != null)
+            SeedKeeper.Instance.SetSeed(seedValue);
+
         SaveManager.Instance.DeleteSave();
         SceneManager.LoadScene(_playSceneName);
     }

@@ -103,10 +103,15 @@ namespace Dungeonlicious.Assets.Script
             else
             {
                 SeedKeeper keeper = SeedKeeper.Instance;
-                if (keeper != null && int.TryParse(keeper.Seed, out int parsedSeed))
+                if (keeper != null && !string.IsNullOrEmpty(keeper.Seed)
+                    && int.TryParse(keeper.Seed, out int parsedSeed))
+                {
                     seed = parsedSeed;
+                }
                 else
+                {
                     seed = Environment.TickCount;
+                }
             }
 
             DestroyDungeon();

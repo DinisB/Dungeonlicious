@@ -35422,7 +35422,7 @@ MonoBehaviour:
   seedText: {fileID: 1216299364}
   background: {fileID: 1450412029}
   rooster: {fileID: 21300000, guid: 27d85a08c7c636948a8e5628d287fcd2, type: 3}
-  drop: {fileID: 0}
+  drop: {fileID: 1223364928}
 --- !u!114 &2067223228
 MonoBehaviour:
   m_ObjectHideFlags: 0
