@@ -342,6 +342,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2NewFinalBakonAnim
       objectReference: {fileID: 0}
+    - target: {fileID: 4227556713926635767, guid: ac3d4c37c421277439e129eee9789689, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227556713926635767, guid: ac3d4c37c421277439e129eee9789689, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227556713926635767, guid: ac3d4c37c421277439e129eee9789689, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5490344714045149178, guid: ac3d4c37c421277439e129eee9789689, type: 3}
       propertyPath: m_Layer
       value: 8
