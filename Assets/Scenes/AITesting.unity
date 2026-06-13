@@ -370,6 +370,7 @@ MonoBehaviour:
   player: {fileID: 283956233}
   spoonOnSlime: {fileID: 0}
   knifeOnSlime: {fileID: 0}
+  bakonHit: {fileID: 0}
 --- !u!1 &274943527
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6388407732171060175, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
+      propertyPath: bakonHit
+      value: 
+      objectReference: {fileID: 8300000, guid: fe446181560a49b4b99fadd99b4148db, type: 3}
     - target: {fileID: 471270851200784900, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
       propertyPath: m_BaseOffset
       value: 1
@@ -1306,6 +1311,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1234030605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1292970490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8126908160086879427, guid: 641712c280fbcae4b9e877eb75bd7ffb, type: 3}
+  m_PrefabInstance: {fileID: 1623925823}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1367219331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +1866,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 733003403375403705, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1905603497}
     - target: {fileID: 3091869684429367014, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1896,8 +1916,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222187771953489414, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4222187771953489414, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
+      propertyPath: knifeCountText
+      value: 
+      objectReference: {fileID: 1292970490}
     - target: {fileID: 4631179185257681356, guid: 77e9c7447cc6b3e41b40d82c449e367c, type: 3}
       propertyPath: _anim
       value: 
@@ -1946,6 +1970,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f53152571899d4a9d1685ff026241c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+--- !u!114 &1905603497 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3640776038314063874, guid: 9eeccbbf918ee854dbb95383401a4063, type: 3}
+  m_PrefabInstance: {fileID: 1428384454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06df5d7b12196a46bb1def150b6aa4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
 --- !u!1 &1912007126
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Dungeonlicious.Assets.Script;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class AttackChecker : MonoBehaviour
     [SerializeField] private AudioClip spoonOnSlime;
     [SerializeField] private AudioClip knifeOnSlime;
     [SerializeField] private AudioClip bakonHit;
+
+    private HashSet<GameObject> hitObjects = new();
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -41,6 +45,12 @@ public class AttackChecker : MonoBehaviour
 
         if (collision.gameObject.layer == 9)
         {
+            if (hitObjects.Contains(collision.gameObject))
+                return;
+
+            hitObjects.Add(collision.gameObject);
+
+
             if (gameObject.GetComponent<SlimeAI>() != null)
             {
                 audioSource.PlayOneShot(spoonOnSlime);
@@ -50,7 +60,7 @@ public class AttackChecker : MonoBehaviour
             {
                 audioSource.PlayOneShot(bakonHit);
             }
-
+            /*
             _damageable.Damage(
                 collision.gameObject
                     .GetComponent<Knife>()
@@ -58,6 +68,7 @@ public class AttackChecker : MonoBehaviour
                     .GetComponent<PlayerHealth>()
                     .GetAttack(),
                 player);
+            */
         }
     }
 }

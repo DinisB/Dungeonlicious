@@ -63,7 +63,10 @@ namespace Dungeonlicious.Assets.Script
 
             if (enemy != null)
             {
-                enemy.Damage(damage, gameObject);
+                int attackDamage = owner.GetComponent<PlayerHealth>().GetAttack();
+
+                enemy.Damage(attackDamage, owner);
+
             }
 
             rb.isKinematic = true;
