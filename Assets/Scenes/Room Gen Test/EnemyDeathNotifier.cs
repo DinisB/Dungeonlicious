@@ -9,7 +9,7 @@ namespace Dungeonlicious.Assets.Script
 
         public void NotifyDeath()
         {
-            OnDeath?.Invoke();
+            OnDeath.Invoke();
             Destroy(gameObject);
         }
     }

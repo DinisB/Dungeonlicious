@@ -144,10 +144,7 @@ namespace Dungeonlicious.Assets.Script
                 Destroy(transform.GetChild(i).gameObject);
             }
 
-            if (navMeshSurface != null)
-            {
-                navMeshSurface.RemoveData();
-            }
+            navMeshSurface.RemoveData();
         }
 
         private void GenerateDungeon()
@@ -500,16 +497,14 @@ namespace Dungeonlicious.Assets.Script
             yield return new WaitForEndOfFrame();
 
             GameObject player = GameObject.FindWithTag("Player");
-            if (player == null) yield break;
 
             CharacterController cc = player.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = false;
+            cc.enabled = false;
 
             player.transform.position = pos;
 
             yield return null;
-
-            if (cc != null) cc.enabled = true;
+            cc.enabled = true;
         }
 
         public void SetLevel(int value) { level = Mathf.Clamp(value, 1, maxLevel); }
