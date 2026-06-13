@@ -43,6 +43,7 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeResolution(int index)
     {
+        background.sprite = rooster;
         switch (index)
         {
             case 0:
