@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3693912413290023259}
   - component: {fileID: 8140184409963329146}
-  - component: {fileID: 733003403375403705}
   m_Layer: 0
   m_Name: Lock-on Trigger
   m_TagString: Untagged
@@ -54,21 +53,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15, y: 20, z: 15}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &733003403375403705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934134992550245001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c324bbffe134a7a4d84834173616a72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LockOnScript
-  _cameraController: {fileID: 0}
-  _targets: []
-  currentTargetIndex: 0
 --- !u!1 &3091869684429367014
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +226,7 @@ MonoBehaviour:
   knifeCount: 5
   knifeCountText: {fileID: 0}
   lineRenderer: {fileID: 7414273818186673340}
-  lockOnScript: {fileID: 733003403375403705}
+  lockOnScript: {fileID: 0}
 --- !u!114 &5165974812025081407
 MonoBehaviour:
   m_ObjectHideFlags: 0

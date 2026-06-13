@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ae8418f18ef96448859e884402d32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mushroom
-  healAmount: 10
+  healAmount: 5
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _indicator: {fileID: 8059043264514472282}
   audioSource: {fileID: 9215715177934663799}

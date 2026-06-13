@@ -44,6 +44,12 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public void ReturnToPlayer()
+    {
+        _isLocked = false;
+        _currentTarget = null;
+    }
+
     private void UpdatePosition()
     {
         if (!_isLocked)

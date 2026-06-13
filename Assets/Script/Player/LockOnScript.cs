@@ -61,16 +61,23 @@ public class LockOnScript : MonoBehaviour
             }
         }
     }
-    
+
     private void EnemyDied(GameObject enemy)
     {
-        if (_targets.Contains(enemy))
-        {
-            _targets.Remove(enemy);
+        _targets.Remove(enemy);
 
-            _cameraController.IsLocked = false;
+        if (_targets.Count == 0)
+        {
+            currentTargetIndex = 0;
+            _cameraController.ReturnToPlayer();
+        }
+        else
+        {
+            currentTargetIndex %= _targets.Count;
+            _cameraController.LockOnTarget(_targets[currentTargetIndex].transform);
         }
     }
+
 
     public bool IsLocked()
     {
