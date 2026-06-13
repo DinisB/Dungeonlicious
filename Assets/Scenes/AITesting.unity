@@ -764,7 +764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 546991152274521943, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3327596398210111529, guid: 0792b21ad0e5f9245ae72fe0063e897d, type: 3}
       propertyPath: m_IsActive
@@ -986,6 +986,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5443362855971274784, guid: fe4e7c31717c00a4893100eb14d90b5c, type: 3}
+      propertyPath: eatClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 467b3170cc705e54a9238d472996d22a, type: 3}
     - target: {fileID: 7115522323572255251, guid: fe4e7c31717c00a4893100eb14d90b5c, type: 3}
       propertyPath: m_Name
       value: Consumable_Tomato
@@ -1210,6 +1214,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 348554428808004754, guid: c3a4a1f825619de4eaf9449a8985896c, type: 3}
+      propertyPath: eatClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 467b3170cc705e54a9238d472996d22a, type: 3}
     - target: {fileID: 1174800367887691977, guid: c3a4a1f825619de4eaf9449a8985896c, type: 3}
       propertyPath: m_Name
       value: Consumable_Mushroom
@@ -2203,7 +2211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1172967001464519019, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1949187728624870353, guid: 4163ac4ec38937445adf89d27a2c7a03, type: 3}
       propertyPath: m_LocalPosition.x

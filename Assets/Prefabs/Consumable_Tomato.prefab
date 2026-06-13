@@ -221,7 +221,7 @@ MonoBehaviour:
   attackAmmount: 20
   _indicator: {fileID: 8403282763159779863}
   audioSource: {fileID: 2988231658767509312}
-  eatClip: {fileID: 8300000, guid: c4d3e95c13b1f76449f71c5ac66730b9, type: 3}
+  eatClip: {fileID: 8300000, guid: 467b3170cc705e54a9238d472996d22a, type: 3}
 --- !u!82 &2988231658767509312
 AudioSource:
   m_ObjectHideFlags: 0
