@@ -9,6 +9,8 @@ namespace Dungeonlicious.Assets.Script
         static public GameManager instance;
         [SerializeField] GameObject canvas;
         [SerializeField] GameObject pauseScreen;
+        [SerializeField] private AudioClip[] music;
+        [SerializeField] private AudioSource audioSource;
         private bool isLoading = false;
 
         private bool paused = false;
@@ -17,6 +19,8 @@ namespace Dungeonlicious.Assets.Script
         {
             EnforceSingleton();
             RegisterEventListeners();
+            audioSource.clip = music[Random.Range(0, music.Length)];
+            audioSource.Play();
         }
 
         private void OnEnable()
