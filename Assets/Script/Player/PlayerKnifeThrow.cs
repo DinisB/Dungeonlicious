@@ -12,7 +12,6 @@ namespace Dungeonlicious.Assets.Script
 
         [SerializeField] private TextMeshProUGUI knifeCountText;
         [SerializeField] LineRenderer lineRenderer;
-        [SerializeField] private LockOnScript lockOnScript;
         private InputAction _knifeThrowAction;
 
         void Start()
@@ -48,12 +47,14 @@ namespace Dungeonlicious.Assets.Script
 
         private Vector3 GetAimDirection()
         {
-            if (lockOnScript.IsLocked())
-            {
-                Vector3 toTarget = lockOnScript.GetCurrentTarget().transform.position - transform.position;
-                toTarget.y = 0;
-                return toTarget.normalized;
-            }
+            ///
+            /// if (lockOnScript.IsLocked())
+            /// {
+            ///     Vector3 toTarget = lockOnScript.GetCurrentTarget().transform.position - transform.position;
+            ///     toTarget.y = 0;
+            ///      return toTarget.normalized;
+            ///  }
+            /// 
 
             return GetMouseDirection();
         }
