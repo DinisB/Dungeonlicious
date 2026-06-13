@@ -12,11 +12,14 @@ namespace Dungeonlicious.Assets.Script
             upgradeCanvasManager.gameObject.SetActive(false);
         }
         private void OnTriggerEnter(Collider other)
-        { 
-            if (TileDungeonGenerator.Instance.Level < TileDungeonGenerator.Instance.MaxLevel - 1) UpgradeCanvasManager.Instance.gameObject.SetActive(true);
+        {
+            if (TileDungeonGenerator.Instance.Level < TileDungeonGenerator.Instance.MaxLevel - 1)
+            {
+                Time.timeScale = 0f;
+                UpgradeCanvasManager.Instance.gameObject.SetActive(true);
+            }
             else
             {
-                UpgradeCanvasManager.Instance.gameObject.SetActive(true);
                 UpgradeCanvasManager.Instance.NextLevel();
             }
             Time.timeScale = 0f;
