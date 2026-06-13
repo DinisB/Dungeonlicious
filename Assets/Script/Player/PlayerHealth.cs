@@ -16,6 +16,14 @@ namespace Dungeonlicious.Assets.Script
 
         public event Action<float> OnHealthChanged;
 
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip playerDamaged;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         void Start()
         {
             _gameManager = GameManager.instance;
@@ -81,14 +89,10 @@ namespace Dungeonlicious.Assets.Script
 
         public void Damage(int amount, GameObject damager)
         {
-            //if (!_gameManager.cheatsEnabled)
-            //{
+            audioSource.PlayOneShot(playerDamaged);
             _health = Mathf.Max(0, _health - amount);
 
-            //_animator.SetTrigger("Damage");
-
             DispatchHealthChanged();
-            //}
         }
 
         public void IncreaseAttack(int amount)

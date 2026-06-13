@@ -257,6 +257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   _data: {fileID: 11400000, guid: 4b35a51e5d337de4893020f245f9d0e3, type: 2}
   _health: 0
+  audioSource: {fileID: 7513772854302196138}
+  playerDamaged: {fileID: 8300000, guid: b894609d2c997d247a9c4b30503f53fb, type: 3}
 --- !u!54 &7821638895692506579
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -415,7 +417,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
