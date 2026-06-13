@@ -166,6 +166,7 @@ public class SlimeAI : MonoBehaviour
         if (!attackSoundPlaying)
         {
             audioSource.clip = slimeBurn;
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.loop = true;
             audioSource.Play();
 
@@ -188,6 +189,7 @@ public class SlimeAI : MonoBehaviour
     private void ExitAttackState()
     {
         audioSource.Stop();
+        audioSource.pitch = 1f;
         attackSoundPlaying = false;
     }
 
