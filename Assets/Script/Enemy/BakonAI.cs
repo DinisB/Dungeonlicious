@@ -29,7 +29,7 @@ public class BakonAI : MonoBehaviour
 
     private float repositionTimer;
     private float attackCooldownTimer;
-    [SerializeField] private float cooldownLimit = 5f;
+    [SerializeField] private float cooldownLimit = 2f;
 
     private bool reachedWaypoint;
 
@@ -374,7 +374,7 @@ public class BakonAI : MonoBehaviour
             firePoint.position;
 
         Vector3 target =
-            playerAgent.transform.position + Vector3.up * 1.5f;
+            playerAgent.transform.position /*+ Vector3.up * 1.5f*/;
 
         Vector3 dir = target - origin;
 

@@ -199,6 +199,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""God1"",
+                    ""type"": ""Button"",
+                    ""id"": ""85ffbce9-bc46-4bb3-8a80-1d1dfa801c90"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""God2"",
+                    ""type"": ""Button"",
+                    ""id"": ""4de85ddd-2b72-44be-8209-5d2aaa191e5a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -738,6 +756,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83632e54-d7b0-4dc0-9fc6-34a61659c39b"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""God1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f238fec-6d8c-4381-8d25-cd23f6c59c76"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""God2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1348,6 +1388,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_KnifeThrow = m_Player.FindAction("KnifeThrow", throwIfNotFound: true);
         m_Player_LockOn = m_Player.FindAction("LockOn", throwIfNotFound: true);
+        m_Player_God1 = m_Player.FindAction("God1", throwIfNotFound: true);
+        m_Player_God2 = m_Player.FindAction("God2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1453,6 +1495,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_KnifeThrow;
     private readonly InputAction m_Player_LockOn;
+    private readonly InputAction m_Player_God1;
+    private readonly InputAction m_Player_God2;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1512,6 +1556,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LockOn".
         /// </summary>
         public InputAction @LockOn => m_Wrapper.m_Player_LockOn;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/God1".
+        /// </summary>
+        public InputAction @God1 => m_Wrapper.m_Player_God1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/God2".
+        /// </summary>
+        public InputAction @God2 => m_Wrapper.m_Player_God2;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1574,6 +1626,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LockOn.started += instance.OnLockOn;
             @LockOn.performed += instance.OnLockOn;
             @LockOn.canceled += instance.OnLockOn;
+            @God1.started += instance.OnGod1;
+            @God1.performed += instance.OnGod1;
+            @God1.canceled += instance.OnGod1;
+            @God2.started += instance.OnGod2;
+            @God2.performed += instance.OnGod2;
+            @God2.canceled += instance.OnGod2;
         }
 
         /// <summary>
@@ -1621,6 +1679,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LockOn.started -= instance.OnLockOn;
             @LockOn.performed -= instance.OnLockOn;
             @LockOn.canceled -= instance.OnLockOn;
+            @God1.started -= instance.OnGod1;
+            @God1.performed -= instance.OnGod1;
+            @God1.canceled -= instance.OnGod1;
+            @God2.started -= instance.OnGod2;
+            @God2.performed -= instance.OnGod2;
+            @God2.canceled -= instance.OnGod2;
         }
 
         /// <summary>
@@ -2005,6 +2069,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLockOn(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "God1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGod1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "God2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGod2(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
