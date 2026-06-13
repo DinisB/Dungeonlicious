@@ -7,6 +7,7 @@ namespace Dungeonlicious.Assets.Script
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Unity.AI.Navigation;
+    using UnityEngine.InputSystem;
 
     public class TileDungeonGenerator : MonoBehaviour
     {
@@ -77,6 +78,14 @@ namespace Dungeonlicious.Assets.Script
         private void Start()
         {
             Debug.Log("SEED FINAL: " + seed);
+        }
+
+        private void Update()
+        {
+            if(InputSystem.actions.FindAction("God1").IsPressed() && InputSystem.actions.FindAction("Skip").WasPressedThisFrame())
+            {
+                SkipToEnd();
+            }
         }
 
         private void OnEnable()
@@ -577,6 +586,11 @@ namespace Dungeonlicious.Assets.Script
                     b.Encapsulate(c.bounds);
             Destroy(tmp);
             return b.size == Vector3.zero ? Vector3.one : b.size;
+        }
+
+        private void SkipToEnd()
+        {
+            level = 9;
         }
     }
 }
