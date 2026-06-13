@@ -127,7 +127,6 @@ namespace Dungeonlicious.Assets.Script
             _skipSeedKeeper = true;
         }
 
-
         private void DestroyDungeon()
         {
             StopAllCoroutines();
@@ -200,7 +199,7 @@ namespace Dungeonlicious.Assets.Script
             PlaceDoors();
 
             Dictionary<int, HashSet<Vector2Int>> usedTiles =
-            propSpawner.SpawnProps(placedRooms, tileSize);
+                propSpawner.SpawnProps(placedRooms, tileSize);
 
             foodSpawner.SpawnFood(placedRooms, tileSize, usedTiles);
             enemySpawner.SpawnEnemies(placedRooms, tileSize, usedTiles, level);
@@ -307,7 +306,6 @@ namespace Dungeonlicious.Assets.Script
                     : new Vector2Int(toCenter.x, to.yMax);
             }
 
-
             PlaceFloorTile(exitDoorPos.Value);
             PlaceFloorTile(entryDoorPos.Value);
             RecordCorridorEntrance(exitDoorPos.Value, exitFwd);
@@ -324,12 +322,44 @@ namespace Dungeonlicious.Assets.Script
         {
             HashSet<Vector2Int> placed = new HashSet<Vector2Int>();
 
+            List<(Vector2Int grid, GameObject door)> spawnedDoors
+                = new List<(Vector2Int, GameObject)>();
+
             foreach ((Vector2Int grid, Vector3 pos, Vector3 forward) in corridorEntrances)
             {
-                if (!placed.Add(grid))
-                    continue;
+                if (!placed.Add(grid)) continue;
 
-                Instantiate(doorPrefab, pos, Quaternion.LookRotation(forward), transform);
+                GameObject door = Instantiate(doorPrefab, pos, Quaternion.LookRotation(forward), transform);
+                spawnedDoors.Add((grid, door));
+            }
+
+            for (int i = 0; i < placedRooms.Count; i++)
+            {
+                bool isStartOrEnd = i == 0 || i == placedRooms.Count - 1;
+                if (isStartOrEnd) continue;
+
+                RoomData room = placedRooms[i];
+                RectInt expanded = new RectInt(
+                    room.rect.x - 1,
+                    room.rect.y - 1,
+                    room.rect.width + 2,
+                    room.rect.height + 2);
+
+                RoomEncounterManager manager = null;
+
+                foreach ((Vector2Int grid, GameObject door) in spawnedDoors)
+                {
+                    if (!expanded.Contains(grid)) continue;
+
+                    if (manager == null)
+                    {
+                        manager = room.root.GetComponent<RoomEncounterManager>();
+                        if (manager == null)
+                            manager = room.root.gameObject.AddComponent<RoomEncounterManager>();
+                    }
+
+                    manager.RegisterDoor(door);
+                }
             }
         }
 

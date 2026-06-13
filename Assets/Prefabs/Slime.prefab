@@ -105,6 +105,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
       insertIndex: -1
       addedObject: {fileID: -8496727747012945938}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048238333915782748}
   m_SourcePrefab: {fileID: 100100000, guid: c18f1bfc37957184eb9cea774baf8474, type: 3}
 --- !u!23 &812841689900357822 stripped
 MeshRenderer:
@@ -213,6 +216,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spoonOnSlime: {fileID: 8300000, guid: e59cdeafeb463574c96909ad9ba98772, type: 3}
   knifeOnSlime: {fileID: 8300000, guid: df8648fff85604340b23d0dd34b9c2b6, type: 3}
+  bakonHit: {fileID: 0}
 --- !u!114 &5177382542331054058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,3 +326,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2048238333915782748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172967001464519019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00b3bd05891574da5c9a69b8454754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.EnemyDeathNotifier

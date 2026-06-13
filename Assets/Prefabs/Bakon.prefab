@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2812506698009778227}
   - component: {fileID: 8970107067196845992}
   - component: {fileID: -4518455526031088901}
+  - component: {fileID: -8490315631714307111}
   m_Layer: 8
   m_Name: Bakon
   m_TagString: Untagged
@@ -256,6 +257,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8490315631714307111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569777003679322919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00b3bd05891574da5c9a69b8454754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeonlicious.Assets.Script.EnemyDeathNotifier
 --- !u!1 &9092095779573601542
 GameObject:
   m_ObjectHideFlags: 0
