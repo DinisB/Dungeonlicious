@@ -32,6 +32,18 @@ namespace Dungeonlicious.Assets.Script
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             isLoading = false;
+
+            if (PendingSeed.UseExisting)
+            {
+                PendingSeed.UseExisting = false;
+                SaveManager.Instance?.ApplyLoad();
+            }
+            else if (!string.IsNullOrEmpty(PendingSeed.Value))
+            {
+                SeedKeeper keeper = FindFirstObjectByType<SeedKeeper>();
+                keeper?.SetSeed(PendingSeed.Value);
+                PendingSeed.Value = "";
+            }
         }
 
         void Start()
@@ -97,15 +109,19 @@ namespace Dungeonlicious.Assets.Script
             if (isLoading) return;
             isLoading = true;
 
-            TileDungeonGenerator tileDungeonGenerator = FindFirstObjectByType<TileDungeonGenerator>();
-            if (tileDungeonGenerator != null)
-                tileDungeonGenerator.IncreaseLevel();
+            TileDungeonGenerator.Instance.IncreaseLevel();
 
-            if (tileDungeonGenerator.Level > tileDungeonGenerator.MaxLevel - 1)
+
+
+            if (TileDungeonGenerator.Instance.Level > TileDungeonGenerator.Instance.MaxLevel - 1)
             {
                 SceneManager.LoadScene("Main Menu");
             }
-            else { SceneManager.LoadScene(levelName); }
+            else
+            {
+                SaveManager.Instance.Save();
+                SceneManager.LoadScene(levelName);
+            }
         }
     }
 }

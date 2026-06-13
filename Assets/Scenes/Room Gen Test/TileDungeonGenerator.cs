@@ -467,6 +467,16 @@ namespace Dungeonlicious.Assets.Script
             if (cc != null) cc.enabled = true;
         }
 
+        public void SetLevel(int value) { level = Mathf.Clamp(value, 1, maxLevel); }
+
+        public void SetSeed(string value)
+        {
+            if (int.TryParse(value, out int parsedSeed))
+                seed = parsedSeed;
+        }
+
+        public int CurrentSeed => seed;
+
         private Vector3 GridToWorld(Vector2Int coord)
             => new Vector3(coord.x * tileSize.x, 0f, coord.y * tileSize.z);
 

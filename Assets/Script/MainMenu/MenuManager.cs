@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using Dungeonlicious.Assets.Script;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DestroyAllDontDestroyOnLoad();
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            DestroyAllDontDestroyOnLoad();
+        }
         seedKeeper = FindFirstObjectByType<SeedKeeper>();
     }
 
@@ -46,6 +50,13 @@ public class MenuManager : MonoBehaviour
         {
             seedKeeper.SetSeed(Environment.TickCount.ToString());
         }
+        SaveManager.Instance.DeleteSave();
+        SceneManager.LoadScene(_playSceneName);
+    }
+
+    public void PlayWithSave()
+    {
+        PendingSeed.UseExisting = true;
         SceneManager.LoadScene(_playSceneName);
     }
 

@@ -17,6 +17,11 @@ namespace Dungeonlicious.Assets.Script
         [SerializeField] private Sprite[] banners;
         [SerializeField] private string scene;
 
+        void Start()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -26,7 +31,6 @@ namespace Dungeonlicious.Assets.Script
             }
 
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         private void OnEnable()
