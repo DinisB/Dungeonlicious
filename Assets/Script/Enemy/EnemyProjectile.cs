@@ -9,6 +9,7 @@ namespace Dungeonlicious.Assets.Script
 
         private Vector3 direction;
         [SerializeField] private int damage;
+        [SerializeField] private AudioClip eggBreaking;
         private Rigidbody rb;
 
         private void Awake()
@@ -43,6 +44,8 @@ namespace Dungeonlicious.Assets.Script
             {
                 damageable.Damage(damage, gameObject);
             }
+
+            AudioSource.PlayClipAtPoint(eggBreaking, transform.position);
 
             Destroy(gameObject);
         }

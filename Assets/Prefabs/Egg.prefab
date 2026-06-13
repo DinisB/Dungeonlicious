@@ -158,3 +158,4 @@ MonoBehaviour:
   speed: 8
   lifeTime: 5
   damage: 5
+  eggBreaking: {fileID: 8300000, guid: bd33d4e59568dff42b6f729d07544ed0, type: 3}
