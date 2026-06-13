@@ -404,7 +404,6 @@ namespace Dungeonlicious.Assets.Script
 
         private void SpawnWall(List<GameObject> prefabs, ref int idx, Vector3 pos)
         {
-            if (prefabs == null || prefabs.Count == 0) return;
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
             Instantiate(p, pos, p.transform.rotation, transform);
@@ -440,7 +439,6 @@ namespace Dungeonlicious.Assets.Script
         private void SpawnRotatedCorner(List<GameObject> prefabs, ref int idx,
             Vector2Int tilePos, Quaternion rotation, Vector3 offset)
         {
-            if (prefabs == null || prefabs.Count == 0) return;
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
             Instantiate(p, GridToWorld(tilePos) + offset, rotation, transform);
@@ -448,7 +446,6 @@ namespace Dungeonlicious.Assets.Script
 
         private void SpawnCorner(List<GameObject> prefabs, ref int idx, Vector3 pos)
         {
-            if (prefabs == null || prefabs.Count == 0) return;
             GameObject p = prefabs[idx % prefabs.Count];
             idx++;
             Instantiate(p, pos, p.transform.rotation, transform);

@@ -17,8 +17,8 @@ namespace Dungeonlicious.Assets.Script
             {
                 RoomData room = rooms[i];
                 List<Vector2Int> tiles = new List<Vector2Int>();
-                for (int x = room.rect.x + 2; x < room.rect.xMax - 2; x++)
-                    for (int z = room.rect.y + 2; z < room.rect.yMax - 2; z++)
+                for (int x = room.rect.x + 3; x < room.rect.xMax - 3; x++)
+                    for (int z = room.rect.y + 3; z < room.rect.yMax - 3; z++)
                         tiles.Add(new Vector2Int(x, z));
 
                 HashSet<Vector2Int> roomUsed = new HashSet<Vector2Int>();
