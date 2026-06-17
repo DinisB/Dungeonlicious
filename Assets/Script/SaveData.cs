@@ -7,6 +7,7 @@ namespace Dungeonlicious.Assets.Script
     {
         public int dungeonLevel;
         public int seed;
+        public bool isInfinite;
         public UpgradeSaveEntry[] upgrades;
     }
 

@@ -116,9 +116,7 @@ namespace Dungeonlicious.Assets.Script
 
             TileDungeonGenerator.Instance.IncreaseLevel();
 
-
-
-            if (TileDungeonGenerator.Instance.Level > TileDungeonGenerator.Instance.MaxLevel - 1)
+            if (TileDungeonGenerator.Instance.Level > TileDungeonGenerator.Instance.MaxLevel - 1 && !SeedKeeper.Instance.IsInfinite)
             {
                 SceneManager.LoadScene("VictoryCutscene");
             }

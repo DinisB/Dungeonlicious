@@ -13,7 +13,12 @@ namespace Dungeonlicious.Assets.Script
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (TileDungeonGenerator.Instance.Level < TileDungeonGenerator.Instance.MaxLevel - 1)
+            if (TileDungeonGenerator.Instance.Level < TileDungeonGenerator.Instance.MaxLevel && !SeedKeeper.Instance.IsInfinite)
+            {
+                Time.timeScale = 0f;
+                UpgradeCanvasManager.Instance.gameObject.SetActive(true);
+            }
+            else if (SeedKeeper.Instance.IsInfinite)
             {
                 Time.timeScale = 0f;
                 UpgradeCanvasManager.Instance.gameObject.SetActive(true);

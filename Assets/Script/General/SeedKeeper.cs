@@ -6,6 +6,7 @@ public class SeedKeeper : MonoBehaviour
     private static SeedKeeper _instance;
     public static SeedKeeper Instance => _instance;
     public string Seed { get; set; }
+    public bool IsInfinite { get; set; }
 
     private void Awake()
     {

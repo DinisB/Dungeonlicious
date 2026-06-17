@@ -1176,7 +1176,7 @@ MonoBehaviour:
   seed: 0
   level: 1
   maxLevel: 9
-  roomCount: 8
+  roomCount: 5
   minRoomSize: {x: 10, y: 10}
   maxRoomSize: {x: 14, y: 14}
   roomSpacing: 2

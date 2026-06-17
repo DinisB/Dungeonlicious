@@ -4,6 +4,7 @@ namespace Dungeonlicious.Assets.Script
     using System.Collections.Generic;
     using System;
     using UnityEngine.SceneManagement;
+    using NUnit.Framework;
 
     public class UpgradeCanvasManager : MonoBehaviour
     {
@@ -70,7 +71,20 @@ namespace Dungeonlicious.Assets.Script
                 upgrade.upgradeValue =
                     UnityEngine.Random.Range(1, GetUpgradeValue(type) + 1);
 
-                upgrades.Add(upgrade);
+                bool isDuplicate = false;
+
+                foreach (Upgrade up in upgrades)
+                {
+                    if (upgrade.upgradeType == up.upgradeType)
+                    {
+                        isDuplicate = true;
+                    }
+                }
+
+                if (isDuplicate)
+                    i--;
+                else
+                    upgrades.Add(upgrade);
             }
 
             UpdateUpgradeCanvas();

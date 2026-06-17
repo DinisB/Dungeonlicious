@@ -33,7 +33,8 @@ namespace Dungeonlicious.Assets.Script
                         upgradeDesc = upgrade.upgradeDesc,
                         upgradeName = upgrade.upgradeName
                     })
-                    .ToArray()
+                    .ToArray(),
+                isInfinite = SeedKeeper.Instance.IsInfinite
             };
 
             File.WriteAllText(SavePath, JsonUtility.ToJson(data));
@@ -46,7 +47,7 @@ namespace Dungeonlicious.Assets.Script
             SaveData data = JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath));
             if (data == null) return;
 
-            TileDungeonGenerator.Instance.PrepareForLoad(data.dungeonLevel, data.seed);
+            TileDungeonGenerator.Instance.PrepareForLoad(data.dungeonLevel, data.seed, data.isInfinite);
 
             if (data.upgrades != null)
             {

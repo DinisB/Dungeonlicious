@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "VictoryCutscene"||SceneManager.GetActiveScene().name == "Game Over")
+        if (SceneManager.GetActiveScene().name == "VictoryCutscene" || SceneManager.GetActiveScene().name == "Game Over")
         {
             DestroyAllDontDestroyOnLoad();
         }
@@ -78,7 +78,26 @@ public class MenuManager : MonoBehaviour
             : Environment.TickCount.ToString();
 
         if (SeedKeeper.Instance != null)
+        {
             SeedKeeper.Instance.SetSeed(seedValue);
+            SeedKeeper.Instance.IsInfinite = false;
+        }
+
+        SaveManager.Instance.DeleteSave();
+        SceneManager.LoadScene(_playSceneName);
+    }
+
+    public void PlayInfinite()
+    {
+        string seedValue = (seedText != null && !string.IsNullOrEmpty(seedText.text))
+            ? seedText.text
+            : Environment.TickCount.ToString();
+
+        if (SeedKeeper.Instance != null)
+        {
+            SeedKeeper.Instance.SetSeed(seedValue);
+            SeedKeeper.Instance.IsInfinite = true;
+        }
 
         SaveManager.Instance.DeleteSave();
         SceneManager.LoadScene(_playSceneName);

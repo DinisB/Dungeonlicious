@@ -34,7 +34,7 @@ namespace Dungeonlicious.Assets.Script
 
         [SerializeField] private bool useCustomSeed = false;
         [SerializeField] private int seed;
-        [SerializeField, Range(1, 9)] private int level = 1;
+        [SerializeField] private int level = 1;
         [SerializeField] private int maxLevel = 9;
         public int MaxLevel => maxLevel;
         [SerializeField] private int roomCount = 5;
@@ -129,10 +129,11 @@ namespace Dungeonlicious.Assets.Script
             isGenerating = false;
         }
 
-        public void PrepareForLoad(int savedLevel, int savedSeed)
+        public void PrepareForLoad(int savedLevel, int savedSeed, bool isInfinite)
         {
             level = Mathf.Clamp(savedLevel, 1, maxLevel);
             seed = savedSeed;
+            SeedKeeper.Instance.IsInfinite = isInfinite;
             _skipSeedKeeper = true;
         }
 
@@ -169,7 +170,7 @@ namespace Dungeonlicious.Assets.Script
             wallRightIdx = wallUpIdx = wallLeftIdx = wallDownIdx = 0;
             cornerRightUpIdx = cornerRightDownIdx = cornerLeftUpIdx = cornerLeftDownIdx = 0;
 
-            int resolvedRoomCount = UnityEngine.Random.Range(5, 6 + clampedLevel);
+            int resolvedRoomCount = UnityEngine.Random.Range(roomCount, roomCount + clampedLevel);
 
             RectInt firstRect = RandomRect(Vector2Int.zero);
             SpawnRoom("Room_Start", firstRect);

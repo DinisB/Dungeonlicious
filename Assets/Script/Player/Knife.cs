@@ -1,6 +1,5 @@
 namespace Dungeonlicious.Assets.Script
 {
-
     using UnityEngine;
 
     public class Knife : MonoBehaviour
@@ -42,6 +41,7 @@ namespace Dungeonlicious.Assets.Script
             isFlying = true;
         }
 
+
         public void SetOwner(GameObject owner)
         {
             this.owner = owner;
@@ -63,10 +63,7 @@ namespace Dungeonlicious.Assets.Script
 
             if (enemy != null)
             {
-                int attackDamage = owner.GetComponent<PlayerHealth>().GetAttack();
-
-                enemy.Damage(attackDamage, owner);
-
+                enemy.Damage(damage, owner);
             }
 
             rb.isKinematic = true;

@@ -37,7 +37,7 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         _attackBox.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.25f);
         _attackBox.SetActive(false);
         _anim.SetBool("Attack", false);
         _isAttacking = false;   
