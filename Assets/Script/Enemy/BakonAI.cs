@@ -465,7 +465,7 @@ public class BakonAI : MonoBehaviour
             if (NavMesh.SamplePosition(
                 randomPoint,
                 out NavMeshHit hit,
-                2f,
+                1f,
                 NavMesh.AllAreas))
             {
                 float distance =
