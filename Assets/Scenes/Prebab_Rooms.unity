@@ -488,6 +488,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5808325992978317726, guid: 82c6217f313052a4388214ca47f8e6f5, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6625836927942240764, guid: 82c6217f313052a4388214ca47f8e6f5, type: 3}
       propertyPath: m_Name
       value: Fountain_Room
