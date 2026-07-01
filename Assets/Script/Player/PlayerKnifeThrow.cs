@@ -56,7 +56,14 @@ namespace Dungeonlicious.Assets.Script
             ///  }
             /// 
 
-            return GetMouseDirection();
+            if (Gamepad.all.Count == 0) return GetMouseDirection();
+            else
+            {
+                Vector2 rightStickInput = Gamepad.current.rightStick.ReadValue();
+                Vector3 direction = new Vector3(rightStickInput.x, 0, rightStickInput.y);
+                return direction.normalized;
+
+            }
         }
 
         private Vector3 GetMouseDirection()
